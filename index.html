@@ -2,427 +2,464 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NEXUS | Innovative Horizons</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Heebo:wght@300;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avin Tattoo | Studio & Boutique</title>
+    <!-- פונטים בעברית -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #080808;
-            --text: #e0e0e0;
-            --accent: #ff3c00; /* Neon Orange */
-            --secondary: #00d2ff; /* Neon Blue */
+            --bg-dark: #0f0505;       /* רקע כהה מאוד */
+            --bg-section: #1a0606;    /* רקע מדורים (בורדו כהה) */
+            --accent-red: #a12626;    /* אדום חי לכפתורים */
+            --gold: #d4af37;          /* זהב לכותרות */
+            --text: #ffffff;
+            --glass: rgba(45, 11, 11, 0.8); /* אפקט זכוכית */
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            background-color: var(--bg);
+            background-color: var(--bg-dark);
             color: var(--text);
             font-family: 'Heebo', sans-serif;
-            overflow: hidden; /* מבטל גלילה רגילה */
-            height: 100vh;
-            width: 100vw;
-            overscroll-behavior: none; /* מונע קפיצות בטלפון */
+            overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- Custom Cursor (רק למחשב) --- */
-        .cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: 20px; height: 20px;
-            border: 1px solid white;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s, height 0.3s, background 0.3s;
-            mix-blend-mode: difference;
-            display: none; /* מוסתר כברירת מחדל */
-        }
-        
-        .cursor.hovered {
-            width: 50px; height: 50px;
-            background: white;
-            border-color: transparent;
-            opacity: 0.5;
-        }
-
-        @media (min-width: 769px) {
-            .cursor { display: block; } /* מציג רק במחשב */
-            * { cursor: none; } /* מחביא את העכבר הרגיל במחשב */
-        }
-
-        /* --- Canvas Background --- */
-        canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            opacity: 0.4;
-        }
-
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            padding: 30px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            mix-blend-mode: exclusion;
-        }
-
-        .logo {
-            font-family: 'Syncopate', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            color: white;
-        }
-
-        .menu {
-            display: flex;
-            gap: 40px;
-        }
-
-        .menu-item {
-            color: white;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+        /* --- HERO SECTION (וידאו) --- */
+        .hero {
             position: relative;
-            cursor: pointer;
-        }
-
-        .menu-item::after {
-            content: '';
-            position: absolute;
-            bottom: -5px; left: 0;
-            width: 0%; height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-
-        .menu-item:hover::after { width: 100%; }
-
-        /* --- Scroll Container --- */
-        .scroll-container {
-            display: flex;
             height: 100vh;
-            width: 400vw; /* 4 מסכים רוחב */
-            will-change: transform; /* אופטימיזציה לביצועים */
-        }
-
-        .section {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            padding: 0 100px;
-            border-right: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden;
         }
 
-        /* --- Content Styling --- */
-        .content-wrap {
-            max-width: 800px;
-            width: 100%;
+        .hero video {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
+            z-index: -1;
+            filter: brightness(0.6); /* מכהה את הוידאו כדי שהטקסט יבלוט */
+            object-fit: cover;
+        }
+
+        /* החלפת וידאו רספונסיבית */
+        .video-desktop { display: block; }
+        .video-mobile { display: none; }
+
+        @media (max-width: 768px) {
+            .video-desktop { display: none; }
+            .video-mobile { display: block; }
+        }
+
+        .hero-content {
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-out;
         }
 
         h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 6vw;
-            line-height: 1;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            /* טקסט חלול */
-            -webkit-text-stroke: 2px rgba(255,255,255,0.8); 
-            color: transparent; 
-            transition: 0.5s;
-        }
-
-        .section:hover h1 {
-            color: white;
-            -webkit-text-stroke: 0px;
-        }
-
-        p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            max-width: 500px;
-            color: #aaa;
-            margin-bottom: 40px;
-        }
-
-        .number {
-            position: absolute;
-            bottom: 50px; left: 50px;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 10rem;
-            color: rgba(255,255,255,0.02);
+            font-size: 3.5rem;
             font-weight: 900;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
-        /* --- Progress Bar --- */
-        .progress-bar {
+        /* --- תפריט ניווט ראשי --- */
+        .nav-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-red);
+            transform: translateY(-5px);
+            border-color: var(--accent-red);
+        }
+
+        .btn-shop-main {
+            background: var(--gold);
+            color: black;
+            border: none;
+            font-weight: 900;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-shop-main:hover {
+            background: white;
+            color: black;
+        }
+
+        /* --- SHOP SECTION --- */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .bg-gradient {
+            background: linear-gradient(to bottom, #2d0b0b, #0f0505);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #ccc;
+            margin-bottom: 50px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #471717;
+            border-radius: 15px;
+            padding: 15px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .product-meta {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .btn-order {
+            display: block;
+            background: #25d366; /* WhatsApp Green */
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-order:hover {
+            background: #128c7e;
+        }
+
+        /* --- CONTACT FORM --- */
+        .contact-wrapper {
+            background-color: #2d0b0b;
+            padding: 80px 20px;
+            border-top: 1px solid #4e1b1b;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .contact-text {
+            flex: 1;
+            min-width: 300px;
+            text-align: right;
+        }
+
+        .contact-text h2 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .contact-text ul {
+            list-style: none;
+            font-size: 1.2rem;
+        }
+        
+        .contact-text li { margin-bottom: 10px; }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background: #000;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #4e1b1b;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #1a0606;
+            border: 1px solid #471717;
+            color: white;
+            border-radius: 8px;
+            font-family: 'Heebo', sans-serif;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #c0392b;
+            box-shadow: 0 0 15px rgba(161, 38, 38, 0.5);
+        }
+
+        /* --- FOOTER & MAP --- */
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            filter: grayscale(100%) invert(90%); /* מפה כהה */
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: black;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* --- STICKY WHATSAPP --- */
+        .sticky-wa {
             position: fixed;
-            bottom: 0; left: 0;
-            height: 4px;
-            background: var(--accent);
-            width: 0%;
-            z-index: 100;
-            transition: width 0.1s;
+            bottom: 20px;
+            left: 20px; /* צד שמאל כי זה RTL */
+            background: #25d366;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
         }
 
-        /* --- Mobile Styles --- */
-        @media (max-width: 768px) {
-            .section { padding: 0 20px; text-align: left; }
-            h1 { font-size: 3.5rem; -webkit-text-stroke: 1px white; margin-bottom: 20px; }
-            p { font-size: 1rem; }
-            .menu { display: none; } /* הסתרת תפריט במובייל */
-            nav { padding: 20px; }
-            .number { font-size: 5rem; bottom: 20px; left: 20px; }
+        .sticky-wa:hover {
+            transform: scale(1.05);
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- אנימציות גלילה --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="cursor" id="cursor"></div>
-    <div class="progress-bar" id="progressBar"></div>
+    <!-- Hero Section -->
+    <header class="hero">
+        <!-- וידאו למחשב -->
+        <video class="video-desktop" autoplay muted loop playsinline>
+            <source src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0052.mp4" type="video/mp4">
+        </video>
+        <!-- וידאו לנייד -->
+        <video class="video-mobile" autoplay muted loop playsinline>
+            <source src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0039.mp4" type="video/mp4">
+        </video>
 
-    <canvas id="bgCanvas"></canvas>
-
-    <nav>
-        <div class="logo">NEXUS</div>
-        <div class="menu">
-            <a onclick="goToSection(0)" class="menu-item hover-target">Home</a>
-            <a onclick="goToSection(1)" class="menu-item hover-target">Concept</a>
-            <a onclick="goToSection(2)" class="menu-item hover-target">Works</a>
-            <a onclick="goToSection(3)" class="menu-item hover-target">Contact</a>
-        </div>
-    </nav>
-
-    <div class="scroll-container" id="container">
-        
-        <!-- SECTION 1 -->
-        <div class="section">
-            <div class="number">01</div>
-            <div class="content-wrap">
-                <p style="color: var(--accent); letter-spacing: 3px; font-weight: bold;">WELCOME TO THE FUTURE</p>
-                <h1>Beyond<br>Scrolling</h1>
-                <p>Welcome to an interface that defies gravity. We don't scroll down; we move forward. Experience the next generation of web interaction.</p>
+        <div class="hero-content">
+            <h1>AVIN TATTOO STUDIO</h1>
+            <p style="font-size: 1.5rem; margin-bottom: 30px;">אומנות. דיוק. נשמה.</p>
+            
+            <a href="#shop" class="nav-btn btn-shop-main">SHOP NOW 🛍️</a>
+            
+            <div class="nav-grid">
+                <a href="https://avintattoo.com/63-2/#piercings-gallery" class="nav-btn">גלריית פירסינג</a>
+                <a href="https://avintattoo.com/63-2/#tattoos-gallery" class="nav-btn">גלריית קעקועים</a>
+                <a href="https://avintattoo.com/tattoo-pots/" class="nav-btn">מידע ומאמרים</a>
+                <a href="#contact" class="nav-btn" style="background: var(--accent-red); border:none;">תיאום ייעוץ</a>
             </div>
         </div>
+    </header>
 
-        <!-- SECTION 2 -->
-        <div class="section">
-            <div class="number">02</div>
-            <div class="content-wrap">
-                <p style="color: var(--secondary);">THE CONCEPT</p>
-                <h1>Kinetic<br>Motion</h1>
-                <p>Using advanced physics-based rendering, every interaction feels alive. Velocity, weight, and friction create a digital environment that feels tangible.</p>
+    <!-- Shop Section -->
+    <section id="shop" class="section bg-gradient">
+        <h2 class="section-title reveal">בוטיק פירסינג בסטודיו</h2>
+        <p class="subtitle reveal">תכשיטים בסטנדרט רפואי | משלוחים לכל הארץ</p>
+
+        <div class="products-grid">
+            <!-- מוצר 1 -->
+            <div class="product-card reveal">
+                <img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" alt="מוצר">
+                <div class="product-name">לוטוס אבן עם שרשרת</div>
+                <div class="product-meta">🟡 ציפוי זהב | מק"ט: 1052</div>
+                <a href="https://api.whatsapp.com/send?phone=9720537239660&text=היי אבי, אשמח לברר אם קיים במלאי: לוטוס אבן (מקט 1052)" class="btn-order">הזמנה בוואטסאפ</a>
+            </div>
+
+            <!-- מוצר 2 -->
+            <div class="product-card reveal">
+                <img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795d79f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg?w=1024" alt="מוצר">
+                <div class="product-name">לאברט זירקון</div>
+                <div class="product-meta">⚪️ טיטניום | מק"ט: 1023</div>
+                <a href="https://api.whatsapp.com/send?phone=9720537239660&text=היי אבי, אשמח לברר אם קיים במלאי: לאברט זירקון (מקט 1023)" class="btn-order">הזמנה בוואטסאפ</a>
+            </div>
+
+            <!-- מוצר 3 -->
+            <div class="product-card reveal">
+                <img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1071-d7a4d7a8d797-d791d7a8d7a7d799d796d795d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" alt="מוצר">
+                <div class="product-name">פרח מרקיזות</div>
+                <div class="product-meta">🟡 ציפוי זהב | מק"ט: 1071</div>
+                <a href="https://api.whatsapp.com/send?phone=9720537239660&text=היי אבי, אשמח לברר אם קיים במלאי: פרח מרקיזות (מקט 1071)" class="btn-order">הזמנה בוואטסאפ</a>
+            </div>
+
+            <!-- מוצר 4 -->
+            <div class="product-card reveal">
+                <img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1054-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" alt="מוצר">
+                <div class="product-name">טיפה נופלת 4מ"מ</div>
+                <div class="product-meta">🟡 ציפוי זהב | מק"ט: 1054</div>
+                <a href="https://api.whatsapp.com/send?phone=9720537239660&text=היי אבי, אשמח לברר אם קיים במלאי: טיפה נופלת (מקט 1054)" class="btn-order">הזמנה בוואטסאפ</a>
             </div>
         </div>
+    </section>
 
-        <!-- SECTION 3 -->
-        <div class="section">
-            <div class="number">03</div>
-            <div class="content-wrap">
-                <p style="color: var(--accent);">SELECTED WORKS</p>
-                <h1>Digital<br>Dreams</h1>
-                <p>We build things that others can't even imagine. From AI-driven interfaces to WebGL immersive worlds.</p>
+    <!-- Contact Section -->
+    <section id="contact" class="contact-wrapper">
+        <div class="contact-container">
+            <div class="contact-text reveal">
+                <h2>בואו נדבר תכל'ס על הקעקוע שלך.</h2>
+                <p>משאירים פרטים כאן, ומקבלים שיחת ייעוץ ראשונית ללא עלות.</p>
+                <br>
+                <ul>
+                    <li>✅ הערכת מחיר ראשונית</li>
+                    <li>✅ בדיקת התאמה לרעיון שלך</li>
+                    <li>✅ תיאום תור מהיר בסטודיו</li>
+                </ul>
+            </div>
+
+            <div class="contact-form reveal">
+                <form onsubmit="alert('הפרטים נשלחו בהצלחה! ניצור קשר בקרוב.'); return false;">
+                    <input type="text" placeholder="שם מלא" required>
+                    <input type="tel" placeholder="טלפון לחזרה" required>
+                    <textarea rows="4" placeholder="מה הרעיון שלך לקעקוע?"></textarea>
+                    <button type="submit" class="submit-btn">אני רוצה לקבוע ייעוץ</button>
+                </form>
             </div>
         </div>
+    </section>
 
-        <!-- SECTION 4 -->
-        <div class="section">
-            <div class="number">04</div>
-            <div class="content-wrap">
-                <p style="color: var(--secondary);">GET IN TOUCH</p>
-                <h1>Start The<br>Journey</h1>
-                <p>Ready to break the mold? Let's build something that will make the internet stop and stare.</p>
-                <a href="#" class="menu-item hover-target" style="font-size: 1.5rem; color: var(--accent);">hello@nexus.com</a>
-            </div>
-        </div>
-
+    <!-- Map -->
+    <div class="map-container">
+        <iframe src="https://maps.google.com/maps?q=32.102309,35.168467&z=16&output=embed" allowfullscreen></iframe>
     </div>
 
+    <footer>
+        &copy; 2025 Avin Tattoo Studio | הירדן 2, אריאל
+    </footer>
+
+    <!-- Sticky Button -->
+    <a href="https://api.whatsapp.com/send?phone=9720537239660&text=היי, הגעתי מהאתר" class="sticky-wa">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.669-.698c.937.603 1.968.966 3.16.966l.001.293c3.181 0 5.767-2.586 5.768-5.766.001-3.18-2.585-5.766-5.766-5.766zm9.969 5.766c0 5.504-4.478 9.981-9.981 9.981-1.63 0-3.171-.39-4.567-1.079l-5.452 1.428 1.458-5.32c-.822-1.463-1.303-3.171-1.303-4.996 0-5.503 4.479-9.981 9.981-9.981s9.981 4.478 9.981 9.981z"/></svg>
+        דברו איתי ב-WhatsApp
+    </a>
+
     <script>
-        // --- 1. Custom Cursor Logic (Desktop Only) ---
-        const cursor = document.getElementById('cursor');
-
-        if (window.matchMedia("(min-width: 769px)").matches) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-
-            const hoverTargets = document.querySelectorAll('.hover-target');
-            hoverTargets.forEach(el => {
-                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-            });
-        }
-
-        // --- 2. Advanced Horizontal Scroll (Mouse + Touch) ---
-        const container = document.getElementById('container');
-        const progressBar = document.getElementById('progressBar');
-        
-        let current = 0;
-        let target = 0;
-        let ease = 0.07;
-        let currentSkew = 0;
-        let skewEase = 0.1;
-        
-        // חישוב רוחב הגלילה
-        let maxScroll = container.scrollWidth - window.innerWidth;
-
-        // האזנה לגלילת עכבר (מחשב)
-        window.addEventListener('wheel', (e) => {
-            target += e.deltaY;
-            target = Math.max(0, target);
-            target = Math.min(target, maxScroll);
-        });
-
-        // האזנה למגע (טלפון)
-        let touchStartX = 0;
-        let isTouching = false;
-
-        window.addEventListener('touchstart', (e) => {
-            touchStartX = e.touches[0].clientX;
-            isTouching = true;
-        });
-
-        window.addEventListener('touchmove', (e) => {
-            if (!isTouching) return;
-            
-            const touchCurrentX = e.touches[0].clientX;
-            const diff = touchStartX - touchCurrentX;
-            
-            target += diff * 2.5; // רגישות גלילה בטלפון
-            touchStartX = touchCurrentX;
-            
-            target = Math.max(0, target);
-            target = Math.min(target, maxScroll);
-        });
-
-        window.addEventListener('touchend', () => {
-            isTouching = false;
-        });
-
-        // אנימציה ראשית (Loop)
-        function animate() {
-            // Lerp
-            current += (target - current) * ease;
-            
-            // Skew Calc
-            let speed = target - current;
-            let skew = speed * 0.005;
-            currentSkew += (skew - currentSkew) * skewEase;
-
-            // Apply Transform
-            // ביטול Skew בטלפון למניעת ריצוד
-            if (window.innerWidth < 768) {
-                container.style.transform = `translate3d(${-current}px, 0, 0)`;
-            } else {
-                container.style.transform = `translate3d(${-current}px, 0, 0) skewX(${-currentSkew}deg)`;
-            }
-
-            // Progress Bar
-            let progress = (current / maxScroll) * 100;
-            progressBar.style.width = `${progress}%`;
-
-            requestAnimationFrame(animate);
-        }
-        
-        animate();
-
-        // ניווט
-        function goToSection(index) {
-            target = index * window.innerWidth;
-        }
-
-        // Resize Event
-        window.addEventListener('resize', () => {
-            maxScroll = container.scrollWidth - window.innerWidth;
-            resizeCanvas();
-        });
-
-
-        // --- 3. Canvas Background Animation ---
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(255,255,255,0.5)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        // יצירת חלקיקים (פחות בטלפון לביצועים טובים)
-        const particleCount = window.innerWidth < 768 ? 40 : 100;
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-            
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 - distance/1000})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
+        // קוד אנימציה פשוט שגורם לאלמנטים להופיע בגלילה
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
                 }
-            }
-            requestAnimationFrame(animateCanvas);
-        }
+            });
+        }, { threshold: 0.1 });
 
-        animateCanvas();
-
+        document.querySelectorAll('.reveal').forEach((el) => {
+            observer.observe(el);
+        });
     </script>
+
 </body>
 </html>
