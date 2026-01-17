@@ -14,7 +14,7 @@
             --secondary: #00d2ff; /* Neon Blue */
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; /* מחביא את העכבר הרגיל */ }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--bg);
@@ -23,9 +23,10 @@
             overflow: hidden; /* מבטל גלילה רגילה */
             height: 100vh;
             width: 100vw;
+            overscroll-behavior: none; /* מונע קפיצות בטלפון */
         }
 
-        /* --- Custom Cursor --- */
+        /* --- Custom Cursor (רק למחשב) --- */
         .cursor {
             position: fixed;
             top: 0; left: 0;
@@ -37,6 +38,7 @@
             transform: translate(-50%, -50%);
             transition: width 0.3s, height 0.3s, background 0.3s;
             mix-blend-mode: difference;
+            display: none; /* מוסתר כברירת מחדל */
         }
         
         .cursor.hovered {
@@ -44,6 +46,11 @@
             background: white;
             border-color: transparent;
             opacity: 0.5;
+        }
+
+        @media (min-width: 769px) {
+            .cursor { display: block; } /* מציג רק במחשב */
+            * { cursor: none; } /* מחביא את העכבר הרגיל במחשב */
         }
 
         /* --- Canvas Background --- */
@@ -123,6 +130,7 @@
         /* --- Content Styling --- */
         .content-wrap {
             max-width: 800px;
+            width: 100%;
         }
 
         h1 {
@@ -170,10 +178,14 @@
             transition: width 0.1s;
         }
 
+        /* --- Mobile Styles --- */
         @media (max-width: 768px) {
-            .section { padding: 0 30px; }
-            h1 { font-size: 3rem; -webkit-text-stroke: 1px white; }
-            .menu { display: none; } /* במובייל נסתיר תפריט בדוגמה זו */
+            .section { padding: 0 20px; text-align: left; }
+            h1 { font-size: 3.5rem; -webkit-text-stroke: 1px white; margin-bottom: 20px; }
+            p { font-size: 1rem; }
+            .menu { display: none; } /* הסתרת תפריט במובייל */
+            nav { padding: 20px; }
+            .number { font-size: 5rem; bottom: 20px; left: 20px; }
         }
     </style>
 </head>
@@ -240,62 +252,87 @@
     </div>
 
     <script>
-        // --- 1. Custom Cursor Logic ---
+        // --- 1. Custom Cursor Logic (Desktop Only) ---
         const cursor = document.getElementById('cursor');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
 
-        const hoverTargets = document.querySelectorAll('.hover-target');
-        hoverTargets.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-        });
+        if (window.matchMedia("(min-width: 769px)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
 
+            const hoverTargets = document.querySelectorAll('.hover-target');
+            hoverTargets.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+        }
 
-        // --- 2. Advanced Horizontal Scroll with Momentum & Skew ---
+        // --- 2. Advanced Horizontal Scroll (Mouse + Touch) ---
         const container = document.getElementById('container');
         const progressBar = document.getElementById('progressBar');
         
         let current = 0;
         let target = 0;
-        let ease = 0.07; // רכות הגלילה (קטן יותר = חלק יותר ואיטי יותר)
-        
-        // משתנים לעיוות (Skew)
+        let ease = 0.07;
         let currentSkew = 0;
         let skewEase = 0.1;
-
-        // מימדים
+        
+        // חישוב רוחב הגלילה
         let maxScroll = container.scrollWidth - window.innerWidth;
 
-        // האזנה לגלילה (ממפה אנכי לאופקי)
+        // האזנה לגלילת עכבר (מחשב)
         window.addEventListener('wheel', (e) => {
-            target += e.deltaY; // הוספת הגלילה ליעד
-            
-            // גבולות
+            target += e.deltaY;
             target = Math.max(0, target);
             target = Math.min(target, maxScroll);
         });
 
-        // פונקציית אנימציה ראשית (Game Loop)
+        // האזנה למגע (טלפון)
+        let touchStartX = 0;
+        let isTouching = false;
+
+        window.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            isTouching = true;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isTouching) return;
+            
+            const touchCurrentX = e.touches[0].clientX;
+            const diff = touchStartX - touchCurrentX;
+            
+            target += diff * 2.5; // רגישות גלילה בטלפון
+            touchStartX = touchCurrentX;
+            
+            target = Math.max(0, target);
+            target = Math.min(target, maxScroll);
+        });
+
+        window.addEventListener('touchend', () => {
+            isTouching = false;
+        });
+
+        // אנימציה ראשית (Loop)
         function animate() {
-            // Lerp Formula: התקרבות הדרגתית ליעד
+            // Lerp
             current += (target - current) * ease;
             
-            // חישוב מהירות לגבי ה-Skew (ההפרש בין היעד למיקום הנוכחי)
+            // Skew Calc
             let speed = target - current;
-            let skew = speed * 0.005; // רגישות העיוות
-            
-            // החלקת ה-Skew שלא יקפוץ
+            let skew = speed * 0.005;
             currentSkew += (skew - currentSkew) * skewEase;
 
-            // ביצוע הזזה + עיוות
-            // translate3d משתמש בכרטיס הגרפי לביצועים טובים יותר
-            container.style.transform = `translate3d(${-current}px, 0, 0) skewX(${-currentSkew}deg)`;
+            // Apply Transform
+            // ביטול Skew בטלפון למניעת ריצוד
+            if (window.innerWidth < 768) {
+                container.style.transform = `translate3d(${-current}px, 0, 0)`;
+            } else {
+                container.style.transform = `translate3d(${-current}px, 0, 0) skewX(${-currentSkew}deg)`;
+            }
 
-            // עדכון פס התקדמות
+            // Progress Bar
             let progress = (current / maxScroll) * 100;
             progressBar.style.width = `${progress}%`;
 
@@ -304,18 +341,19 @@
         
         animate();
 
-        // ניווט מהתפריט
+        // ניווט
         function goToSection(index) {
             target = index * window.innerWidth;
         }
 
-        // התאמה בשינוי גודל מסך
+        // Resize Event
         window.addEventListener('resize', () => {
             maxScroll = container.scrollWidth - window.innerWidth;
+            resizeCanvas();
         });
 
 
-        // --- 3. Canvas Background Animation (Particles) ---
+        // --- 3. Canvas Background Animation ---
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -325,9 +363,7 @@
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         }
-        
         resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
 
         class Particle {
             constructor() {
@@ -342,7 +378,6 @@
                 this.x += this.vx;
                 this.y += this.vy;
 
-                // גבולות
                 if (this.x < 0 || this.x > width) this.vx *= -1;
                 if (this.y < 0 || this.y > height) this.vy *= -1;
             }
@@ -355,16 +390,15 @@
             }
         }
 
-        // יצירת חלקיקים
-        for (let i = 0; i < 100; i++) {
+        // יצירת חלקיקים (פחות בטלפון לביצועים טובים)
+        const particleCount = window.innerWidth < 768 ? 40 : 100;
+        for (let i = 0; i < particleCount; i++) {
             particles.push(new Particle());
         }
 
-        // לולאת ציור לרקע
         function animateCanvas() {
             ctx.clearRect(0, 0, width, height);
             
-            // חיבור קווים בין חלקיקים קרובים
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
