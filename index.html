@@ -2,138 +2,159 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PUMBA | INTO THE VOID</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PUMBA | Z-SCROLL V2</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Heebo:wght@300;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #000000;
-            --primary: #ff5e00; /* Pumba Orange Neon */
-            --secondary: #00f2ff; /* Cyber Blue */
+            --bg: #050505;
+            --primary: #ff6b00; /* Pumba Orange */
+            --secondary: #00f2ff; /* Cyan */
             --text: #ffffff;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Heebo', sans-serif;
-            overflow: hidden; /* חובה! אנחנו שולטים בגלילה */
+            overflow: hidden; /* אנחנו מנהלים את הגלילה */
             height: 100vh;
             width: 100vw;
-            perspective: 1000px; /* עומק ה"מצלמה" */
+            perspective: 1000px; /* עומק המצלמה */
         }
 
-        /* --- כוכבים ברקע --- */
+        /* --- כוכבים --- */
         #starfield {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            opacity: 0.5;
         }
 
-        /* --- המיכל התלת מימדי --- */
+        /* --- העולם התלת מימדי --- */
         .world {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d; /* שומר על תלת מימד */
+            width: 100%; height: 100%;
+            transform-style: preserve-3d;
             will-change: transform;
         }
 
-        /* --- מקטעים (Sections) --- */
+        /* --- הסקשנים --- */
         .stage {
             position: absolute;
             top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80vw;
-            height: 60vh;
+            transform: translate(-50%, -50%); /* מרכוז */
+            width: 80%; max-width: 800px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             text-align: center;
-            backface-visibility: hidden; /* שלא יראו אותם כשהם מאחור */
+            /* הסתרת הצד האחורי כדי למנוע ריצודים */
+            backface-visibility: hidden; 
         }
 
         h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 8vw;
+            font-size: clamp(3rem, 8vw, 6rem);
             line-height: 1;
             text-transform: uppercase;
             color: transparent;
-            -webkit-text-stroke: 2px var(--text);
+            -webkit-text-stroke: 2px rgba(255,255,255,0.8);
             margin-bottom: 20px;
-            text-shadow: 0 0 50px rgba(255,255,255,0.2);
+            text-shadow: 0 0 30px rgba(255,255,255,0.1);
         }
 
-        .filled-text {
+        .filled {
             color: var(--primary);
             -webkit-text-stroke: 0;
-            text-shadow: 0 0 30px var(--primary);
+            text-shadow: 0 0 40px var(--primary);
         }
 
         p {
-            font-size: 2rem;
-            max-width: 600px;
-            line-height: 1.5;
-            background: rgba(0,0,0,0.7);
-            padding: 20px;
-            border: 1px solid var(--secondary);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-            backdrop-filter: blur(5px);
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            line-height: 1.6;
+            background: rgba(0,0,0,0.6);
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         .cta-btn {
             margin-top: 40px;
-            padding: 20px 60px;
+            padding: 20px 50px;
             font-size: 1.5rem;
             font-weight: bold;
             background: var(--primary);
-            color: black;
+            color: white;
             text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.4);
             transition: 0.3s;
+            cursor: pointer; /* כדי שיהיה לחיץ */
+            pointer-events: auto; /* וודא שהכפתור מקבל לחיצות */
         }
 
         .cta-btn:hover {
-            background: white;
-            box-shadow: 0 0 50px white;
             transform: scale(1.1);
+            background: white;
+            color: black;
         }
 
-        /* --- Progress Bar --- */
+        /* --- ממשק משתמש (HUD) --- */
         .hud {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 30px; left: 30px;
             z-index: 100;
-            font-family: 'Orbitron', sans-serif;
-            color: var(--secondary);
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
+            font-family: 'Orbitron';
+            color: var(--secondary);
         }
 
-        .bar-container {
-            width: 200px;
-            height: 2px;
-            background: rgba(255,255,255,0.2);
+        .progress-container {
+            width: 200px; height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
         }
 
-        .bar {
+        .progress-bar {
             height: 100%;
             background: var(--secondary);
             width: 0%;
             box-shadow: 0 0 10px var(--secondary);
+        }
+
+        /* --- כפתורי ניווט ידניים --- */
+        .nav-buttons {
+            position: fixed;
+            right: 30px; top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
         }
 
     </style>
@@ -143,145 +164,161 @@
     <canvas id="starfield"></canvas>
 
     <div class="world" id="world">
+        <!-- אלמנטים מפוזרים בעומק (Z) -->
         
-        <!-- STAGE 1 -->
+        <!-- Z = 0 -->
         <div class="stage" data-z="0">
-            <h1>WELCOME TO<br><span class="filled-text">THE VOID</span></h1>
-            <p>ברוכים הבאים לאתר ששובר את חוקי הפיזיקה. תתחילו לגלול. המסע מתחיל עכשיו.</p>
+            <h1>WELCOME TO<br><span class="filled">THE FUTURE</span></h1>
+            <p>האתר הזה בנוי בציר העומק (Z-Axis). גלול למטה או השתמש בחצים כדי להיכנס פנימה.</p>
         </div>
 
-        <!-- STAGE 2 -->
-        <div class="stage" data-z="-2500">
-            <h1>DIGITAL<br>EVOLUTION</h1>
-            <p>אנחנו לא בונים אתרים. אנחנו בונים חוויות שמשאירות את המתחרים שנות אור מאחור.</p>
+        <!-- Z = -3000 -->
+        <div class="stage" data-z="-3000">
+            <h1>FULL<br><span style="color:var(--secondary); -webkit-text-stroke:0;">CONTROL</span></h1>
+            <p>עכשיו יש לך שליטה מלאה. אפשר ללכת קדימה, ואפשר לחזור אחורה. שום דבר לא הולך לאיבוד בחלל.</p>
         </div>
 
-        <!-- STAGE 3 -->
-        <div class="stage" data-z="-5000">
-            <h1 style="-webkit-text-stroke-color: var(--secondary);">INFINITE<br>SCALE</h1>
-            <p style="border-color: var(--primary); box-shadow: 0 0 20px rgba(255, 94, 0, 0.2);">
-                העסק שלך יכול לגדול בלי גבולות. אוטומציה, שיווק וטכנולוגיה שעובדים 24/7.
-            </p>
+        <!-- Z = -6000 -->
+        <div class="stage" data-z="-6000">
+            <h1>DIGITAL<br>ASSETS</h1>
+            <p>אנחנו בונים נכסים דיגיטליים שעובדים בשבילך 24/7. אוטומציה, שיווק וטכנולוגיה מתקדמת.</p>
         </div>
 
-        <!-- STAGE 4 -->
-        <div class="stage" data-z="-7500">
-            <h1 class="filled-text">WAKE UP</h1>
-            <p>האם אתם מוכנים לצאת מהמטריקס של עולם השכירים?</p>
-            <a href="https://wa.me/972528226689" class="cta-btn">לחץ ליציאה לחופש</a>
+        <!-- Z = -9000 -->
+        <div class="stage" data-z="-9000">
+            <h1 class="filled">START NOW</h1>
+            <p>המסע שלך לעצמאות כלכלית מתחיל בהחלטה אחת.</p>
+            <a href="https://wa.me/972528226689" class="cta-btn">דבר עם פומבה</a>
         </div>
 
+    </div>
+
+    <!-- ממשק שליטה -->
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="move(-1)">▲</button> <!-- אחורה -->
+        <button class="nav-btn" onclick="move(1)">▼</button> <!-- קדימה -->
     </div>
 
     <div class="hud">
-        <div class="bar-container"><div class="bar" id="progressBar"></div></div>
-        <div id="depthCounter">DEPTH: 0m</div>
+        <div class="progress-container"><div class="progress-bar" id="bar"></div></div>
+        <div id="depth">DEPTH: 0</div>
     </div>
 
     <script>
-        // --- 1. הגדרות תלת מימד ---
-        const world = document.getElementById('world');
+        // --- הגדרות ---
+        const Z_SPACING = 3000; // מרחק בין שקופיות
         const stages = document.querySelectorAll('.stage');
-        const progressBar = document.getElementById('progressBar');
-        const depthCounter = document.getElementById('depthCounter');
+        const maxScroll = (stages.length - 1) * Z_SPACING; // גבול תחתון
         
-        // מרחק בין שקופיות (בפיקסלים של Z)
-        const Z_DISTANCE = 2500; 
-        const maxScroll = (stages.length - 1) * Z_DISTANCE;
+        let currentZ = 0; // המיקום הנוכחי בפועל (עם החלקה)
+        let targetZ = 0;  // היעד שאליו אנחנו רוצים להגיע
+        let speed = 0;    // מהירות לתצוגת כוכבים
 
-        let currentZ = 0; // מיקום נוכחי
-        let targetZ = 0;  // יעד (איפה העכבר רוצה שנהיה)
-        let speed = 0;    // מהירות נוכחית (לאפקט הטיה)
-
-        // --- 2. לוגיקת גלילה (דחיפה לעומק) ---
+        // --- ניהול גלילה (גלגלת + מגע + מקלדת) ---
+        
+        // 1. גלגלת עכבר
         window.addEventListener('wheel', (e) => {
-            // הוספת הדלתא ליעד (דלתא חיובית = גלילה למטה = כניסה פנימה)
-            targetZ += e.deltaY * 3; // ה-3 הוא מקדם מהירות
-            
-            // גבולות: אי אפשר ללכת אחורה מדי (לפני ההתחלה)
-            targetZ = Math.max(0, targetZ);
-            // אפשר להמשיך קצת אחרי הסוף, אבל לא יותר מדי
-            targetZ = Math.min(targetZ, maxScroll + 1000);
+            targetZ += e.deltaY * 2.5; // רגישות גלילה
+            clampScroll();
         });
 
-        // תמיכה במגע לטלפון
+        // 2. מגע בטלפון (Swipe)
         let touchStart = 0;
         window.addEventListener('touchstart', e => touchStart = e.touches[0].clientY);
         window.addEventListener('touchmove', e => {
-            let diff = touchStart - e.touches[0].clientY;
-            targetZ += diff * 5;
+            let touchDiff = touchStart - e.touches[0].clientY;
+            targetZ += touchDiff * 4; // רגישות מגע
             touchStart = e.touches[0].clientY;
-            targetZ = Math.max(0, Math.min(targetZ, maxScroll + 1000));
+            clampScroll();
         });
 
-        // --- 3. לולאת האנימציה הראשית ---
+        // 3. מקלדת
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown') move(1);
+            if (e.key === 'ArrowUp') move(-1);
+        });
+
+        // פונקציית עזר לכפתורים וחצים
+        function move(direction) {
+            targetZ += direction * 1500; // קפיצה גדולה
+            clampScroll();
+        }
+
+        // פונקציה שמונעת יציאה מהגבולות
+        function clampScroll() {
+            // לא נותן לרדת מתחת לאפס (התחלה)
+            // ולא נותן לעבור את הסוף ב-1000 פיקסלים (כדי שלא יהיה מסך שחור לנצח)
+            targetZ = Math.max(0, Math.min(targetZ, maxScroll + 500));
+        }
+
+        // --- לולאת האנימציה (The Engine) ---
         function animate() {
-            // החלקה (Lerp) - גורם לתנועה להרגיש כמו חללית ולא כמו גלילה יבשה
-            currentZ += (targetZ - currentZ) * 0.05;
-            
-            // חישוב מהירות (בשביל אפקטים)
-            speed = targetZ - currentZ;
+            // נוסחת Lerp לתנועה חלקה: המיקום הנוכחי רודף אחרי היעד
+            currentZ += (targetZ - currentZ) * 0.08;
+            speed = (targetZ - currentZ) * 0.1; // משמש לאפקט הכוכבים
 
-            // עדכון HUD
+            // עדכון הבר למטה
             let progress = (currentZ / maxScroll) * 100;
-            progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
-            depthCounter.innerText = `DEPTH: ${Math.floor(currentZ)}m`;
+            document.getElementById('bar').style.width = Math.min(100, Math.max(0, progress)) + '%';
+            document.getElementById('depth').innerText = `DEPTH: ${Math.floor(currentZ)}`;
 
-            // הזזת כל האלמנטים
-            stages.forEach((stage, index) => {
+            // הזזת האלמנטים
+            stages.forEach(stage => {
                 // המיקום המקורי של האלמנט
                 const baseZ = parseInt(stage.getAttribute('data-z'));
                 
-                // המיקום היחסי למצלמה (אנחנו מזיזים את האלמנט אלינו)
-                // translateZ חיובי = קרוב אלינו, שלילי = רחוק
+                // איפה האלמנט ביחס למצלמה?
+                // כשאנחנו גוללים פנימה (currentZ גדל), האלמנט מתקרב (נהיה חיובי)
                 const elementZ = baseZ + currentZ;
 
-                // חישוב שקיפות וטשטוש מבוסס מרחק
+                // חישוב שקיפות (Opacity) וטשטוש (Blur)
+                // המטרה: שיראו את האלמנט רק כשהוא בטווח הראייה (בין -2000 ל +1000)
+                
                 let opacity = 0;
                 let blur = 0;
+                let pointerEvents = 'none'; // מבטל לחיצות כשהאלמנט רחוק
 
-                // אם האלמנט רחוק מאוד (יותר מ-3000 פיקסלים)
-                if (elementZ < -3000) {
-                    opacity = 0; 
-                } 
-                // אם האלמנט מתקרב (בין -3000 ל 1000)
-                else if (elementZ < 1000) {
-                    // מיפוי טווח: ככל שקרוב ל-0, אופסיטי גבוה יותר
-                    opacity = 1 - (Math.abs(elementZ) / 3000);
-                    blur = Math.abs(elementZ) / 100; // טשטוש ככל שרחוק
-                } 
-                // אם האלמנט עבר אותנו (מאחורי המצלמה)
-                else {
-                    opacity = 1 - ((elementZ - 1000) / 1000); // נעלם מהר כשהוא עובר
-                    if (opacity < 0) opacity = 0;
+                if (elementZ > -2500 && elementZ < 1500) {
+                    // טווח הראייה
+                    
+                    // חישוב דעיכה בכניסה וביציאה
+                    // ככל שמתקרב ל-0 (הפוקוס), האופסיטי עולה ל-1
+                    let distance = Math.abs(elementZ);
+                    opacity = 1 - (distance / 2000);
+                    
+                    // טשטוש ככל שרחוק
+                    blur = distance / 50;
+
+                    if (elementZ > -500 && elementZ < 500) {
+                        pointerEvents = 'auto'; // רק כשהוא קרוב, אפשר ללחוץ על כפתורים
+                    }
                 }
 
-                // החלת הסטייל על האלמנט
-                stage.style.transform = `translate(-50%, -50%) translateZ(${elementZ}px)`;
-                stage.style.opacity = opacity;
+                // החלת העיצוב
+                stage.style.opacity = Math.max(0, opacity);
                 stage.style.filter = `blur(${blur}px)`;
+                stage.style.pointerEvents = pointerEvents;
                 
-                // הסתרה מוחלטת כדי לחסוך ביצועים
-                stage.style.display = (opacity <= 0.01) ? 'none' : 'flex';
+                // הזזה בתלת מימד
+                stage.style.transform = `translate(-50%, -50%) translateZ(${elementZ}px)`;
             });
 
             requestAnimationFrame(animate);
         }
-
         animate();
 
 
-        // --- 4. רקע כוכבים (Starfield Canvas) ---
+        // --- רקע כוכבים (Starfield) ---
         const canvas = document.getElementById('starfield');
         const ctx = canvas.getContext('2d');
         let stars = [];
-        
-        function resize() {
+
+        function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        window.addEventListener('resize', resize);
-        resize();
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         class Star {
             constructor() {
@@ -290,40 +327,34 @@
             init() {
                 this.x = (Math.random() - 0.5) * canvas.width * 2;
                 this.y = (Math.random() - 0.5) * canvas.height * 2;
-                this.z = Math.random() * 2000 + 500; // עומק התחלתי
+                this.z = Math.random() * 2000 + 500;
             }
             move() {
-                // הכוכבים זזים מהר יותר כשאנחנו גוללים (אפקט Warp)
-                // המהירות הבסיסית היא 5, ומוסיפים לה את מהירות הגלילה
-                this.z -= (10 + Math.abs(speed) * 0.5); 
-                
-                if (this.z <= 0) this.init(); // איפוס כוכב שעבר אותנו
+                // הכוכבים זזים בהתאם למהירות הגלילה (אפקט Warp)
+                this.z -= (5 + speed); 
+                if (this.z <= 0 || this.z > 3000) this.init();
             }
             draw() {
-                // המרת תלת מימד לדו מימד (פרספקטיבה)
                 let scale = 1000 / this.z;
                 let sx = (this.x * scale) + (canvas.width / 2);
                 let sy = (this.y * scale) + (canvas.height / 2);
+                let size = (1 - this.z/2000) * 3;
                 
-                // גודל הכוכב גדל ככל שהוא מתקרב
-                let r = Math.max(0, (1 - this.z/2000) * 3);
-
-                ctx.fillStyle = "white";
-                ctx.beginPath();
-                ctx.arc(sx, sy, r, 0, Math.PI*2);
-                ctx.fill();
+                if (sx > 0 && sx < canvas.width && sy > 0 && sy < canvas.height) {
+                    ctx.fillStyle = "white";
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, Math.max(0, size), 0, Math.PI*2);
+                    ctx.fill();
+                }
             }
         }
 
-        for(let i=0; i<400; i++) stars.push(new Star());
+        for (let i = 0; i < 300; i++) stars.push(new Star());
 
         function loopStars() {
             ctx.fillStyle = "black";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(star => {
-                star.move();
-                star.draw();
-            });
+            stars.forEach(s => { s.move(); s.draw(); });
             requestAnimationFrame(loopStars);
         }
         loopStars();
