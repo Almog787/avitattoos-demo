@@ -3,59 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AvinTattoo | סטודיו לקעקועים ופירסינג</title>
-    <link rel="stylesheet" href="style.css">
+    <title>AvinTattoo | סטודיו בוטיק לקעקועים ופירסינג</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #2d0b0b; --black: #1a0606; --green: #25d366; --red: #a12626; --text: #ffffff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Heebo', sans-serif; background-color: var(--bg); color: var(--text); overflow-x: hidden; }
+        
+        /* Marketing Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Hero */
+        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; z-index: -1; }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; text-align: center; }
+        h2 { font-size: 3rem; font-weight: 900; margin-bottom: 2rem; }
+
+        .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .btn { text-decoration: none; padding: 15px 35px; border-radius: 50px; font-weight: bold; transition: 0.3s; cursor: pointer; border: 2px solid transparent; color: white; display: inline-block; }
+        .btn-main { background: white; color: var(--bg); font-size: 1.4rem; width: 80%; max-width: 400px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .btn-main:hover { transform: scale(1.05); background: var(--green); color: white; }
+        .btn-outline { border-color: white; }
+        .btn-whatsapp { background: var(--green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* Contact Section */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; text-align: right; align-items: center; margin-top: 3rem; }
+        .form-card { background: black; padding: 2rem; border-radius: 20px; border: 1px solid #4e1b1b; }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 1rem; border-radius: 8px; border: 1px solid #444; background: #333; color: white; font-family: inherit; }
+        .btn-submit { background: var(--red); width: 100%; border: none; font-size: 1.2rem; cursor: pointer; }
+
+        /* Notification Popup */
+        #marketing-notify { position: fixed; bottom: 80px; left: 20px; background: white; color: black; padding: 10px 20px; border-radius: 10px; display: flex; align-items: center; gap: 10px; transform: translateX(-150%); transition: 0.5s; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        #marketing-notify.show { transform: translateX(0); }
+
+        .sticky-btn { position: fixed; bottom: 0; width: 100%; background: var(--green); text-align: center; z-index: 999; padding: 15px; font-weight: bold; }
+        .map-frame { width: 100%; height: 350px; border: none; filter: grayscale(1) invert(0.9); }
+
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; text-align: center; } .btn-main { width: 100%; } }
+    </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <div class="hero-desktop">
-        <video class="hero-video" autoplay muted loop playsinline src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0052.mp4"></video>
+    <div class="hero">
+        <video id="hero-vid" autoplay muted loop playsinline></video>
         <div class="hero-overlay"></div>
-    </div>
-    <div class="hero-mobile">
-        <video class="hero-video" autoplay muted loop playsinline src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0039.mp4"></video>
-        <div class="hero-overlay"></div>
+        <div style="z-index: 1; text-align: center;">
+            <h1 style="font-size: 4rem; font-weight: 900; text-shadow: 0 5px 15px rgba(0,0,0,0.5);">AVIN TATTOO</h1>
+            <p style="font-size: 1.5rem; letter-spacing: 2px;">Art & Piercing Studio</p>
+        </div>
     </div>
 
-    <!-- Navigation Menu -->
-    <section class="section-padding container">
-        <h2 class="section-title">לאן תרצו להמשיך?</h2>
-        <div class="btn-group">
-            <a href="shop.html" class="btn btn-outline big-btn">כניסה לחנות SHOP</a>
-        </div>
-        <div class="btn-group secondary-nav">
-            <a href="#piercings" class="btn btn-outline">גלריית פירסינג</a>
-            <a href="https://avintattoo.com/63-2/" class="btn btn-outline">לאתר המלא</a>
-            <a href="#tattoos" class="btn btn-outline">גלריית קעקועים</a>
-            <a href="#" class="btn btn-outline">מידע קעקועים</a>
-            <a href="#" class="btn btn-outline">מידע פירסינג</a>
-        </div>
-        <div class="btn-group action-nav">
-            <a href="https://api.whatsapp.com/send?phone=9720537239660&text=הי אבי, הגעתי מהאתר" class="btn btn-whatsapp">WhatsApp</a>
-            <a href="#lead-form" class="btn btn-lead">תיאום ייעוץ</a>
+    <section class="container reveal">
+        <h2>לאן תרצו להמשיך?</h2>
+        <a href="shop.html" class="btn btn-main">כניסה לחנות הסטודיו 🛍️</a>
+        <div class="btn-group" style="margin-top: 2rem;">
+            <a href="shop.html?cat=titanium" class="btn btn-outline">תכשיטי טיטניום</a>
+            <a href="shop.html?cat=gold" class="btn btn-outline">ציפוי זהב</a>
+            <a href="#" class="btn btn-outline">גלריית קעקועים</a>
         </div>
     </section>
 
-    <!-- Lead Form -->
-    <section id="lead-form" class="section-padding contact-bg">
-        <div class="container contact-grid">
-            <div class="contact-text">
-                <h2>בואו נדבר תכל'ס על הקעקוע שלך.</h2>
-                <p>משאירים פרטים כאן, ומקבלים שיחת ייעוץ ראשונית ללא עלות.</p>
-                <ul>
-                    <li>✅ הערכת מחיר ראשונית</li>
-                    <li>✅ בדיקת התאמה לרעיון שלך</li>
-                    <li>✅ תיאום תור מהיר בסטודיו</li>
+    <section id="lead-form" class="container reveal">
+        <div class="contact-grid">
+            <div>
+                <h2 style="text-align: right;">בואו נדבר תכל'ס.</h2>
+                <p style="font-size: 1.2rem;">שיחת ייעוץ ללא עלות להתאמת הקעקוע המושלם בשבילך.</p>
+                <ul style="list-style: none; margin-top: 1rem; line-height: 2;">
+                    <li>🔥 הערכת מחיר ראשונית</li>
+                    <li>🎨 סקיצה בהתאמה אישית</li>
+                    <li>⏱️ תור מהיר בסטודיו</li>
                 </ul>
             </div>
-            <div class="contact-form-card">
+            <div class="form-card">
                 <form action="https://formspree.io/f/YOUR_ID" method="POST">
-                    <div class="form-group"><label>שם מלא</label><input type="text" name="name" required></div>
-                    <div class="form-group"><label>טלפון</label><input type="tel" name="phone" required></div>
-                    <div class="form-group"><label>מה הרעיון שלך?</label><textarea name="msg" rows="3"></textarea></div>
-                    <button type="submit" class="btn-submit">אני רוצה לקבוע ייעוץ</button>
+                    <input type="text" name="name" placeholder="שם מלא" required>
+                    <input type="tel" name="phone" placeholder="טלפון" required>
+                    <textarea name="msg" placeholder="מה הרעיון שלך?" rows="3"></textarea>
+                    <button type="submit" class="btn btn-submit">אני רוצה לקבוע ייעוץ</button>
                 </form>
             </div>
         </div>
@@ -63,9 +91,44 @@
 
     <iframe class="map-frame" src="https://maps.google.com/maps?q=הירדן%202%20אריאל&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
 
-    <div class="sticky-footer">
-        <a href="https://api.whatsapp.com/send?phone=9720537239660">דברו איתי ב-WhatsApp 💬</a>
+    <div id="marketing-notify">
+        <span style="font-size: 1.5rem;">🔥</span>
+        <div id="notify-text">מישהו בדיוק הזמין ייעוץ בסטודיו</div>
     </div>
 
+    <div class="sticky-btn">
+        <a href="https://api.whatsapp.com/send?phone=9720537239660" style="color: white; text-decoration: none;">הודעה בוואטסאפ (מענה מהיר) 💬</a>
+    </div>
+
+    <script>
+        // Hero Video Switcher
+        const vid = document.getElementById('hero-vid');
+        vid.src = window.innerWidth > 768 
+            ? 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0052.mp4' 
+            : 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0039.mp4';
+
+        // Scroll Reveal Logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Marketing Social Proof Popups
+        const messages = [
+            "לקוחה בדיוק קבעה תור להליקס",
+            "5 אנשים צופים עכשיו בגלריית הקעקועים",
+            "נותרו 2 תורות אחרונים לשבוע הקרוב",
+            "מישהי בדיוק רכשה עגיל מרקיזה זהב"
+        ];
+        function showNotify() {
+            const popup = document.getElementById('marketing-notify');
+            const text = document.getElementById('notify-text');
+            text.innerText = messages[Math.floor(Math.random() * messages.length)];
+            popup.classList.add('show');
+            setTimeout(() => popup.classList.remove('show'), 4000);
+        }
+        setTimeout(showNotify, 3000);
+        setInterval(showNotify, 15000);
+    </script>
 </body>
 </html>
