@@ -2,395 +2,212 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PUMBA | SUPERNOVA Z-SCROLL</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Heebo:wght@300;700&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OfficeConnect | צ'אט משרדי</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #020205;
-            --primary: #ff6b00; /* Pumba Orange */
-            --secondary: #00f2ff; /* Cyan */
-            --accent: #ff0055;
-            --text: #ffffff;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Heebo', sans-serif;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-            perspective: 1200px;
-        }
-
-        /* --- רקע ואפקטים --- */
-        #starfield {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at center, #0a0a20 0%, #020205 100%);
-        }
-
-        .scanlines {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-            background-size: 100% 4px;
-            z-index: 10;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        /* --- העולם התלת מימדי --- */
-        .world {
-            position: absolute;
-            width: 100%; height: 100%;
-            transform-style: preserve-3d;
-            will-change: transform;
-            transition: transform 0.1s ease-out; /* לתנועת העכבר */
-        }
-
-        .stage {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%; max-width: 900px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            backface-visibility: hidden;
-        }
-
-        /* --- טיפוגרפיה --- */
-        h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 10vw, 7rem);
-            line-height: 0.9;
-            text-transform: uppercase;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.4);
-            margin-bottom: 25px;
-            letter-spacing: 5px;
-        }
-
-        .glow-text {
-            color: var(--text);
-            -webkit-text-stroke: 0;
-            text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px var(--primary);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.02);
-            max-width: 700px;
-        }
-
-        p {
-            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-            line-height: 1.5;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- כפתורים --- */
-        .cta-btn {
-            margin-top: 50px;
-            padding: 22px 60px;
-            font-family: 'Orbitron';
-            font-size: 1.2rem;
-            font-weight: 900;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 107, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27);
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .cta-btn:hover::before { left: 100%; }
-
-        .cta-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            background: var(--text);
-            color: var(--bg);
-            box-shadow: 0 20px 40px rgba(255, 255, 255, 0.3);
-        }
-
-        /* --- HUD --- */
-        .hud-v3 {
-            position: fixed;
-            bottom: 40px; left: 40px;
-            z-index: 100;
-            font-family: 'Orbitron';
-        }
-
-        .depth-counter {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: var(--secondary);
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .bar-container {
-            width: 250px; height: 2px;
-            background: rgba(255,255,255,0.1);
-            position: relative;
-        }
-
-        .bar-fill {
-            height: 100%;
-            background: var(--secondary);
-            width: 0%;
-            box-shadow: 0 0 15px var(--secondary);
-            transition: width 0.1s ease-out;
-        }
-
-        /* --- NAVIGATION --- */
-        .nav-sidebar {
-            position: fixed;
-            right: 40px; top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            z-index: 100;
-        }
-
-        .dot {
-            width: 8px; height: 8px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            transition: 0.4s;
-            cursor: pointer;
-        }
-
-        .dot.active {
-            background: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-            transform: scale(2);
-        }
-
+        body { font-family: 'Heebo', sans-serif; background-color: #f3f4f6; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        #chat-messages { height: calc(100vh - 180px); }
     </style>
 </head>
-<body>
+<body class="h-screen overflow-hidden flex flex-col">
 
-    <div class="scanlines"></div>
-    <canvas id="starfield"></canvas>
-
-    <div class="world" id="world">
-        <!-- Section 1 -->
-        <div class="stage" data-z="0">
-            <h1>BEYOND<br><span class="glow-text">LIMITS</span></h1>
-            <div class="glass-card">
-                <p>ברוכים הבאים לדור הבא של הנדסת נכסים דיגיטליים. אנחנו לא רק בונים אתרים, אנחנו בונים חוויות שחודרות את המסך.</p>
-            </div>
-        </div>
-
-        <!-- Section 2 -->
-        <div class="stage" data-z="-4000">
-            <h1>HYPER<br><span style="color:var(--secondary); -webkit-text-stroke:0; text-shadow: 0 0 30px var(--secondary);">GROWTH</span></h1>
-            <div class="glass-card">
-                <p>הטכנולוגיה שלנו מאפשרת לעסק שלך לצמוח במהירות האור. אוטומציה חכמה שחוסכת לך זמן יקר ומייצרת רווחים בזמן שאתה ישן.</p>
-            </div>
-        </div>
-
-        <!-- Section 3 -->
-        <div class="stage" data-z="-8000">
-            <h1>INFINITE<br>POSSIBILITIES</h1>
-            <div class="glass-card">
-                <p>כל שורת קוד נכתבת במטרה אחת: להפוך את החזון שלך למציאות מוחשית. מעיצוב עוצר נשימה ועד למערכות מורכבות.</p>
-            </div>
-        </div>
-
-        <!-- Section 4 -->
-        <div class="stage" data-z="-12000">
-            <h1 class="glow-text">LAUNCH</h1>
-            <div class="glass-card">
-                <p>העתיד לא מחכה לאף אחד. האם אתה מוכן להמריא?</p>
-                <a href="https://wa.me/972528226689" class="cta-btn">צרו קשר עכשיו</a>
-            </div>
+    <!-- מסך כניסה -->
+    <div id="login-overlay" class="fixed inset-0 bg-slate-900 bg-opacity-95 z-50 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-2xl shadow-2xl w-80 md:w-96 text-center">
+            <div class="text-5xl mb-4">🏢</div>
+            <h1 class="text-2xl font-bold mb-6 text-slate-800">כניסה ל-OfficeConnect</h1>
+            <input type="text" id="username-input" placeholder="איך קוראים לך?" class="w-full border-2 border-slate-200 p-3 rounded-lg mb-4 focus:border-blue-500 outline-none text-center">
+            <button id="login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all">התחברות לצ'אט</button>
         </div>
     </div>
 
-    <!-- HUD -->
-    <div class="hud-v3">
-        <span class="depth-counter" id="depth-txt">COORDINATES: 0,0,0</span>
-        <div class="bar-container"><div class="bar-fill" id="bar"></div></div>
+    <!-- סרגל עליון -->
+    <header class="bg-white border-b border-slate-200 px-6 py-3 flex justify-between items-center shadow-sm z-10">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600 text-white p-2 rounded-lg font-bold">OC</div>
+            <h2 class="text-xl font-bold text-slate-800">OfficeConnect</h2>
+        </div>
+        <div class="flex items-center gap-4">
+            <span id="user-display" class="text-slate-600 font-medium"></span>
+            <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold border border-blue-200">👤</div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- סרגל צד (ערוצים) -->
+        <aside class="w-20 md:w-64 bg-slate-800 text-slate-300 flex flex-col transition-all">
+            <div class="p-4 md:p-6">
+                <h3 class="hidden md:block text-xs uppercase tracking-widest text-slate-500 font-bold mb-4">ערוצי משרד</h3>
+                <nav id="channels" class="space-y-2">
+                    <button data-channel="general" class="channel-btn w-full flex items-center justify-center md:justify-start gap-2 p-3 rounded-lg hover:bg-slate-700 transition-all active bg-slate-700 text-white">
+                        <span>#</span><span class="hidden md:block">כללי</span>
+                    </button>
+                    <button data-channel="dev" class="channel-btn w-full flex items-center justify-center md:justify-start gap-2 p-3 rounded-lg hover:bg-slate-700 transition-all">
+                        <span>#</span><span class="hidden md:block">פיתוח</span>
+                    </button>
+                    <button data-channel="marketing" class="channel-btn w-full flex items-center justify-center md:justify-start gap-2 p-3 rounded-lg hover:bg-slate-700 transition-all">
+                        <span>#</span><span class="hidden md:block">שיווק</span>
+                    </button>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- אזור הצ'אט המרכזי -->
+        <main class="flex-1 flex flex-col bg-slate-50">
+            <div class="px-6 py-3 border-b border-slate-200 bg-white flex justify-between items-center">
+                <h3 id="current-channel-name" class="font-bold text-slate-700 text-lg"># כללי</h3>
+                <div class="text-xs text-green-500 flex items-center gap-1 font-medium">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> מחובר בזמן אמת
+                </div>
+            </div>
+
+            <!-- הודעות -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 custom-scrollbar">
+                <div class="text-center text-slate-400 text-sm italic mt-10">טוען הודעות...</div>
+            </div>
+
+            <!-- תיבת שליחה -->
+            <div class="p-4 bg-white border-t border-slate-200">
+                <form id="message-form" class="flex gap-2 max-w-5xl mx-auto">
+                    <input type="text" id="message-input" placeholder="כתוב הודעה לצוות..." autocomplete="off" class="flex-1 border border-slate-300 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none shadow-sm transition-all">
+                    <button type="submit" class="bg-blue-600 text-white px-6 md:px-8 py-3 rounded-xl font-bold hover:bg-blue-700 shadow-md transition-all active:scale-95">שלח</button>
+                </form>
+            </div>
+        </main>
     </div>
 
-    <!-- SIDEBAR NAV -->
-    <div class="nav-sidebar" id="sidebar">
-        <div class="dot active" onclick="jumpTo(0)"></div>
-        <div class="dot" onclick="jumpTo(4000)"></div>
-        <div class="dot" onclick="jumpTo(8000)"></div>
-        <div class="dot" onclick="jumpTo(12000)"></div>
-    </div>
+    <!-- לוגיקה מחוברת ל-Firebase שלך -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue, query, orderByChild, equalTo, limitToLast } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
 
-    <script>
-        const Z_SPACING = 4000;
-        const stages = document.querySelectorAll('.stage');
-        const world = document.getElementById('world');
-        const dots = document.querySelectorAll('.dot');
-        const maxScroll = (stages.length - 1) * Z_SPACING;
+        // הגדרות הקונפיגורציה שסיפקת
+        const firebaseConfig = {
+            apiKey: "AIzaSyA9gn1gifnrYPkdc-vgkcnjweTQ7szw8iM",
+            authDomain: "database-test-59ee4.firebaseapp.com",
+            databaseURL: "https://database-test-59ee4-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "database-test-59ee4",
+            storageBucket: "database-test-59ee4.firebasestorage.app",
+            messagingSenderId: "739423615499",
+            appId: "1:739423615499:web:a8efc6d25706b9bdeae50e",
+            measurementId: "G-9X18YVEWR0"
+        };
+
+        // אתחול Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
         
-        let currentZ = 0;
-        let targetZ = 0;
-        let mouseX = 0, mouseY = 0;
+        let currentUser = "";
+        let currentChannel = "general";
+        let unsubscribe = null;
 
-        // --- ניהול גלילה ---
-        window.addEventListener('wheel', e => {
-            targetZ += e.deltaY * 3;
-            clamp();
-        });
+        // אלמנטים ב-DOM
+        const loginOverlay = document.getElementById('login-overlay');
+        const loginInput = document.getElementById('username-input');
+        const loginBtn = document.getElementById('login-btn');
+        const userDisplay = document.getElementById('user-display');
+        const messageForm = document.getElementById('message-form');
+        const messageInput = document.getElementById('message-input');
+        const chatMessages = document.getElementById('chat-messages');
+        const channelNameDisplay = document.getElementById('current-channel-name');
 
-        // מגע
-        let startY = 0;
-        window.addEventListener('touchstart', e => startY = e.touches[0].clientY);
-        window.addEventListener('touchmove', e => {
-            const delta = startY - e.touches[0].clientY;
-            targetZ += delta * 5;
-            startY = e.touches[0].clientY;
-            clamp();
-        });
+        // פונקציית התחברות
+        const login = () => {
+            const name = loginInput.value.trim();
+            if (name.length < 2) return alert("אנא הכנס שם (לפחות 2 אותיות)");
+            currentUser = name;
+            userDisplay.innerText = currentUser;
+            loginOverlay.style.display = 'none';
+            listenForMessages();
+        };
 
-        // עכבר פרלקסה
-        window.addEventListener('mousemove', e => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 15; // הטיה של 15 מעלות
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 15;
-        });
+        loginBtn.addEventListener('click', login);
+        loginInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') login() });
 
-        function clamp() {
-            targetZ = Math.max(0, Math.min(targetZ, maxScroll + 500));
-        }
-
-        function jumpTo(z) { targetZ = z; }
-
-        // --- Engine ---
-        function update() {
-            // תנועה חלקה
-            currentZ += (targetZ - currentZ) * 0.07;
-
-            // עדכון HUD
-            const progress = (currentZ / maxScroll) * 100;
-            document.getElementById('bar').style.width = `${Math.min(100, Math.max(0, progress))}%`;
-            document.getElementById('depth-txt').innerText = `SECTOR Z: ${Math.floor(currentZ)}`;
-
-            // עדכון נקודות ניווט
-            const activeIdx = Math.round(currentZ / Z_SPACING);
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === activeIdx));
-
-            // הטיית העולם לפי עכבר + גלילה
-            world.style.transform = `rotateX(${-mouseY}deg) rotateY(${mouseX}deg) translateZ(${currentZ}px)`;
-
-            stages.forEach(stage => {
-                const baseZ = -parseInt(stage.getAttribute('data-z'));
-                const distance = Math.abs(currentZ - baseZ);
-                
-                // חישוב אופסיטי חכם
-                let opacity = 1 - (distance / 2500);
-                let blur = distance / 80;
-                
-                stage.style.opacity = Math.max(0, opacity);
-                stage.style.filter = `blur(${blur}px)`;
-                stage.style.pointerEvents = distance < 1000 ? 'auto' : 'none';
-                
-                // מיקום הסקשן בעומק
-                const zPos = stage.getAttribute('data-z');
-                stage.style.transform = `translate(-50%, -50%) translateZ(${zPos}px)`;
+        // פונקציה להחלפת ערוצים
+        const switchChannel = (channelId) => {
+            currentChannel = channelId;
+            // עדכון UI של כפתורי הערוצים
+            document.querySelectorAll('.channel-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-700', 'text-white');
+                if(btn.dataset.channel === channelId) btn.classList.add('bg-slate-700', 'text-white');
             });
+            channelNameDisplay.innerText = "# " + (channelId === 'general' ? 'כללי' : channelId === 'dev' ? 'פיתוח' : 'שיווק');
+            listenForMessages();
+        };
 
-            requestAnimationFrame(update);
-        }
-        update();
+        document.querySelectorAll('.channel-btn').forEach(btn => {
+            btn.addEventListener('click', () => switchChannel(btn.dataset.channel));
+        });
 
-        // --- Starfield Canvas (Warp Speed Edition) ---
-        const canvas = document.getElementById('starfield');
-        const ctx = canvas.getContext('2d');
-        let stars = [];
-        const numStars = 400;
+        // שליחת הודעה
+        messageForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const text = messageInput.value.trim();
+            if (!text) return;
 
-        function initStars() {
-            stars = [];
-            for(let i=0; i<numStars; i++) {
-                stars.push({
-                    x: (Math.random() - 0.5) * 3000,
-                    y: (Math.random() - 0.5) * 3000,
-                    z: Math.random() * 3000,
-                    px: 0, py: 0 // מיקום קודם לציור קווים
+            const now = new Date();
+            const timeStr = now.getHours() + ":" + now.getMinutes().toString().padStart(2, '0');
+
+            try {
+                await push(ref(db, 'messages'), {
+                    user: currentUser,
+                    text: text,
+                    channel: currentChannel,
+                    time: timeStr,
+                    timestamp: Date.now()
                 });
+                messageInput.value = '';
+            } catch (err) {
+                console.error("שגיאה בשליחה:", err);
             }
-        }
-
-        function drawStars() {
-            ctx.fillStyle = 'rgba(2, 2, 5, 0.2)'; // שובל טשטוש
-            ctx.fillRect(0,0, canvas.width, canvas.height);
-            
-            const speed = (targetZ - currentZ) * 0.15; // מהירות הגלילה משפיעה על הכוכבים
-            
-            ctx.strokeStyle = "white";
-            ctx.lineWidth = 1.5;
-
-            stars.forEach(s => {
-                s.z -= (4 + speed); 
-                if(s.z <= 0) { s.z = 3000; s.px = 0; s.py = 0; }
-                if(s.z > 3000) { s.z = 1; s.px = 0; s.py = 0; }
-
-                const scale = 800 / s.z;
-                const x = s.x * scale + canvas.width/2;
-                const y = s.y * scale + canvas.height/2;
-
-                if(s.px !== 0 && Math.abs(speed) > 2) {
-                    ctx.beginPath();
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(s.px, s.py);
-                    ctx.stroke();
-                } else {
-                    const size = Math.max(0, (1 - s.z/3000) * 2);
-                    ctx.fillStyle = "white";
-                    ctx.beginPath();
-                    ctx.arc(x, y, size, 0, Math.PI*2);
-                    ctx.fill();
-                }
-                
-                s.px = x; s.py = y;
-            });
-            requestAnimationFrame(drawStars);
-        }
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initStars();
         });
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        initStars();
-        drawStars();
+        // האזנה להודעות בזמן אמת
+        function listenForMessages() {
+            // ניקוי האזנה קודמת אם קיימת
+            const messagesRef = ref(db, 'messages');
+            const channelQuery = query(
+                messagesRef, 
+                orderByChild('channel'), 
+                equalTo(currentChannel),
+                limitToLast(50)
+            );
 
+            onValue(channelQuery, (snapshot) => {
+                chatMessages.innerHTML = '';
+                const data = snapshot.val();
+                
+                if (!data) {
+                    chatMessages.innerHTML = '<div class="text-center text-slate-400 text-sm mt-10">אין הודעות בערוץ זה עדיין.</div>';
+                    return;
+                }
+
+                // המרה למערך ומיון
+                const msgs = Object.values(data).sort((a, b) => a.timestamp - b.timestamp);
+                
+                msgs.forEach(m => {
+                    const isMe = m.user === currentUser;
+                    const div = document.createElement('div');
+                    div.className = `flex flex-col ${isMe ? 'items-start' : 'items-end'} animate-in fade-in slide-in-from-bottom-2 duration-300`;
+                    div.innerHTML = `
+                        <div class="max-w-[85%] md:max-w-[70%] ${isMe ? 'bg-blue-600 text-white rounded-br-none' : 'bg-white text-slate-800 rounded-bl-none'} p-3 rounded-2xl shadow-sm border border-slate-200">
+                            <div class="text-[10px] font-bold mb-1 opacity-75 uppercase tracking-wider">${m.user}</div>
+                            <div class="text-sm md:text-base leading-relaxed break-words">${m.text}</div>
+                            <div class="text-[9px] mt-1 text-left opacity-60">${m.time}</div>
+                        </div>
+                    `;
+                    chatMessages.appendChild(div);
+                });
+                
+                // גלילה אוטומטית לסוף
+                chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
+            });
+        }
     </script>
 </body>
 </html>
