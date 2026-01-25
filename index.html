@@ -4,230 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AvinTattoo | סטודיו לקעקועים ופירסינג</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
-
-    <!-- CSS Styling -->
-    <style>
-        :root {
-            --bg-dark: #2d0b0b;
-            --bg-black: #1a0606;
-            --accent-green: #25d366;
-            --accent-red: #a12626;
-            --card-border: #471717;
-            --text-white: #ffffff;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Heebo', sans-serif; background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; }
-        
-        /* Hero Section */
-        .hero-desktop { position: relative; width: 100%; min-height: 755px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .hero-mobile { display: none; position: relative; width: 100%; min-height: 100vh; overflow: hidden; }
-        
-        .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; transform: translate(-50%, -50%); object-fit: cover; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); z-index: -1; }
-
-        /* General Spacing */
-        .section-padding { padding: 3rem 1rem; }
-        .container { max-width: 1200px; margin: 0 auto; text-align: center; }
-
-        /* Buttons */
-        .btn-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
-        .btn { text-decoration: none; padding: 12px 24px; border-radius: 50px; font-size: 1.1rem; font-weight: bold; transition: 0.3s; display: inline-block; cursor: pointer; border: 2px solid transparent; color: white; }
-        .btn-outline { border-color: white; background: transparent; }
-        .btn-outline:hover { background: white; color: var(--bg-dark); }
-        .btn-whatsapp { background-color: var(--accent-green); border-radius: 51px; font-size: 1.25rem; }
-        .btn-lead { background-color: var(--accent-red); font-size: 1.25rem; }
-
-        /* Shop Grid */
-        #shop-gallery { background-color: var(--bg-black); }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .product-card { border: 1px solid var(--card-border); border-radius: 8px; padding: 15px; background: rgba(255,255,255,0.02); transition: 0.3s; display: flex; flex-direction: column; }
-        .product-card:hover { transform: translateY(-5px); border-color: #7a2626; }
-        .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 8px; margin-bottom: 15px; }
-        .product-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 5px; }
-        .product-material { font-size: 0.9rem; color: #ccc; margin-bottom: 5px; }
-        .product-sku { font-size: 0.8rem; color: #888; margin-bottom: 15px; }
-        .btn-order { background-color: var(--accent-green); width: 100%; padding: 8px; border-radius: 5px; font-size: 0.9rem; margin-top: auto; }
-
-        /* Contact Form */
-        .contact-section { background-color: var(--bg-dark); display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; text-align: right; }
-        .contact-form-card { background: black; padding: 2.5rem; border-radius: 16px; border: 1px solid #4e1b1b; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4e1b1b; background: #4b1616; color: white; outline: none; }
-        .btn-submit { width: 100%; background: #471717; border: none; padding: 15px; border-radius: 50px; color: white; font-size: 1.2rem; cursor: pointer; }
-
-        /* Sticky Footer */
-        .sticky-whatsapp { position: fixed; bottom: 0; width: 100%; background: var(--accent-green); text-align: center; z-index: 999; }
-        .sticky-whatsapp a { display: block; color: white; text-decoration: none; padding: 15px; font-weight: bold; font-size: 1.1rem; }
-
-        /* Map */
-        .map-container { width: 100%; height: 400px; border: none; filter: grayscale(1) invert(0.9) contrast(1.2); }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-desktop { display: none; }
-            .hero-mobile { display: block; }
-            .contact-section { grid-template-columns: 1fr; text-align: center; }
-            .product-grid { grid-template-columns: 1fr 1fr; }
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Hero Desktop -->
+    <!-- Hero Section -->
     <div class="hero-desktop">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0052.mp4" type="video/mp4">
-        </video>
+        <video class="hero-video" autoplay muted loop playsinline src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0052.mp4"></video>
         <div class="hero-overlay"></div>
     </div>
-
-    <!-- Hero Mobile -->
     <div class="hero-mobile">
-        <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0039.mp4" type="video/mp4">
-        </video>
+        <video class="hero-video" autoplay muted loop playsinline src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/vid-20251208-wa0039.mp4"></video>
         <div class="hero-overlay"></div>
     </div>
 
-    <!-- Main Nav Group -->
+    <!-- Navigation Menu -->
     <section class="section-padding container">
-        <h2 style="font-size: 2.5rem;">לאן תרצו להמשיך?</h2>
+        <h2 class="section-title">לאן תרצו להמשיך?</h2>
         <div class="btn-group">
-            <a href="#shop-gallery" class="btn btn-outline" style="width: 50%;">SHOP</a>
+            <a href="shop.html" class="btn btn-outline big-btn">כניסה לחנות SHOP</a>
         </div>
-        <div class="btn-group" style="margin-top: 1rem;">
-            <a href="https://avintattoo.com/63-2/#piercings-gallery" class="btn btn-outline">גלריית פירסינג</a>
+        <div class="btn-group secondary-nav">
+            <a href="#piercings" class="btn btn-outline">גלריית פירסינג</a>
             <a href="https://avintattoo.com/63-2/" class="btn btn-outline">לאתר המלא</a>
-            <a href="https://avintattoo.com/63-2/#tattoos-gallery" class="btn btn-outline">גלריית קעקועים</a>
-            <a href="https://avintattoo.com/tattoo-pots/" class="btn btn-outline">מידע קעקועים</a>
-            <a href="https://avintattoo.com/63-2/piercing-pots/" class="btn btn-outline">מידע פירסינג</a>
+            <a href="#tattoos" class="btn btn-outline">גלריית קעקועים</a>
+            <a href="#" class="btn btn-outline">מידע קעקועים</a>
+            <a href="#" class="btn btn-outline">מידע פירסינג</a>
         </div>
-        <div class="btn-group" style="margin-top: 2rem;">
-            <a href="https://api.whatsapp.com/send?phone=9720537239660&text=הי, אשמח למידע נוסף" class="btn btn-whatsapp">WhatsApp</a>
+        <div class="btn-group action-nav">
+            <a href="https://api.whatsapp.com/send?phone=9720537239660&text=הי אבי, הגעתי מהאתר" class="btn btn-whatsapp">WhatsApp</a>
             <a href="#lead-form" class="btn btn-lead">תיאום ייעוץ</a>
         </div>
     </section>
 
-    <!-- Shop Section -->
-    <section id="shop-gallery" class="section-padding">
-        <div class="container">
-            <h2 style="font-size: 2.5rem;">בוטיק פירסינג בסטודיו</h2>
-            <p>מבחר תכשיטים בסטנדרט רפואי | לפרטים והזמנה לחצו על הפריט</p>
-            
-            <div class="product-grid" id="product-list">
-                <!-- הנתונים יוזרקו לכאן על ידי JavaScript -->
+    <!-- Lead Form -->
+    <section id="lead-form" class="section-padding contact-bg">
+        <div class="container contact-grid">
+            <div class="contact-text">
+                <h2>בואו נדבר תכל'ס על הקעקוע שלך.</h2>
+                <p>משאירים פרטים כאן, ומקבלים שיחת ייעוץ ראשונית ללא עלות.</p>
+                <ul>
+                    <li>✅ הערכת מחיר ראשונית</li>
+                    <li>✅ בדיקת התאמה לרעיון שלך</li>
+                    <li>✅ תיאום תור מהיר בסטודיו</li>
+                </ul>
+            </div>
+            <div class="contact-form-card">
+                <form action="https://formspree.io/f/YOUR_ID" method="POST">
+                    <div class="form-group"><label>שם מלא</label><input type="text" name="name" required></div>
+                    <div class="form-group"><label>טלפון</label><input type="tel" name="phone" required></div>
+                    <div class="form-group"><label>מה הרעיון שלך?</label><textarea name="msg" rows="3"></textarea></div>
+                    <button type="submit" class="btn-submit">אני רוצה לקבוע ייעוץ</button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Lead Form -->
-    <section id="lead-form" class="section-padding container contact-section">
-        <div>
-            <h2 style="font-size: 3rem;">בואו נדבר תכל'ס על הקעקוע שלך.</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 20px;">משאירים פרטים כאן, ומקבלים שיחת ייעוץ ראשונית ללא עלות.</p>
-            <ul style="list-style: none; font-size: 1.3rem;">
-                <li>✅ הערכת מחיר ראשונית</li>
-                <li>✅ בדיקת התאמה לרעיון שלך</li>
-                <li>✅ תיאום תור מהיר בסטודיו</li>
-            </ul>
-        </div>
-        <div class="contact-form-card">
-            <!-- שים לב: כאן משתמשים ב-Formspree כי GitHub סטטי. צור חשבון בחינם שם והחלף את ה-ID -->
-            <form action="https://formspree.io/f/YOUR_ID_HERE" method="POST">
-                <div class="form-group">
-                    <label>שם מלא</label>
-                    <input type="text" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label>טלפון לחזרה</label>
-                    <input type="tel" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label>מה הרעיון שלך לקעקוע?</label>
-                    <textarea name="message" rows="4"></textarea>
-                </div>
-                <button type="submit" class="btn-submit">אני רוצה לקבוע ייעוץ</button>
-            </form>
-        </div>
-    </section>
+    <iframe class="map-frame" src="https://maps.google.com/maps?q=הירדן%202%20אריאל&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
 
-    <!-- Google Map (Placeholder for Arial) -->
-    <iframe class="map-container" src="https://maps.google.com/maps?q=הירדן%202%20אריאל&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
-
-    <!-- Sticky Whatsapp -->
-    <div class="sticky-whatsapp">
-        <a href="https://api.whatsapp.com/send?phone=9720537239660&text=הי, קיבלתי את הפרטים מהאתר שלך">דברו איתי ב-WhatsApp 💬</a>
+    <div class="sticky-footer">
+        <a href="https://api.whatsapp.com/send?phone=9720537239660">דברו איתי ב-WhatsApp 💬</a>
     </div>
 
-    <!-- JavaScript Data - All 41 Products -->
-    <script>
-        const products = [
-            { id: "1052", name: "לוטוס אבן עם שרשרת", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1023", name: "לאברט זירקון", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1071", name: "פרח מרקיזות", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1071-d7a4d7a8d797-d791d7a8d7a7d799d796d795d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1054", name: "טיפה נופלת 4מ\"מ", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1054-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1070", name: "משובץ גיאומטרי", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1070-d7a6d795d7a8d794-d792d790d795d79ed798d7a8d799d7aa-d7a2d79d-d796d799d7a8d7a7d795d7a0d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1040", name: "מרקיזות בשורה", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1040-d79ed7a8d7a7d799d796d795d7aa-d791d7a9d7a8d794-d7a6d791d7a2-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1050", name: "הליקס מניפה", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1050d794d79cd799d7a7d7a1-d79ed795d7a7d791d790-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1022", name: "פרפר עדין 4מ\"מ", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1022-d7a4d7a8d7a4d7a8-d7a7d798d79f-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1051", name: "טיפה זירקון", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1051-d798d799d7a4d794-d796d7a8d7a7d795f-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1063", name: "מרקיזות זהב", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1063-d79ed7a8d7a7d799d796d795d7aa-d791d7a6d795d7a8d794-d79ed7a2d795d799d799d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1031", name: "לאברט נחש", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1031-d79cd791d7a8d798-d7a0d797d7a9-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1019", name: "לוטוס חלק", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1019-d79cd795d798d795d7a1-d797d79cd7a7-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1033", name: "ענף משובץ ירוק", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1033-d7a2d7a0d7a3-d7a2d79d-d7a9d799d791d795d7a5-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1016", name: "עיגול זהב חרוט (4 מ\"מ)", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1016-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1034", name: "קליקר כדורים", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1034-d7a9d795d7a8d794-d79bd793d795d7a8d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1053", name: "הליקס שרשרת פרח", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1053-d794d79cd799d7a7d7a1-d7a9d7a8d7a9d7a8d7aa-d7a2d79d-d7a4d7a8d797-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1036", name: "מרקיזה זויות", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1036-d79ed7a8d7a7d799d796d795d7aa-d791d796d795d799d7aa-d791d799d7a0d795d7a0d799-4d79ed79e-d7a6d791d7a2-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1055", name: "טיפה אופל", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1055-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1066", name: "חרב מיניאטורית", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1066-d797d7a8d791-d7a7d798d7a0d794-5d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1021", name: "לוטוס אבן שחורה", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1021-d79cd795d798d795d7a1-d7a7d798d79f-d7a9d797d795d7a8-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1020", name: "מעויין זירקונים", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1020-d796d7a8d7a7d795f-d79ed7a2d795d799d79f-d7a7d798d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1042", name: "זירקון תלוי", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1042-d796d799d7a8d7a7d795f-d7a2d79d-d796d799d7a8d7a7d795f-aad79cd795d799-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1032", name: "עגיל דובון", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1032-d793d795d791d793d791d79f-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1017", name: "עיגול חרוט (4 מ\"מ)", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1017-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1038", name: "שורה 5 זירקונים", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1038-d7a9d795d7a8d794-5-d796d799d7a8d7a7d795d7a0d799d79d-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1015", name: "טיפה שחורה (3 מ\"מ)", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1015-d798d799d7a4d794-d7a9d797d795d7a8d794-3d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1030", name: "נחש מעוצב", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1030-d7a0d797d7a9-d7a2d79d-d793d795d792d79ed794-d798d799d798d7a0d799d795d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1024", name: "זירקון סוליטר (3.5 מ\"מ)", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1024-d796d799d7a8d7a7d795f-d792d795d793d79c-3.5d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1069", name: "פרפר זירקונים", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1069-d7a4d7a8d7a4d7a8-d7a2d79d-d796d7a8d7a7d795d7a0d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1363", name: "שורה דקה משובצת", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1039-d7a9d795d7a8d794-d796d799d7a8d7a7d795d7a0d799d79d-d793d7a7d794-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1041", name: "טיפה תלויה זירקון", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1041-d798d799d7a4d794-d7aad79cd795d799d794-d796d7a8d7a7d795f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1037", name: "לוטוס שחור מנוקד", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1037-d79cd795d798d795d7a1-d7a9d797d795d7a8-d7a2d79d-d7a0d7a7d795d793d794-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1018", name: "מרקיזה משולשת", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1018-d79ed7a8d7a7d799d796d794-d790d79d-d7a9d79cd795d7a9d794-d79ed79cd791d7a0d799d79d-8d79ed79e.jpg" },
-            { id: "1068", name: "לב משובץ קטן", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1068-d79cd791-d79ed7a9d795d791d7a5-d796d799d7a8d7a7d795d7a0d799d79d-d7a7d798d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1065", name: "לאברט פפיון", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1065-d79cd791d7a8d798-d7a4d7a4d799d795d79f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1012", name: "טיפה כתר", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1012-d798d799d7a4d794-d799d7a8d795d7a7d794-d7a2d79d-d79bd7aad7a8-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1061", name: "מעויין זירקונים", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1061-d79ed7a2d795d799d799d79f-d796d799d7a8d7a7d795d7a0d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1067", name: "שמש משובצת", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1067-d7a9d79ed7a9-d7a2d79d-d796d799d7a8d7a7d795d7a0d799d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: "1062", name: "ניצנוץ טיטניום", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1062-d7a0d799d7a6d7a0d795d7a5-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: "1014", name: "לאברט מעויין עדין", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1014-d79cd791d7a8d798-d798d799d798d7a0d799d795d79d-d79ed7a2d795d799d799d79f-d7a7d798d79f.jpg" },
-            { id: "1013", name: "מרקיזה ירוקה (3 מ\"מ)", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1013-d79ed7a8d7a7d799d796d794-3d79ed79e-d7a6d791d7a2-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" }
-        ];
-
-        const container = document.getElementById('product-list');
-        const whatsappNumber = "9720537239660";
-
-        products.forEach(p => {
-            const card = document.createElement('div');
-            card.className = "product-card";
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.name}" class="product-img">
-                <h5 class="product-title">${p.name}</h5>
-                <p class="product-material">${p.mat}</p>
-                <p class="product-sku">מק"ט: ${p.id}</p>
-                <a href="https://api.whatsapp.com/send?phone=${whatsappNumber}&text=היי אבי, אשמח לברר אם קיים במלאי: ${encodeURIComponent(p.name)} (מק'ט ${p.id})" 
-                   class="btn btn-order">הזמנה</a>
-            `;
-            container.appendChild(card);
-        });
-    </script>
 </body>
 </html>
