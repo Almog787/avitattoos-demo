@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>בוטיק פירסינג | AvinTattoo Shop</title>
+    <title>Boutique | חנות התכשיטים</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #0a0a0a; --card: #161616; --gold: #d4af37; --green: #25d366; --border: #333; }
@@ -11,26 +11,26 @@
         body { font-family: 'Heebo', sans-serif; background-color: var(--bg); color: white; }
         header { padding: 3rem 1rem; text-align: center; background: #1a0b0b; border-bottom: 1px solid var(--border); }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        .filter-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
+        .filter-bar { display: flex; justify-content: center; gap: 10px; margin: 1rem 0; flex-wrap: wrap; }
         .filter-btn { background: none; border: 1px solid #444; color: #888; padding: 10px 20px; border-radius: 50px; cursor: pointer; transition: 0.3s; }
         .filter-btn.active { background: var(--gold); color: black; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        #search { width: 100%; max-width: 400px; padding: 12px 20px; border-radius: 50px; border: 1px solid var(--border); background: #222; color: white; margin-bottom: 2rem; outline: none; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
         .card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid var(--border); display: flex; flex-direction: column; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--gold); }
-        .card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; margin-bottom: 15px; cursor: zoom-in; }
+        .card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
         .btn-add { background: white; color: black; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: auto; }
-        .cart-btn { position: fixed; bottom: 30px; right: 30px; background: white; color: black; padding: 15px 25px; border-radius: 50px; font-weight: 900; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; display: none; }
-        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; }
-        #lightbox img { max-width: 90%; max-height: 85%; border-radius: 10px; }
+        .cart-btn { position: fixed; bottom: 30px; right: 30px; background: white; color: black; padding: 15px 25px; border-radius: 50px; font-weight: 900; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); cursor: pointer; display: none; border: 2px solid var(--gold); }
     </style>
 </head>
 <body>
-    <div id="lightbox" onclick="this.style.display='none'"><img id="lb-img" src=""></div>
-    <div class="cart-btn" id="cart-float" onclick="sendWhatsApp()">שלח הזמנה בוואטסאפ (<span id="count">0</span>)</div>
+    <div class="cart-btn" id="cart-float" onclick="sendWhatsApp()">סיום הזמנה בוואטסאפ (<span id="count">0</span>)</div>
     <header>
-        <a href="index.html" style="color:#888; text-decoration:none;">→ חזרה לבית</a>
-        <h1 style="font-size:3rem; font-weight:900;">BOUTIQUE</h1>
-        <div class="filter-bar" style="margin-top:20px;">
+        <a href="index.html" style="color:#aaa; text-decoration:none; font-size:0.9rem;">← חזרה לבית</a>
+        <h1 style="font-size:2.5rem; font-weight:900; margin-top:10px;">JEWELRY BOUTIQUE</h1>
+        <div class="filter-bar">
+            <input type="text" id="search" placeholder="חפש תכשיט..." onkeyup="search()">
+            <div style="width:100%"></div>
             <button class="filter-btn active" onclick="filter('all', this)">הכל</button>
             <button class="filter-btn" onclick="filter('titanium', this)">⚪ טיטניום</button>
             <button class="filter-btn" onclick="filter('gold', this)">🟡 ציפוי זהב</button>
@@ -49,10 +49,10 @@
         function render(list) {
             document.getElementById('product-grid').innerHTML = list.map(p => `
                 <div class="card">
-                    <img src="${p.img}" onclick="openImg('${p.img}')">
+                    <img src="${p.img}">
                     <h3>${p.name}</h3>
                     <p style="color:var(--gold); font-weight:900;">₪${p.price}</p>
-                    <p style="font-size:0.7rem; color:#666;">מק"ט: ${p.id}</p>
+                    <p style="font-size:0.7rem; color:#666; margin-bottom:10px;">מק"ט: ${p.id}</p>
                     <button class="btn-add" onclick="addToCart('${p.id}')">הוספה לסל +</button>
                 </div>
             `).join('');
@@ -62,16 +62,20 @@
             btn.classList.add('active');
             render(mat === 'all' ? products : products.filter(p => p.mat === mat));
         }
+        function search() {
+            const q = document.getElementById('search').value.toLowerCase();
+            render(products.filter(p => p.name.includes(q) || p.id.includes(q)));
+        }
         function addToCart(id) {
             cart.push(products.find(p => p.id === id));
             document.getElementById('count').innerText = cart.length;
             document.getElementById('cart-float').style.display = 'block';
         }
         function sendWhatsApp() {
-            let text = "היי אבי, אשמח להזמין:\n" + cart.map(i => `- ${i.name} (${i.id})`).join('\n');
+            let total = cart.reduce((sum, item) => sum + item.price, 0);
+            let text = "היי אבי, אשמח להזמין את התכשיטים הבאים:\n" + cart.map(i => `- ${i.name} (${i.id})`).join('\n') + `\n\nסה"כ: ₪${total}`;
             window.open(`https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(text)}`);
         }
-        function openImg(src) { document.getElementById('lb-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
         render(products);
     </script>
 </body>
