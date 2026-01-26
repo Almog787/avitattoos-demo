@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AvinTattoo | סטודיו בוטיק</title>
+    <title>AvinTattoo | סטודיו בוטיק לקעקועים ופירסינג</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #0a0a0a; --gold: #d4af37; --red: #a12626; --green: #25d366; --text: #ffffff; --border: rgba(255,255,255,0.1); }
@@ -12,40 +12,51 @@
         header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 15px 0; }
         .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .hero { position: relative; height: 85vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
-        .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; opacity: 0.8; }
+        .hero video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; opacity: 0.7; }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent, var(--bg)); }
         .hero-content { z-index: 10; text-align: center; }
-        .btn { padding: 14px 35px; border-radius: 50px; font-weight: bold; text-decoration: none; display: inline-block; cursor: pointer; transition: 0.4s; border: none; }
+        .btn { padding: 14px 35px; border-radius: 50px; font-weight: bold; text-decoration: none; display: inline-block; transition: 0.4s; border: none; cursor: pointer; }
         .btn-gold { background: var(--gold); color: black; }
         .btn-outline { border: 2px solid #fff; color: #fff; background: transparent; }
         .container { max-width: 1100px; margin: 0 auto; padding: 5rem 20px; text-align: center; }
+        .quick-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 3rem 0; }
         .form-card { background: #161616; padding: 2.5rem; border-radius: 30px; border: 1px solid var(--border); max-width: 600px; margin: 0 auto; text-align: right; }
         input, textarea { width: 100%; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid #333; border-radius: 12px; color: white; margin-bottom: 15px; outline: none; font-family: inherit; }
+        .whatsapp-float { position: fixed; bottom: 25px; left: 25px; width: 65px; height: 65px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
-    <header><div class="nav-inner"><div style="font-weight:900; font-size:1.5rem;">AVIN TATTOO</div><a href="shop.html" class="btn btn-gold" style="padding:8px 20px; font-size:0.8rem;">חנות</a></div></header>
+    <header><div class="nav-inner"><div style="font-weight:900; font-size:1.5rem;">AVIN TATTOO</div>
+        <div style="display:flex; gap:15px;"><a href="shop.html" style="color:var(--gold); font-weight:bold; text-decoration:none;">SHOP</a><a href="experience.html" style="color:white; text-decoration:none;">גלריות</a></div>
+    </div></header>
+    
     <div class="hero">
         <video autoplay muted loop playsinline><source src="hero-new.mp4" type="video/mp4"></video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 style="font-size: clamp(3rem, 10vw, 5rem); font-weight:900;">AVIN TATTOO</h1>
-            <div style="margin-top:30px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-                <a href="#contact" class="btn btn-gold">תיאום ייעוץ</a>
-                <a href="full-site.html" class="btn btn-outline">גלריות ומידע</a>
+            <h1 style="font-size: clamp(3rem, 10vw, 5rem); font-weight:900; line-height:0.9;">AVIN<br>TATTOO</h1>
+            <p style="color:var(--gold); letter-spacing:3px; margin-top:10px;">ART & PIERCING STUDIO</p>
+            <div style="margin-top:30px; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
+                <a href="shop.html" class="btn btn-gold">לחנות התכשיטים</a>
+                <a href="experience.html" class="btn btn-outline">גלריות ומידע</a>
             </div>
         </div>
     </div>
+
     <main class="container">
+        <h2 style="font-size:2.5rem; margin-bottom:2rem;">בואו נדבר תכל'ס</h2>
         <div id="contact" class="form-card">
-            <h2 style="color:var(--gold); margin-bottom:15px; text-align:center;">בואו נדבר תכל'ס</h2>
+            <p style="text-align:center; margin-bottom:20px; color:#aaa;">השאירו פרטים ונחזור אליכם לשיחת ייעוץ ללא עלות</p>
             <form action="https://formspree.io/f/YOUR_ID" method="POST">
                 <input type="text" name="name" placeholder="שם מלא" required>
-                <input type="tel" name="phone" placeholder="טלפון" required>
-                <textarea name="msg" placeholder="מה הרעיון שלך?" rows="4"></textarea>
+                <input type="tel" name="phone" placeholder="טלפון לחזרה" required>
+                <textarea name="msg" placeholder="מה הרעיון שלך לקעקוע / פירסינג?" rows="4"></textarea>
                 <button type="submit" class="btn" style="background:var(--red); color:white; width:100%;">שלח בקשה לייעוץ</button>
             </form>
         </div>
     </main>
+
+    <iframe style="width:100%; height:400px; border:none; filter:grayscale(1) invert(0.9);" src="https://maps.google.com/maps?q=הירדן%202%20אריאל&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+    <a href="https://api.whatsapp.com/send?phone=9720537239660" class="whatsapp-float"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35"></a>
 </body>
 </html>
