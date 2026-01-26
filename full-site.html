@@ -3,193 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AvinTattoo | האתר המלא - גלריות ומידע מקצועי</title>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>מידע וגלריות | AvinTattoo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-dark: #2d0b0b;
-            --bg-black: #1a0606;
-            --accent-gold: #d4af37;
-            --accent-red: #a12626;
-            --text-white: #ffffff;
-            --border-muted: rgba(255, 255, 255, 0.1);
-        }
-
+        :root { --bg: #0a0a0a; --gold: #d4af37; --card: #161616; --border: rgba(255,255,255,0.1); }
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { font-family: 'Heebo', sans-serif; background-color: var(--bg-dark); color: var(--text-white); line-height: 1.6; }
-
-        /* --- Header --- */
-        header { 
-            background: rgba(26, 6, 6, 0.95); backdrop-filter: blur(10px); 
-            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-muted); padding: 15px 0; 
-        }
-        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .logo { font-weight: 900; font-size: 1.5rem; color: white; text-decoration: none; }
-        .nav-links a { margin-right: 20px; font-weight: bold; text-decoration: none; color: var(--text-white); transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent-gold); }
-
-        /* --- Hero Content --- */
-        .page-header { text-align: center; padding: 5rem 1rem; background: linear-gradient(to bottom, var(--bg-black), var(--bg-dark)); }
-        .page-header h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; margin-bottom: 15px; }
-        .page-header p { font-size: 1.2rem; color: var(--accent-gold); max-width: 700px; margin: 0 auto; }
-
-        /* --- Gallery Section --- */
-        .section { padding: 5rem 1.5rem; max-width: 1300px; margin: 0 auto; }
-        .section-title { font-size: 2.5rem; font-weight: 900; margin-bottom: 2rem; border-right: 6px solid var(--accent-gold); padding-right: 20px; display: inline-block; }
-        
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .gallery-item { border-radius: 15px; overflow: hidden; aspect-ratio: 1; border: 1px solid var(--border-muted); cursor: zoom-in; position: relative; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-item::after { content: '🔎 צפייה'; position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; font-weight: bold; }
-        .gallery-item:hover::after { opacity: 1; }
-
-        /* --- Information Cards (Faithful to WP Blocks) --- */
-        .info-container { background-color: var(--bg-black); padding: 5rem 0; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
-        .info-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border-muted); padding: 2.5rem; border-radius: 25px; transition: 0.3s; }
-        .info-card:hover { border-color: var(--accent-gold); background: rgba(255,255,255,0.05); }
-        .info-card h3 { font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 1.5rem; font-weight: 800; }
-        .info-card p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 15px; }
-        .info-card ul { list-style: none; margin-top: 15px; }
-        .info-card li { margin-bottom: 10px; padding-right: 25px; position: relative; }
-        .info-card li::before { content: '✦'; position: absolute; right: 0; color: var(--accent-gold); }
-
-        /* --- Lightbox --- */
-        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; padding: 20px; cursor: pointer; }
-        #lightbox img { max-width: 95%; max-height: 90vh; border-radius: 10px; border: 2px solid var(--border-muted); }
-
-        /* --- Footer --- */
-        .footer-cta { text-align: center; padding: 6rem 1rem; background-color: var(--bg-dark); }
-        .btn { text-decoration: none; padding: 18px 45px; border-radius: 100px; font-weight: bold; display: inline-block; transition: 0.3s; font-size: 1.2rem; }
-        .btn-gold { background: var(--accent-gold); color: black; }
-        .btn-gold:hover { transform: scale(1.05); background: white; }
-
-        @media (max-width: 768px) {
-            .section-title { font-size: 2rem; }
-            .info-grid { grid-template-columns: 1fr; }
-        }
+        body { font-family: 'Heebo', sans-serif; background-color: var(--bg); color: white; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 20px; }
+        h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 2rem; border-right: 5px solid var(--gold); padding-right: 15px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-bottom: 4rem; }
+        .gallery-item { border-radius: 15px; overflow: hidden; aspect-ratio: 1; border: 1px solid var(--border); cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .info-card { background: var(--card); padding: 2rem; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 20px; }
+        .info-card h3 { color: var(--gold); margin-bottom: 10px; }
+        #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; }
+        #lightbox img { max-width: 90%; max-height: 90vh; border-radius: 10px; }
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="nav-inner">
-            <a href="index.html" class="logo">AVIN TATTOO</a>
-            <nav class="nav-links">
-                <a href="index.html">בית</a>
-                <a href="shop.html">חנות</a>
-            </nav>
-        </div>
-    </header>
-
     <div id="lightbox" onclick="this.style.display='none'"><img id="lb-img" src=""></div>
-
-    <main>
-        <!-- Page Header -->
-        <section class="page-header">
-            <h1>האתר המלא</h1>
-            <p>ריכוז עבודות, הנחיות מקצועיות ומידע על תהליך היצירה בסטודיו</p>
-        </section>
-
-        <!-- Tattoos Gallery -->
-        <section id="tattoos-gallery" class="section">
-            <h2 class="section-title">גלריית קעקועים</h2>
+    <div class="container">
+        <a href="index.html" style="color:var(--gold); text-decoration:none; font-weight:bold;">← חזרה לדף הבית</a>
+        
+        <section id="tattoos" style="margin-top:2rem;">
+            <h2>גלריית קעקועים</h2>
             <div class="gallery-grid">
-                <!-- תמונות מתוך השרת שלך -->
                 <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1070-d7a6d795d7a8d794-d792d790d795d79ed798d7a8d799-d7a2d79d-d796d799d7a8d7a7d795d7a0d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg"></div>
                 <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1071-d7a4d7a8d797-d791d7a8d7a7d799d796d795d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg"></div>
-                <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1033-d7a2d7a0d7a3-d7a2d79d-d7a9d799d791d795d7a5-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg"></div>
-                <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1066-d797d7a8d791-d7a7d798d7a0d794-5d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg"></div>
             </div>
         </section>
 
-        <!-- Information Area -->
-        <div class="info-container">
-            <section class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-                <h2 class="section-title">מידע מקצועי והנחיות</h2>
-                <div class="info-grid">
-                    
-                    <!-- Tattoo Info Card -->
-                    <div class="info-card">
-                        <h3>מידע קעקועים</h3>
-                        <p>קעקוע הוא החלטה לכל החיים, ולכן חשוב לנו שתגיעו מוכנים. התהליך אצלנו כולל:</p>
-                        <ul>
-                            <li>שיחת ייעוץ לבניית קונספט אישי.</li>
-                            <li>עיצוב סקיצה מקורית המותאמת למבנה הגוף.</li>
-                            <li>שימוש בדיו טבעוני (Vegan Friendly) ובסטנדרטים הגבוהים ביותר.</li>
-                            <li>הנחיות החלמה קפדניות לשמירה על חדות הקעקוע.</li>
-                        </ul>
-                    </div>
+        <section id="info">
+            <h2>מידע מקצועי</h2>
+            <div class="info-card">
+                <h3>היגיינה וסטריליזציה</h3>
+                <p>הסטודיו פועל תחת תקני משרד הבריאות המחמירים ביותר. כל המחטים חד-פעמיות והציוד עובר חיטוי באוטוקלאב.</p>
+            </div>
+            <div class="info-card">
+                <h3>הנחיות טיפול</h3>
+                <p>החלמה נכונה היא המפתח לקעקוע מושלם. יש להשתמש במשחה ייעודית ולהימנע מחשיפה לשמש ובריכות בשבועיים הראשונים.</p>
+            </div>
+        </section>
 
-                    <!-- Piercing Info Card -->
-                    <div class="info-card">
-                        <h3>מידע פירסינג</h3>
-                        <p>אנחנו מתמחים בפירסינג רפואי וסטרילי. כל הליך מבוצע מתוך דגש על בטיחות מקסימלית:</p>
-                        <ul>
-                            <li>ניקוב באמצעות מחט סטרילית חד-פעמית בלבד.</li>
-                            <li>תכשיטי טיטניום (ASTM F-136) המונעים גירויים ואלרגיות.</li>
-                            <li>ייעוץ להתאמת אנטומיה (Curated Ear).</li>
-                            <li>טיפול לאחר ניקוב עם חומרים ייעודיים לזירוז החלמה.</li>
-                        </ul>
-                    </div>
-
-                    <!-- Health & Safety -->
-                    <div class="info-card" style="grid-column: 1 / -1;">
-                        <h3>בואו נדבר תכל'ס - סטריליזציה</h3>
-                        <p>בסטודיו AVIN TATTOO אנחנו לא מתפשרים על הבריאות שלך. הסטודיו פועל ברישיון ומבצע חיטוי מלא במכשיר אוטוקלאב (Autoclave) לכל הציוד הרב-פעמי, בעוד שכל המחטים הן חד-פעמיות ונפתחות מול עיני הלקוח.</p>
-                        <p><strong>הביטחון שלך הוא השקט שלנו.</strong></p>
-                    </div>
-
-                </div>
-            </section>
-        </div>
-
-        <!-- Piercings Gallery -->
-        <section id="piercings-gallery" class="section">
-            <h2 class="section-title">גלריית פירסינג</h2>
+        <section id="piercings">
+            <h2>גלריית פירסינג</h2>
             <div class="gallery-grid">
                 <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg"></div>
-                <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1021-d79cd795d798d795d7a1-d7a7d798d79f-d7a9d797d795d7a8-d798d799d798d7a0d799d795d79d.jpg"></div>
-                <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1012-d798d799d7a4d794-d799d7a8d795d7a7-d7a2d79d-d79bd7aad7a8-d7a6d799d7a4d795d799-d796d794d791.jpg"></div>
-                <div class="gallery-item" onclick="openImg(this)"><img src="https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1065-d79cd791d7a8d798-d7a4d7a4d799d795f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg"></div>
             </div>
         </section>
-
-        <!-- Final CTA -->
-        <section class="footer-cta">
-            <div class="container">
-                <h2 style="border: none;">מוכנים לקעקוע הבא?</h2>
-                <p style="margin-bottom: 30px;">הצטרפו למאות לקוחות מרוצים שכבר עשו את האמנות שלהם אצלנו.</p>
-                <a href="https://api.whatsapp.com/send?phone=9720537239660&text=היי אבי, הגעתי מהאתר המלא, אשמח לקבוע ייעוץ" class="btn btn-gold">תיאום תור בוואטסאפ</a>
-            </div>
-        </section>
-    </main>
-
+    </div>
     <script>
-        // Lightbox Logic
-        function openImg(el) {
-            const src = el.querySelector('img').src;
-            document.getElementById('lb-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
-
-        // Simple Fade-in animation on scroll
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.info-card, .gallery-item').forEach(el => {
-            el.style.opacity = "0";
-            el.style.transform = "translateY(20px)";
-            el.style.transition = "0.6s ease-out";
-            observer.observe(el);
-        });
+        function openImg(el) { document.getElementById('lb-img').src = el.querySelector('img').src; document.getElementById('lightbox').style.display = 'flex'; }
     </script>
 </body>
 </html>
