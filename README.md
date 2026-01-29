@@ -1,1 +1,1 @@
-https://almog787.github.io/fun-zone/#contact
+https://almog787.github.io/avitattoos-demo/
