@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* --- משתנים ועיצוב גלובלי (Dark Luxury Theme) --- */
+        /* --- משתנים ועיצוב גלובלי --- */
         :root {
             --bg-body: #050505;
             --bg-section: #0a0a0a;
@@ -19,7 +19,7 @@
             --whatsapp-green: #25d366;
             --border-color: #2a2a2a;
             --font-main: 'Heebo', sans-serif;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --transition: all 0.3s ease;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -34,12 +34,13 @@
         a { text-decoration: none; color: inherit; transition: var(--transition); }
         ul { list-style: none; }
         img { display: block; max-width: 100%; }
+        button { font-family: var(--font-main); }
 
         /* --- Header Sticky --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background: rgba(5, 5, 5, 0.8);
+            background: rgba(5, 5, 5, 0.9);
             padding: 1rem 5%;
             z-index: 1000;
             display: flex;
@@ -49,190 +50,138 @@
             backdrop-filter: blur(10px);
         }
 
-        .brand {
-            font-size: 1.5rem;
-            font-weight: 900;
-            letter-spacing: 1px;
-            color: #fff;
-            text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        
+        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: #fff; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         .brand span { color: var(--gold); }
 
         nav ul { display: flex; gap: 25px; }
-        nav a { font-weight: 400; font-size: 0.9rem; color: var(--text-main); text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        nav a { font-weight: 400; font-size: 0.9rem; color: var(--text-main); }
         nav a:hover { color: var(--gold); }
 
         /* --- Hero Video Section --- */
         .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            text-align: center;
-            padding: 0 20px;
+            position: relative; height: 100vh; display: flex; align-items: center; justify-content: center;
+            overflow: hidden; text-align: center; padding: 0 20px;
         }
-
-        .video-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -2;
-            opacity: 1;
-        }
-
-        .hero-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: none;
-            z-index: -1;
-        }
-
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            letter-spacing: -2px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
-        }
-
-        .hero-content h1 span { 
-            color: var(--gold); 
-            display: block; 
-            font-size: 1.5rem; 
-            font-weight: 300; 
-            letter-spacing: 5px; 
-            margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            color: #fff;
-            font-weight: 500;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9);
-        }
+        .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 1; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: none; z-index: -1; }
+        
+        .hero-content h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        .hero-content h1 span { color: var(--gold); display: block; font-size: 1.5rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 10px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
+        .hero-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; color: #fff; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
 
         .cta-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-
-        .btn {
-            padding: 12px 30px;
-            border: 1px solid var(--text-main);
-            border-radius: 50px;
-            font-weight: 600;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
+        .btn { padding: 12px 30px; border: 1px solid var(--text-main); border-radius: 50px; font-weight: 600; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); cursor: pointer; }
         .btn:hover { background: var(--text-main); color: #000; }
         .btn.primary { background: var(--gold); border-color: var(--gold); color: #000; }
         .btn.primary:hover { background: #b5952f; box-shadow: 0 0 20px var(--gold-glow); }
 
-        /* --- Section Titles --- */
+        /* --- Section Styling --- */
+        .section { padding: 5rem 5%; background: var(--bg-section); }
         .section-title { text-align: center; margin-bottom: 3rem; }
         .section-title h2 { font-size: 2.5rem; font-weight: 700; color: var(--text-main); }
         .section-title p { color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px; }
 
-        /* --- Portfolio Gallery --- */
-        .section { padding: 5rem 5%; background: var(--bg-section); }
+        /* --- Gallery (Grid) --- */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
-
-        .gallery-item {
-            position: relative; overflow: hidden; border-radius: 8px; cursor: pointer; aspect-ratio: 1 / 1;
+        
+        .gallery-item, .product-img-wrapper {
+            position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in; aspect-ratio: 1 / 1;
         }
-
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-item:hover img { transform: scale(1.1); }
-        .gallery-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: 0.3s;
+        
+        .gallery-item img, .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .gallery-item:hover img, .product-card:hover .product-img-wrapper img { transform: scale(1.1); }
+        
+        .overlay-icon {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s;
             display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff;
         }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-item:hover .overlay-icon, .product-img-wrapper:hover .overlay-icon { opacity: 1; }
 
-        /* --- Shop Section --- */
+        /* --- Shop Styling --- */
         .shop-section { background: var(--bg-body); }
         .shop-filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
-
-        .filter-btn {
-            background: transparent; border: 1px solid #333; color: #888;
-            padding: 8px 20px; border-radius: 30px; cursor: pointer; transition: 0.3s;
-        }
+        .filter-btn { background: transparent; border: 1px solid #333; color: #888; padding: 8px 20px; border-radius: 30px; cursor: pointer; transition: 0.3s; }
         .filter-btn.active, .filter-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-        .product-card {
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px;
-            overflow: hidden; transition: var(--transition); display: flex; flex-direction: column;
-        }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); border-color: #444; }
-
-        .product-img-wrapper { 
-            position: relative; 
-            aspect-ratio: 1; 
-            background: #fff; 
-            cursor: zoom-in; /* סמן זכוכית מגדלת */
-            overflow: hidden;
-        }
-        .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .product-card:hover .product-img-wrapper img { transform: scale(1.1); }
-
-        /* אייקון זכוכית מגדלת למוצרים */
-        .product-overlay {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff;
-        }
-        .product-img-wrapper:hover .product-overlay { opacity: 1; }
-
+        .product-img-wrapper { background: #fff; } /* White bg for products */
         .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         
-        .btn-buy {
+        .btn-add-cart {
             display: block; width: 100%; padding: 10px; margin-top: 10px;
-            background: transparent; border: 1px solid var(--whatsapp-green);
-            color: var(--whatsapp-green); border-radius: 5px; font-weight: 500;
+            background: transparent; border: 1px solid var(--text-main); color: var(--text-main);
+            border-radius: 5px; font-weight: 500; cursor: pointer; transition: 0.2s;
         }
-        .btn-buy:hover { background: var(--whatsapp-green); color: #fff; }
+        .btn-add-cart:hover { background: var(--text-main); color: #000; }
+        .btn-add-cart:active { transform: scale(0.95); }
 
-        /* --- Testimonials & FAQ --- */
-        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .testimonial-card {
-            background: var(--bg-card); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); position: relative;
+        /* --- Cart System --- */
+        .cart-float-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--gold); color: #000; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); cursor: pointer; z-index: 1500;
+            transition: transform 0.3s;
         }
-        .testimonial-card::before {
-            content: '"'; position: absolute; top: 10px; right: 20px; font-size: 4rem; color: var(--gold); opacity: 0.2; font-family: serif;
+        .cart-float-btn:hover { transform: scale(1.1); }
+        .cart-badge {
+            position: absolute; top: -5px; right: -5px; background: red; color: white;
+            font-size: 0.8rem; font-weight: bold; width: 24px; height: 24px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
         }
-        .quote { font-style: italic; color: #ccc; margin-bottom: 1rem; }
-        .author { font-weight: 700; color: var(--gold); font-size: 0.9rem; }
 
-        .faq-container { max-width: 800px; margin: 0 auto; }
-        details { background: var(--bg-card); margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
-        summary { padding: 15px 20px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; }
-        summary::after { content: '+'; color: var(--gold); font-size: 1.5rem; }
-        details[open] summary::after { content: '-'; }
-        details p { padding: 0 20px 20px; color: #aaa; font-size: 0.95rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; padding-top: 10px; }
+        .cart-modal {
+            position: fixed; top: 0; right: -400px; width: 350px; height: 100%;
+            background: #1a1a1a; z-index: 2000; padding: 20px;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.5); transition: right 0.4s ease;
+            display: flex; flex-direction: column;
+        }
+        .cart-modal.open { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .cart-header h3 { font-size: 1.5rem; color: var(--gold); }
+        .close-cart { font-size: 1.5rem; cursor: pointer; color: #fff; }
+        
+        .cart-items { flex-grow: 1; overflow-y: auto; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; background: #222; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 3px; }
+        .cart-item-info p { font-size: 0.8rem; color: #888; }
+        .remove-item { color: #ff4444; cursor: pointer; font-size: 1.2rem; padding: 5px; }
 
-        /* --- Footer --- */
+        .cart-footer { padding-top: 20px; border-top: 1px solid #333; }
+        .btn-checkout {
+            width: 100%; padding: 15px; background: var(--whatsapp-green); color: white;
+            border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-checkout:hover { background: #1ebc57; }
+
+        /* Overlay for cart */
+        .cart-overlay-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 1900; display: none;
+        }
+        .cart-overlay-bg.show { display: block; }
+
+        /* --- Footer & Lightbox --- */
         footer { background: #000; padding: 4rem 5%; text-align: center; border-top: 1px solid #222; }
         .footer-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
         .footer-item { color: #888; font-size: 0.9rem; }
-        .footer-item span { color: var(--text-main); display: block; font-weight: 700; margin-bottom: 5px; }
-
-        @media (max-width: 768px) {
-            nav ul { display: none; }
-            .gallery-grid, .grid { grid-template-columns: 1fr 1fr; }
-        }
         
-        /* Lightbox */
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 2000;
+            background: rgba(0,0,0,0.95); z-index: 3000;
             display: none; justify-content: center; align-items: center;
         }
         #lightbox img { max-height: 90vh; max-width: 90vw; border: 2px solid var(--gold); }
         #lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; cursor: pointer; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .cart-modal { width: 100%; right: -100%; }
+        }
     </style>
 </head>
 <body>
@@ -243,13 +192,13 @@
             <ul>
                 <li><a href="#studio">הסטודיו</a></li>
                 <li><a href="#portfolio">תיק עבודות</a></li>
-                <li><a href="#shop">חנות תכשיטים</a></li>
+                <li><a href="#shop">חנות</a></li>
                 <li><a href="#contact">צור קשר</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero" id="studio">
         <video class="video-bg" autoplay muted loop playsinline>
             <source src="https://github.com/Almog787/fun-zone/raw/refs/heads/main/dimond.mp4" type="video/mp4">
@@ -257,7 +206,7 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1><span>AVI TATTOOS</span>אמנות על הגוף<br>בסטנדרט אחר</h1>
-            <p>הסטודיו המוביל באריאל והשומרון. עיצובים בהתאמה אישית, קאברים וליווי אישי באווירה סטרילית ויוקרתית.</p>
+            <p>הסטודיו המוביל באריאל והשומרון. עיצובים בהתאמה אישית באווירה סטרילית ויוקרתית.</p>
             <div class="cta-group">
                 <a href="#portfolio" class="btn primary">לגלריית הקעקועים</a>
                 <a href="#shop" class="btn">לחנות הפירסינג</a>
@@ -265,7 +214,7 @@
         </div>
     </section>
 
-    <!-- Tattoo Portfolio Section -->
+    <!-- Portfolio -->
     <section class="section" id="portfolio">
         <div class="section-title">
             <p>Selected Works</p>
@@ -274,118 +223,92 @@
         <div class="gallery-grid" id="tattoo-grid"></div>
     </section>
 
-    <!-- Shop Section -->
+    <!-- Shop -->
     <section class="section shop-section" id="shop">
         <div class="section-title">
             <p>Online Boutique</p>
             <h2>חנות תכשיטים ופירסינג</h2>
         </div>
-        
         <div class="shop-filters">
             <button class="filter-btn active" onclick="filterShop('all')">הכל</button>
             <button class="filter-btn" onclick="filterShop('titanium')">טיטניום</button>
             <button class="filter-btn" onclick="filterShop('gold')">ציפוי זהב</button>
         </div>
-
         <div class="gallery-grid" id="product-grid"></div>
     </section>
 
     <!-- Testimonials -->
     <section class="section" style="background: #0e0e0e;">
-        <div class="section-title">
-            <h2>מה אומרים הלקוחות?</h2>
-        </div>
+        <div class="section-title"><h2>מה אומרים הלקוחות?</h2></div>
         <div class="testimonials-grid">
             <div class="testimonial-card">
-                <p class="quote">"אבי אמן בחסד עליון! מקצועי, סבלני והתוצאה יצאה אפילו יותר טובה ממה שדמיינתי. אין ספק שאחזור לקעקוע הבא."</p>
+                <p class="quote">"אבי אמן בחסד עליון! מקצועי, סבלני והתוצאה יצאה מושלמת."</p>
                 <p class="author">— יוסי כהן</p>
             </div>
             <div class="testimonial-card">
-                <p class="quote">"הגעתי לפגישת ייעוץ וישר הרגשתי בבית. הסטודיו נקי ומצוחצח, והיחס של אבי אישי וחם. ממליצה בחום."</p>
+                <p class="quote">"הסטודיו נקי ומצוחצח, והיחס של אבי אישי וחם. ממליצה בחום."</p>
                 <p class="author">— שירה לוי</p>
             </div>
-            <div class="testimonial-card">
-                <p class="quote">"עשיתי אצל אבי קאבר על קעקוע ישן שלא אהבתי, והוא עשה עבודה מדהימה. הצליח להפוך טעות ליצירת אמנות."</p>
-                <p class="author">— דניאל מזרחי</p>
-            </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section class="section">
-        <div class="section-title">
-            <h2>שאלות נפוצות</h2>
-        </div>
-        <div class="faq-container">
-            <details>
-                <summary>כמה עולה קעקוע?</summary>
-                <p>מחיר קעקוע נקבע לפי גודל, מורכבות, כמות פרטים ומיקום בגוף. לא ניתן לתת הצעת מחיר מדויקת ללא פרטים. שלחו הודעה בוואטסאפ לקבלת הערכה.</p>
-            </details>
-            <details>
-                <summary>האם זה כואב?</summary>
-                <p>רמת הכאב אינדיבידואלית. אני תמיד דואג לעבוד בסביבה רגועה ועושה הפסקות לפי הצורך להבטחת נוחות מקסימלית.</p>
-            </details>
-            <details>
-                <summary>איך מטפלים בקעקוע חדש?</summary>
-                <p>בסיום התהליך תקבלו הנחיות מדויקות: שטיפה במים פושרים וסבון, מריחת משחה ייעודית והימנעות משמש וים בשבועיים הראשונים.</p>
-            </details>
-        </div>
-    </section>
-
-    <!-- Contact & Footer -->
+    <!-- Footer -->
     <footer id="contact">
-        <div class="section-title">
-            <h2>בואו נדבר</h2>
-            <p style="color: #666;">תיאום פגישת ייעוץ וסקיצה ללא עלות</p>
-        </div>
-
+        <div class="section-title"><h2>בואו נדבר</h2><p style="color: #666;">תיאום פגישת ייעוץ ללא עלות</p></div>
         <div class="footer-info">
-            <div class="footer-item">
-                <span>📍 כתובת</span>
-                הירדן 2, אריאל
-            </div>
-            <div class="footer-item">
-                <span>🕒 שעות פעילות</span>
-                א'-ה': 13:30 - 20:00 (בתיאום)
-            </div>
-            <div class="footer-item">
-                <span>📞 טלפון</span>
-                053-723-9660
-            </div>
+            <div class="footer-item"><span>📍 כתובת</span>הירדן 2, אריאל</div>
+            <div class="footer-item"><span>📞 טלפון</span>053-723-9660</div>
         </div>
-
-        <a href="https://wa.me/9720537239660" class="btn primary" style="display:inline-block;">הודעה לווטסאפ של אבי</a>
-        <br><br>
-        <p style="color: #444; font-size: 0.8rem;">© 2026 AVI TATTOOS | כל הזכויות שמורות</p>
+        <a href="https://wa.me/9720537239660" class="btn primary">הודעה לווטסאפ של אבי</a>
+        <br><br><p style="color:#444; font-size:0.8rem;">© 2026 AVI TATTOOS</p>
     </footer>
 
-    <!-- Lightbox Element -->
+    <!-- Cart UI Elements -->
+    <div class="cart-float-btn" onclick="toggleCart()">
+        🛒
+        <div class="cart-badge" id="cart-count">0</div>
+    </div>
+
+    <div class="cart-overlay-bg" id="cart-overlay" onclick="toggleCart()"></div>
+    
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>העגלה שלי</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- פריטים יתווספו לכאן -->
+            <p style="text-align:center; color:#666; margin-top:20px;">העגלה ריקה</p>
+        </div>
+        <div class="cart-footer">
+            <button class="btn-checkout" onclick="checkout()">
+                <span>שליחת הזמנה לוואטסאפ</span>
+                <span>📱</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
     <div id="lightbox">
         <div id="lightbox-close">&times;</div>
         <img id="lightbox-img" src="" alt="Zoom">
     </div>
 
     <script>
-        // --- נתוני הקעקועים מהאתר ---
+        // --- Data ---
+        let cart = []; // מערך העגלה
+
         const tattoos = [
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797d799d79d-d7a2d79c-d794d799d793--1.jpg?w=476",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d7a4d7a8d799d79d-d7a2d79c-d794d799d793-1.jpg?w=576",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d790d7a8d799d794-d7a2d79c-d794d7a8d792d79c-.jpg?w=765",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d794d791d7a8d799d790d794-.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a2d79c-d794d799d793-d79bd7a3-d7a8d792d79c-d795d7a9d79ed795d7aa-d799d79cd793d799d79d-1.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a8d790d7a9-d791d795d79cd793d795d792-d7a2d79c-d794d7a8d792d79c-1.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797d799d79d-d7a2d79c-d794d7a8d792d79c-.jpg?w=765",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/harley-davidson-tattoo-avintattoo.jpg?w=1024",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a2d79d-d799d7a9d7a8d790d79c-d797d799-d7a2d79c-d794d799d793-1.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d796d790d791d799d79d-1.jpg?w=481",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d79bd7aad7a8-d7a2d79c-d794d7a6d795d795d790d7a8-.jpg?w=765",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d791d7a8d7a7d799d79d-d7a2d79c-d794d7a6d795d795d790d7a8-.jpg?w=528",
+            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d794d791d7a8d799d790d794-.jpg?w=768",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d7a7d7a2d7a7d795d7a2-d79bd799d7aad795d791-d7a2d79c-d794d799d793-e1765019012346.jpg?w=750",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797-d7a2d79c-d794d799d793.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797-d795d79bd799d7aad795d791-d7a2d79c-d794d799d793-1.jpg?w=768"
+            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d79bd7aad7a8-d7a2d79c-d794d7a6d795d795d790d7a8-.jpg?w=765",
+            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a2d79d-d799d7a9d7a8d790d79c-d797d799-d7a2d79c-d794d799d793-1.jpg?w=768"
         ];
 
-        // --- המאגר המלא של כל 40+ המוצרים ---
         const products = [
             { id: 1052, name: "לוטוס אבן עם שרשרת", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
             { id: 1023, name: "לאברט זירקון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795d79f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg?w=1024" },
@@ -430,53 +353,134 @@
             { id: 1013, name: "מרקיזה ירוקה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1013-d79ed7a8d7a7d799d796d794-3d79ed79e-d7a6d791d7a2-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" }
         ];
 
-        // --- פונקציות ---
+        // --- Core Functions ---
 
-        // רינדור גלריית קעקועים
+        // Render Tattoos with Magnifying Glass Icon
         const tattooGrid = document.getElementById('tattoo-grid');
         tattoos.forEach(src => {
             const div = document.createElement('div');
             div.className = 'gallery-item';
             div.innerHTML = `
                 <img src="${src}" alt="Tattoo work" loading="lazy">
-                <div class="gallery-overlay">+</div>
+                <div class="overlay-icon">🔍</div>
             `;
             div.addEventListener('click', () => openLightbox(src));
             tattooGrid.appendChild(div);
         });
 
-        // רינדור חנות
+        // Render Shop Products
         const shopGrid = document.getElementById('product-grid');
         function renderShop(filter = 'all') {
             shopGrid.innerHTML = '';
             const filtered = products.filter(p => filter === 'all' || p.type === filter);
             
             filtered.forEach(p => {
-                const link = `https://api.whatsapp.com/send?phone=9720537239660&text=היי אבי, אשמח לברר אם קיים במלאי: ${p.name} (מק'ט ${p.id})`;
+                // Escaping strings for onclick
+                const pString = JSON.stringify(p).replace(/"/g, '&quot;');
                 shopGrid.innerHTML += `
                     <div class="product-card">
                         <div class="product-img-wrapper" onclick="openLightbox('${p.img}')">
                             <img src="${p.img}" alt="${p.name}" loading="lazy">
-                            <div class="product-overlay">🔍</div>
+                            <div class="overlay-icon">🔍</div>
                         </div>
                         <div class="product-info">
-                            <h3 style="font-size:1rem;">${p.name}</h3>
-                            <p style="color:#888; font-size:0.8rem;">${p.mat} | מק"ט: ${p.id}</p>
-                            <a href="${link}" target="_blank" class="btn-buy">🛒 הזמנה</a>
+                            <div>
+                                <h3 style="font-size:1rem;">${p.name}</h3>
+                                <p style="color:#888; font-size:0.8rem;">${p.mat} | מק"ט: ${p.id}</p>
+                            </div>
+                            <button class="btn-add-cart" onclick="addToCart(${pString})">
+                                הוספה לעגלה 🛒
+                            </button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // סינון חנות
         function filterShop(type) {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
             renderShop(type);
         }
 
-        // לייטבוקס (Lightbox) להגדלת תמונות
+        // --- Cart Logic ---
+        function addToCart(item) {
+            cart.push(item);
+            updateCartUI();
+            
+            // Visual Feedback
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "נוסף! ✅";
+            btn.style.background = "#25d366";
+            btn.style.color = "white";
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = "";
+                btn.style.color = "";
+            }, 1000);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Update Badge
+            document.getElementById('cart-count').innerText = cart.length;
+
+            // Render Cart Items
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">העגלה ריקה</p>';
+                return;
+            }
+
+            let html = '';
+            cart.forEach((item, index) => {
+                html += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.mat} | מק"ט: ${item.id}</p>
+                        </div>
+                        <div class="remove-item" onclick="removeFromCart(${index})">🗑️</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            const overlay = document.getElementById('cart-overlay');
+            if (modal.classList.contains('open')) {
+                modal.classList.remove('open');
+                overlay.classList.remove('show');
+            } else {
+                modal.classList.add('open');
+                overlay.classList.add('show');
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert("העגלה ריקה");
+                return;
+            }
+
+            let message = "היי אבי, אשמח להזמין את הפריטים הבאים מהאתר:\n\n";
+            cart.forEach((item, i) => {
+                message += `${i+1}. ${item.name} (מק"ט: ${item.id}) - ${item.mat}\n`;
+            });
+            message += "\nאשמח לפרטים על תשלום ומשלוח/איסוף. תודה!";
+
+            const url = `https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // --- Lightbox ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         
@@ -493,7 +497,7 @@
             if(e.target === lightbox) lightbox.style.display = 'none';
         });
 
-        // טעינה ראשונית
+        // Initialize
         renderShop();
 
     </script>
