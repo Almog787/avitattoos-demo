@@ -39,7 +39,7 @@
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background: rgba(5, 5, 5, 0.8); /* קצת יותר שקוף כדי להשתלב */
+            background: rgba(5, 5, 5, 0.8);
             padding: 1rem 5%;
             z-index: 1000;
             display: flex;
@@ -80,13 +80,11 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
             z-index: -2;
-            /* שינוי: החזרתי ל-1 כדי שהצבעים יהיו מקוריים */
             opacity: 1;
         }
 
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* שינוי: ביטלתי את הרקע הכהה */
             background: none;
             z-index: -1;
         }
@@ -97,7 +95,6 @@
             line-height: 1.1;
             margin-bottom: 1rem;
             letter-spacing: -2px;
-            /* חיזוק הצל כדי שהטקסט יהיה קריא על רקע היהלומים */
             text-shadow: 0 4px 15px rgba(0,0,0,0.8);
         }
 
@@ -117,7 +114,6 @@
             margin: 0 auto 2.5rem;
             color: #fff;
             font-weight: 500;
-            /* צל חזק לקריאות */
             text-shadow: 0 2px 4px rgba(0,0,0,0.9);
         }
 
@@ -128,7 +124,7 @@
             border: 1px solid var(--text-main);
             border-radius: 50px;
             font-weight: 600;
-            background: rgba(0,0,0,0.6); /* רקע כהה לכפתור */
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(5px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
@@ -154,7 +150,7 @@
         .gallery-item:hover img { transform: scale(1.1); }
         .gallery-overlay {
             position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; font-size: 2rem;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff;
         }
         .gallery-item:hover .gallery-overlay { opacity: 1; }
 
@@ -174,8 +170,22 @@
         }
         .product-card:hover { transform: translateY(-5px); border-color: #444; }
 
-        .product-img-wrapper { position: relative; aspect-ratio: 1; background: #fff; }
-        .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        .product-img-wrapper { 
+            position: relative; 
+            aspect-ratio: 1; 
+            background: #fff; 
+            cursor: zoom-in; /* סמן זכוכית מגדלת */
+            overflow: hidden;
+        }
+        .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .product-card:hover .product-img-wrapper img { transform: scale(1.1); }
+
+        /* אייקון זכוכית מגדלת למוצרים */
+        .product-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.3); opacity: 0; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff;
+        }
+        .product-img-wrapper:hover .product-overlay { opacity: 1; }
 
         .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         
@@ -445,8 +455,9 @@
                 const link = `https://api.whatsapp.com/send?phone=9720537239660&text=היי אבי, אשמח לברר אם קיים במלאי: ${p.name} (מק'ט ${p.id})`;
                 shopGrid.innerHTML += `
                     <div class="product-card">
-                        <div class="product-img-wrapper">
+                        <div class="product-img-wrapper" onclick="openLightbox('${p.img}')">
                             <img src="${p.img}" alt="${p.name}" loading="lazy">
+                            <div class="product-overlay">🔍</div>
                         </div>
                         <div class="product-info">
                             <h3 style="font-size:1rem;">${p.name}</h3>
