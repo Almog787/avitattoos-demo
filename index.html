@@ -3,306 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AvinTattoo | בוטיק פירסינג ותכשיטים</title>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;800;900&display=swap" rel="stylesheet">
+    <title>חנות תכשיטים ופירסינג | Professional Jewelry</title>
+    <!-- גוגל פונטים - Heebo למראה נקי ומקצועי -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- משתנים גלובליים --- */
         :root {
-            --bg: #000000;
-            --card-bg: #111111;
-            --accent: #ffffff;
-            --gold: #d4af37;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --border: rgba(255, 255, 255, 0.1);
+            --primary-black: #111111;
+            --secondary-gray: #f4f4f4;
+            --accent-gold: #d4af37; /* צבע זהב עדין לכותרות/הדגשות */
+            --text-color: #333333;
+            --white: #ffffff;
+            --transition: all 0.3s ease;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-        body { font-family: 'Heebo', sans-serif; background-color: var(--bg); color: var(--text-main); line-height: 1.6; }
+        /* --- איפוס ועיצוב בסיסי --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        /* --- Header (Style: JAKI PRO) --- */
+        body {
+            font-family: 'Heebo', sans-serif;
+            color: var(--text-color);
+            background-color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- Header & Navigation --- */
         header {
-            position: sticky; top: 0; z-index: 1000;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 0;
-        }
-        .header-container {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
-        }
-        .logo { font-size: 1.6rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; }
-        .logo span { color: var(--gold); }
-
-        .cart-icon { position: relative; cursor: pointer; font-size: 1.2rem; }
-        #cart-count { 
-            position: absolute; top: -8px; right: -12px; 
-            background: var(--gold); color: black; 
-            font-size: 0.7rem; font-weight: bold; 
-            width: 18px; height: 18px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
         }
 
-        /* --- Hero --- */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary-black);
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: var(--accent-gold); }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover { color: var(--accent-gold); }
+
+        /* כפתורי אייקונים (חיפוש/עגלה) */
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* תפריט מובייל */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- Hero Section --- */
         .hero {
-            height: 60vh; position: relative;
-            display: flex; align-items: center; justify-content: center;
-            overflow: hidden; background: #000;
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 60px;
         }
-        .hero video {
-            position: absolute; width: 100%; height: 100%; object-fit: cover;
-            opacity: 0.6;
-        }
-        .hero-content { z-index: 10; text-align: center; padding: 0 20px; }
-        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 900; line-height: 1; margin-bottom: 10px; }
-        .hero-content p { font-size: 1.1rem; color: var(--gold); font-weight: 300; letter-spacing: 2px; }
 
-        /* --- Categories (Pills Style) --- */
-        .categories-wrapper {
-            position: sticky; top: 70px; z-index: 900;
-            background: var(--bg); padding: 20px 0;
-            overflow-x: auto; white-space: nowrap; border-bottom: 1px solid var(--border);
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
         }
-        .categories-container { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; gap: 10px; }
-        .cat-btn {
-            background: var(--card-bg); border: 1px solid var(--border);
-            color: white; padding: 10px 25px; border-radius: 50px;
-            font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.9rem;
-        }
-        .cat-btn.active { background: white; color: black; border-color: white; }
 
-        /* --- Search --- */
-        .search-section { max-width: 600px; margin: 40px auto 0; padding: 0 20px; }
-        #search-input {
-            width: 100%; padding: 15px 25px; border-radius: 12px;
-            border: 1px solid var(--border); background: var(--card-bg);
-            color: white; font-size: 1rem; outline: none; transition: 0.3s;
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
         }
-        #search-input:focus { border-color: var(--gold); }
 
-        /* --- Product Grid --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-        .grid {
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--white);
+            color: var(--primary-black);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border: 2px solid var(--white);
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--white);
+        }
+
+        /* --- Categories Section --- */
+        .section-title {
+            text-align: center;
+            margin: 4rem 0 2rem;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-black);
+        }
+
+        .categories {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 0 5%;
+        }
+
+        .cat-card {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .cat-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .cat-card:hover img { transform: scale(1.1); }
+
+        .cat-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* --- Products Grid --- */
+        .products {
+            padding: 0 5% 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
         }
 
         .product-card {
-            background: var(--card-bg); border-radius: 15px; overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            display: flex; flex-direction: column; border: 1px solid transparent;
-        }
-        .product-card:hover { transform: translateY(-10px); border-color: var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-
-        .img-box { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #000; cursor: zoom-in; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s ease; }
-        .product-card:hover .img-box img { transform: scale(1.1); }
-
-        .product-info { padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
-        .product-name { font-size: 1.15rem; font-weight: 800; margin-bottom: 8px; color: var(--text-main); }
-        .product-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
-        .product-price { font-size: 1.3rem; font-weight: 900; color: var(--gold); margin-bottom: 20px; }
-
-        .add-btn {
-            width: 100%; padding: 12px; border-radius: 10px; border: none;
-            background: white; color: black; font-weight: bold; font-size: 1rem;
-            cursor: pointer; transition: 0.3s; margin-top: auto;
-        }
-        .add-btn:hover { background: var(--gold); color: black; }
-
-        /* --- Cart Modal --- */
-        #cart-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            z-index: 2000; display: none; align-items: center; justify-content: center;
-        }
-        .cart-content {
-            background: var(--card-bg); width: 90%; max-width: 500px;
-            border-radius: 25px; padding: 35px; border: 1px solid var(--border);
-        }
-        .cart-items-list { max-height: 300px; overflow-y: auto; margin: 20px 0; border-top: 1px solid var(--border); }
-        .cart-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--border); }
-        .total-price { font-size: 1.8rem; font-weight: 900; text-align: center; margin: 20px 0; color: var(--gold); }
-        
-        .whatsapp-btn {
-            width: 100%; background: #25d366; color: white; border: none;
-            padding: 18px; border-radius: 15px; font-weight: bold; font-size: 1.1rem;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: var(--white);
+            transition: var(--transition);
         }
 
-        /* --- Lightbox --- */
-        #lightbox {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-            z-index: 3000; display: none; align-items: center; justify-content: center; cursor: pointer;
+        .product-image {
+            background: var(--secondary-gray);
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        #lightbox img { max-width: 90%; max-height: 80vh; border-radius: 10px; box-shadow: 0 0 40px rgba(0,0,0,1); }
 
-        /* --- Responsive --- */
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* תווית "חדש" */
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-black);
+            color: white;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .product-info {
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .product-price {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--primary-black);
+            color: var(--white);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* --- Responsive Design --- */
         @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr 1fr; gap: 15px; }
-            .container { padding: 20px 15px; }
-            .hero { height: 40vh; }
-            .hero-content h1 { font-size: 2.8rem; }
-            .product-name { font-size: 1rem; }
-            .add-btn { font-size: 0.9rem; padding: 10px; }
+            nav ul {
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+                transition: 0.4s ease;
+            }
+
+            nav ul.active { right: 0; }
+
+            .hamburger { display: block; }
+            
+            .hero-content h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header -->
     <header>
-        <div class="header-container">
-            <div class="logo">AVIN <span>TATTOO</span></div>
-            <div class="cart-icon" onclick="toggleCart()">
-                🛒 <span id="cart-count">0</span>
-            </div>
+        <div class="logo">YOUR<span>BRAND</span></div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a href="#">דף הבית</a></li>
+                <li><a href="#">קולקציה חדשה</a></li>
+                <li><a href="#">עגילים</a></li>
+                <li><a href="#">פירסינג</a></li>
+                <li><a href="#">צור קשר</a></li>
+            </ul>
+        </nav>
+        <div class="nav-icons">
+            <span>🛒</span> <!-- עגלה -->
+            <div class="hamburger" id="hamburger-btn">☰</div>
         </div>
     </header>
 
-    <div id="lightbox" onclick="this.style.display='none'"><img id="lb-img" src=""></div>
-
-    <div id="cart-modal" onclick="if(event.target===this) toggleCart()">
-        <div class="cart-content">
-            <h2 style="text-align:center;">סל הקניות שלך</h2>
-            <div class="cart-items-list" id="cart-list">
-                <!-- Items here -->
-            </div>
-            <div class="total-price">סה"כ: ₪<span id="total-amount">0</span></div>
-            <button class="whatsapp-btn" onclick="checkout()">
-                שליחת הזמנה לוואטסאפ
-            </button>
-            <button onclick="toggleCart()" style="width:100%; background:none; border:none; color:var(--text-muted); margin-top:20px; cursor:pointer;">סגור</button>
-        </div>
-    </div>
-
+    <!-- Hero Section -->
     <section class="hero">
-        <video autoplay muted loop playsinline src="hero-new.mp4"></video>
         <div class="hero-content">
-            <h1>AVIN TATTOO</h1>
-            <p>PIERCING & JEWELRY BOUTIQUE</p>
+            <h1>איכות ללא פשרות</h1>
+            <p>טיטניום וזהב טהור בעיצובים שמשדרים יוקרה</p>
+            <a href="#" class="btn">לצפייה בקולקציה</a>
         </div>
     </section>
 
-    <div class="categories-wrapper">
-        <div class="categories-container">
-            <button class="cat-btn active" onclick="filter('all', this)">הכל</button>
-            <button class="cat-btn" onclick="filter('titanium', this)">טיטניום</button>
-            <button class="cat-btn" onclick="filter('gold', this)">ציפוי זהב</button>
-            <button class="cat-btn" onclick="filter('rings', this)">חישוקים</button>
-        </div>
+    <!-- Categories -->
+    <div class="section-title">
+        <h2>קטגוריות מובילות</h2>
     </div>
-
-    <div class="search-section">
-        <input type="text" id="search-input" placeholder="חפשי דגם או מק״ט..." onkeyup="search()">
-    </div>
-
-    <main class="container">
-        <div class="grid" id="product-grid">
-            <!-- Products will be generated by JS -->
+    <section class="categories">
+        <div class="cat-card">
+            <!-- שים לב: עליך להחליף את הלינקים לתמונות של הלקוח שלך -->
+            <img src="https://images.unsplash.com/photo-1630019852942-f89202989a51?q=80&w=800&auto=format&fit=crop" alt="עגילים">
+            <div class="cat-overlay">עגילים</div>
         </div>
-    </main>
+        <div class="cat-card">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=800&auto=format&fit=crop" alt="שרשראות">
+            <div class="cat-overlay">שרשראות</div>
+        </div>
+        <div class="cat-card">
+            <img src="https://images.unsplash.com/photo-1599643478518-17488fbbcd75?q=80&w=800&auto=format&fit=crop" alt="פירסינג">
+            <div class="cat-overlay">פירסינג</div>
+        </div>
+    </section>
 
+    <!-- Featured Products -->
+    <div class="section-title">
+        <h2>הנמכרים ביותר</h2>
+    </div>
+    <section class="products" id="products-container">
+        <!-- המוצרים מוזרקים כאן דרך JS כדי לחסוך שכפול קוד HTML -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">תקנון אתר</a>
+            <a href="#">משלוחים והחזרות</a>
+            <a href="#">שירות לקוחות</a>
+            <a href="#">אודותינו</a>
+        </div>
+        <p class="copyright">© 2024 כל הזכויות שמורות. נבנה בסגנון JAKI PRO.</p>
+    </footer>
+
+    <!-- JavaScript -->
     <script>
+        /* --- נתוני דמה למוצרים (כאן אתה משנה את תוכן הלקוח) --- */
         const products = [
-            { id: '1052', name: 'לוטוס אבן שרשרת', price: 120, mat: 'gold', cat: 'gold', img: 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg' },
-            { id: '1023', name: 'לאברט זירקון', price: 80, mat: 'טיטניום', cat: 'titanium', img: 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg' },
-            { id: '1071', name: 'פרח מרקיזות', price: 145, mat: 'ציפוי זהב', cat: 'gold', img: 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1071-d7a4d7a8d797-d791d7a8d7a7d799d796d795d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg' },
-            { id: '1034', name: 'קליקר כדורים', price: 110, mat: 'ציפוי זהב', cat: 'rings', img: 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1034-d7a9d795d7a8d794-d79bd793d795d7a8d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg' },
-            { id: '1022', name: 'פרפר עדין', price: 90, mat: 'טיטניום', cat: 'titanium', img: 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1022-d7a4d7a8d7a4d7a8-d7a7d798d79f-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg' },
-            { id: '1054', name: 'טיפה נופלת 4מ"מ', price: 130, mat: 'ציפוי זהב', cat: 'gold', img: 'https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1054-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg' }
+            { name: "חישוק טיטניום קליקר", price: "₪89", img: "https://images.unsplash.com/photo-1635767798638-3e252a071d4b?q=80&w=400&auto=format&fit=crop" },
+            { name: "עגיל הליקס משובץ", price: "₪120", img: "https://images.unsplash.com/photo-1629224316810-9d8805b95076?q=80&w=400&auto=format&fit=crop" },
+            { name: "נזם זהב 14K", price: "₪150", img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400&auto=format&fit=crop" },
+            { name: "עגיל לברט שטוח", price: "₪65", img: "https://images.unsplash.com/photo-1617038224558-2834f2d8e918?q=80&w=400&auto=format&fit=crop" }
         ];
 
-        let cart = [];
-
-        function render(list) {
-            const grid = document.getElementById('product-grid');
-            grid.innerHTML = list.map(p => `
+        // פונקציה לטעינת המוצרים לדף
+        const productsContainer = document.getElementById('products-container');
+        
+        products.forEach(product => {
+            const productHTML = `
                 <div class="product-card">
-                    <div class="img-box" onclick="openLB('${p.img}')">
-                        <img src="${p.img}" loading="lazy">
+                    <div class="product-image">
+                        <span class="badge">חדש</span>
+                        <img src="${product.img}" alt="${product.name}">
                     </div>
                     <div class="product-info">
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-meta">${p.mat} | מק"ט ${p.id}</div>
-                        <div class="product-price">₪${p.price}</div>
-                        <button class="add-btn" onclick="addToCart('${p.id}')">הוספה לסל +</button>
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-price">${product.price}</p>
                     </div>
                 </div>
-            `).join('');
-        }
+            `;
+            productsContainer.innerHTML += productHTML;
+        });
 
-        function filter(cat, btn) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const filtered = cat === 'all' ? products : products.filter(p => p.cat === cat);
-            render(filtered);
-        }
+        // לוגיקה לתפריט מובייל
+        const hamburger = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
 
-        function search() {
-            const q = document.getElementById('search-input').value.toLowerCase();
-            const filtered = products.filter(p => p.name.includes(q) || p.id.includes(q));
-            render(filtered);
-        }
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+        });
 
-        function addToCart(id) {
-            const product = products.find(p => p.id === id);
-            cart.push(product);
-            document.getElementById('cart-count').innerText = cart.length;
-            updateCartUI();
-            
-            // Mini visual feedback
-            event.target.innerText = "נוסף! ✓";
-            event.target.style.background = "#25d366";
-            setTimeout(() => {
-                event.target.innerText = "הוספה לסל +";
-                event.target.style.background = "white";
-            }, 1000);
-        }
-
-        function updateCartUI() {
-            const list = document.getElementById('cart-list');
-            const total = document.getElementById('total-amount');
-            let sum = 0;
-            list.innerHTML = cart.map((item, index) => {
-                sum += item.price;
-                return `
-                    <div class="cart-item">
-                        <span>${item.name} (${item.id})</span>
-                        <div style="display:flex; gap:10px;">
-                            <b>₪${item.price}</b>
-                            <button onclick="removeFromCart(${index})" style="color:red; background:none; border:none; cursor:pointer;">✕</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-            total.innerText = sum;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            document.getElementById('cart-count').innerText = cart.length;
-            updateCartUI();
-        }
-
-        function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function openLB(src) {
-            document.getElementById('lb-img').src = src;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
-
-        function checkout() {
-            if (cart.length === 0) return alert("הסל ריק");
-            let text = "היי אבי, אני מעוניינת להזמין את התכשיטים הבאים:\n\n";
-            cart.forEach(i => text += `• ${i.name} (מק"ט: ${i.id}) - ₪${i.price}\n`);
-            text += `\n*סה"כ לתשלום: ₪${document.getElementById('total-amount').innerText}*`;
-            window.open(`https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(text)}`);
-        }
-
-        render(products);
+        // סגירת תפריט בלחיצה מחוץ לו
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('active');
+                hamburger.textContent = '☰';
+            }
+        });
     </script>
 </body>
 </html>
