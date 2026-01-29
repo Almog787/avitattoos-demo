@@ -79,12 +79,14 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover;
             z-index: -2;
-            opacity: 0.8;
+            /* שיניתי ל-0.7 כדי להבהיר קצת את הוידאו */
+            opacity: 0.7;
         }
 
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.3), rgba(5,5,5,1));
+            /* גרדיאנט עדין יותר כדי לא להחשיך מדי את הוידאו החדש */
+            background: linear-gradient(to bottom, rgba(5,5,5,0.4), rgba(5,5,5,0.9));
             z-index: -1;
         }
 
@@ -103,7 +105,7 @@
             font-size: 1.2rem;
             max-width: 700px;
             margin: 0 auto 2.5rem;
-            color: #ccc;
+            color: #eee; /* טקסט קצת יותר בהיר */
         }
 
         .cta-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
@@ -226,7 +228,7 @@
     <!-- Hero Section -->
     <section class="hero" id="studio">
         <video class="video-bg" autoplay muted loop playsinline>
-            <source src="https://avitattoos.wordpress.com/wp-content/uploads/2025/09/avintattoo-tattoo-stodio-in-ariel2.mp4" type="video/mp4">
+            <source src="https://github.com/Almog787/fun-zone/raw/refs/heads/main/dimond.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -359,7 +361,7 @@
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797-d795d79bd799d7aad795d791-d7a2d79c-d794d799d793-1.jpg?w=768"
         ];
 
-        // --- המאגר המלא של כל 40+ המוצרים (נאסף מהקוד המקורי) ---
+        // --- המאגר המלא של כל 40+ המוצרים ---
         const products = [
             { id: 1052, name: "לוטוס אבן עם שרשרת", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
             { id: 1023, name: "לאברט זירקון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795d79f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg?w=1024" },
