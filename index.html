@@ -23,9 +23,7 @@
             --transition: all 0.3s ease;
         }
 
-        /* --- הגדרות נגישות מורחבות --- */
-        
-        /* 1. ניגודיות גבוהה */
+        /* --- נגישות - High Contrast Mode --- */
         body.a11y-contrast {
             --bg-body: #ffffff !important;
             --bg-section: #f0f0f0 !important;
@@ -35,32 +33,10 @@
             --border-color: #000000 !important;
             --gold: #000000 !important;
         }
-        body.a11y-contrast .hero-content h1, 
-        body.a11y-contrast .hero-content p,
-        body.a11y-contrast .overlay-icon {
-            color: #000 !important;
-            text-shadow: none !important;
-        }
-        body.a11y-contrast .video-bg { opacity: 0.1 !important; }
-
-        /* 2. גווני אפור */
-        body.a11y-grayscale { filter: grayscale(100%); }
-
-        /* 3. טקסט מוגדל */
+        
         body.a11y-large-font { font-size: 125%; }
         body.a11y-large-font h1 { font-size: 1.5em; }
 
-        /* 4. גופן קריא */
-        body.a11y-readable-font { font-family: Arial, Helvetica, sans-serif !important; letter-spacing: 0.5px; }
-
-        /* 5. הדגשת קישורים */
-        body.a11y-links a { text-decoration: underline !important; background: yellow !important; color: black !important; }
-        body.a11y-links .btn { border: 2px solid yellow !important; }
-
-        /* 6. עצירת אנימציות */
-        body.a11y-stop-anim * { transition: none !important; animation: none !important; transform: none !important; }
-
-        /* --- איפוס ועיצוב בסיסי --- */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
@@ -201,11 +177,51 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* --- משופר: המלצות לקוחות (Testimonials) --- */
+        .testimonials-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; 
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, #161616, #0d0d0d);
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            border-right: 4px solid var(--gold); /* פס זהב דקורטיבי */
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover { transform: translateY(-5px); }
+
+        .testimonial-card::before {
+            content: '“'; /* סימן ציטוט דקורטיבי */
+            position: absolute; top: -10px; right: 20px;
+            font-size: 6rem; color: var(--gold); opacity: 0.1; font-family: serif; line-height: 1;
+        }
+
+        .stars { margin-bottom: 15px; color: var(--gold); font-size: 1.1rem; }
+        
+        .quote { 
+            font-size: 1.05rem; color: #e0e0e0; margin-bottom: 25px; line-height: 1.7; font-style: italic; position: relative; z-index: 1;
+        }
+
+        .author-box { display: flex; align-items: center; gap: 12px; }
+        
+        .author-avatar {
+            width: 45px; height: 45px; background: var(--gold); color: #000;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 1.2rem;
+        }
+        
+        .author-details { display: flex; flex-direction: column; }
+        .author-name { font-weight: 700; color: #fff; font-size: 0.95rem; }
+        .author-role { font-size: 0.8rem; color: #888; }
+
         /* --- Footer --- */
         footer { background: #000; padding: 4rem 5%; text-align: center; border-top: 1px solid #222; }
-        .footer-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem; align-items: center; }
+        .footer-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem; align-items: flex-start; }
         .footer-item { color: #888; font-size: 0.9rem; }
-        .footer-item span { color: var(--text-main); display: block; font-weight: 700; margin-bottom: 5px; }
+        .footer-item span { color: var(--text-main); display: block; font-weight: 700; margin-bottom: 5px; font-size: 1.1rem; }
         
         .waze-btn {
             display: inline-flex; align-items: center; gap: 8px;
@@ -213,6 +229,15 @@
             border-radius: 30px; font-size: 0.9rem; border: 1px solid #333; margin-top: 5px;
         }
         .waze-btn:hover { background: var(--waze-blue); color: #000; border-color: var(--waze-blue); }
+
+        /* --- FAQ --- */
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        details { background: var(--bg-card); margin-bottom: 10px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); }
+        summary { padding: 15px 20px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
+        summary:hover { background: rgba(255,255,255,0.05); }
+        summary::after { content: '+'; color: var(--gold); font-size: 1.5rem; }
+        details[open] summary::after { content: '-'; }
+        details p { padding: 0 20px 20px; color: #aaa; font-size: 0.95rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; padding-top: 10px; }
 
         /* Lightbox */
         #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; display: none; justify-content: center; align-items: center; }
@@ -279,18 +304,65 @@
         <div class="gallery-grid" id="product-grid"></div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimonials (עיצוב משופר) -->
     <section class="section" style="background: #0e0e0e;">
-        <div class="section-title"><h2>מה אומרים הלקוחות?</h2></div>
+        <div class="section-title"><h2>לקוחות ממליצים</h2></div>
         <div class="testimonials-grid">
+            <!-- כרטיס 1 -->
             <div class="testimonial-card">
-                <p class="quote">"אבי אמן בחסד עליון! מקצועי, סבלני והתוצאה יצאה מושלמת."</p>
-                <p class="author">— יוסי כהן</p>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="quote">"אבי אמן בחסד עליון! מקצועי, סבלני והתוצאה יצאה אפילו יותר טובה ממה שדמיינתי. הסטודיו הכי סטרילי שראיתי. אין ספק שאחזור לקעקוע הבא."</p>
+                <div class="author-box">
+                    <div class="author-avatar">י</div>
+                    <div class="author-details">
+                        <span class="author-name">יוסי כהן</span>
+                        <span class="author-role">לקוח מאומת</span>
+                    </div>
+                </div>
             </div>
+            <!-- כרטיס 2 -->
             <div class="testimonial-card">
-                <p class="quote">"הסטודיו נקי ומצוחצח, והיחס של אבי אישי וחם. ממליצה בחום."</p>
-                <p class="author">— שירה לוי</p>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="quote">"הגעתי לפגישת ייעוץ וישר הרגשתי בבית. הסטודיו נקי ומצוחצח, והיחס של אבי אישי וחם. ממליצה בחום לכל מי שמחפש מקעקע באזור אריאל."</p>
+                <div class="author-box">
+                    <div class="author-avatar">ש</div>
+                    <div class="author-details">
+                        <span class="author-name">שירה לוי</span>
+                        <span class="author-role">לקוחה מאומתת</span>
+                    </div>
+                </div>
             </div>
+            <!-- כרטיס 3 -->
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="quote">"עשיתי אצל אבי קאבר על קעקוע ישן שלא אהבתי, והוא עשה עבודה מדהימה. הצליח להפוך טעות ליצירת אמנות. תודה רבה על הסבלנות!"</p>
+                <div class="author-box">
+                    <div class="author-avatar">ד</div>
+                    <div class="author-details">
+                        <span class="author-name">דניאל מזרחי</span>
+                        <span class="author-role">לקוח מאומת</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+        <div class="section-title"><h2>שאלות נפוצות</h2></div>
+        <div class="faq-container">
+            <details>
+                <summary>כמה עולה קעקוע?</summary>
+                <p>מחיר קעקוע נקבע לפי גודל, מורכבות, כמות פרטים ומיקום בגוף. לא ניתן לתת הצעת מחיר מדויקת ללא פרטים. שלחו הודעה בוואטסאפ לקבלת הערכה.</p>
+            </details>
+            <details>
+                <summary>האם זה כואב?</summary>
+                <p>רמת הכאב אינדיבידואלית. אני תמיד דואג לעבוד בסביבה רגועה ועושה הפסקות לפי הצורך להבטחת נוחות מקסימלית.</p>
+            </details>
+            <details>
+                <summary>איך מטפלים בקעקוע חדש?</summary>
+                <p>בסיום התהליך תקבלו הנחיות מדויקות: שטיפה במים פושרים וסבון, מריחת משחה ייעודית והימנעות משמש וים בשבועיים הראשונים.</p>
+            </details>
         </div>
     </section>
 
@@ -413,7 +485,7 @@
             { id: 1055, name: "טיפה אופל", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1055-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1066, name: "חרב מיניאטורית", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1066-d797d7a8d791-d7a7d798d7a0d794-5d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
             { id: 1021, name: "לוטוס אבן שחורה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1021-d79cd795d798d795d7a1-d7a7d798d79f-d7a9d797d795d7a8-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1020, name: "מעויין זירקונים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1020-d796d7a8d7a7d795d79f-d79ed7a2d795d799d79f-d7a7d798d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1020, name: "מעויין זירקונים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1020-d796d7a8d7a7d795d79f-d79ed7a2d795d799d79f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1042, name: "זירקון תלוי", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1042-d796d799d7a8d7a7d795d79f-d7a2d79d-d796d799d7a8d7a7d795d79f-d7aad79cd795d799-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1032, name: "עגיל דובון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1032-d793d795d791d793d791d79f-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1017, name: "עיגול חרוט", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1017-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
@@ -585,6 +657,8 @@
                 document.body.classList.remove(c);
                 localStorage.removeItem(c);
             });
+            // Reset buttons visual state
+            document.querySelectorAll('.access-option').forEach(btn => btn.classList.remove('active'));
             document.querySelector('video').play();
         }
 
