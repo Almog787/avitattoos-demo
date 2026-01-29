@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* --- משתנים ועיצוב גלובלי (Clean Light Theme) --- */
+        /* --- עיצוב גלובלי (Clean Light Theme) --- */
         :root {
             --bg-body: #ffffff;
             --bg-section: #f9f9f9;
@@ -15,7 +15,6 @@
             --text-main: #111111;
             --text-muted: #555555;
             --gold: #d4af37;
-            --gold-glow: rgba(212, 175, 55, 0.2);
             --whatsapp-green: #25d366;
             --waze-blue: #33ccff;
             --border-color: #e0e0e0;
@@ -24,7 +23,7 @@
             --transition: all 0.3s ease;
         }
 
-        /* --- נגישות - High Contrast Mode --- */
+        /* נגישות - קונטרסט */
         body.a11y-contrast {
             --bg-body: #000000 !important;
             --bg-section: #222222 !important;
@@ -36,7 +35,6 @@
         }
         
         body.a11y-large-font { font-size: 125%; }
-        body.a11y-large-font h1 { font-size: 1.5em; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
@@ -53,14 +51,13 @@
         img { display: block; max-width: 100%; }
         button { font-family: var(--font-main); }
 
-        /* --- Header Sticky --- */
+        /* --- Header --- */
         header {
             position: fixed; top: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.95); /* לבן שקוף */
+            background: rgba(255, 255, 255, 0.95);
             padding: 1rem 5%; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05); backdrop-filter: blur(10px);
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
@@ -73,77 +70,50 @@
         nav a::after { content: ''; display: block; width: 0; height: 2px; background: var(--gold); transition: width .3s; }
         nav a:hover::after { width: 100%; }
 
-        /* --- Hero Video Section (נשאר כהה לקונטרסט) --- */
+        /* --- Hero Video --- */
         .hero {
             position: relative; height: 100vh; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; text-align: center; padding: 0 20px;
-            color: #fff; /* טקסט לבן על הוידאו */
+            overflow: hidden; text-align: center; padding: 0 20px; color: #fff;
         }
-        
-        .video-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: -2; opacity: 1;
-        }
+        .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 1; }
         
         .hero-content h1 {
             font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem;
-            letter-spacing: -2px; color: #fff;
             text-shadow: 0 4px 15px rgba(0,0,0,0.8);
         }
-        
-        .hero-content h1 span {
-            color: var(--gold); display: block; font-size: 1.5rem; font-weight: 300;
-            letter-spacing: 5px; margin-bottom: 10px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-        }
-        
-        .hero-content p {
-            font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; color: #f0f0f0; font-weight: 500;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
-        }
+        .hero-content h1 span { color: var(--gold); display: block; font-size: 1.5rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 10px; }
+        .hero-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
 
         .cta-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        
-        .btn {
-            padding: 12px 30px; border: 2px solid #fff; border-radius: 50px;
-            font-weight: 700; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
-            cursor: pointer; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
+        .btn { padding: 12px 30px; border: 2px solid #fff; border-radius: 50px; font-weight: 700; background: rgba(0,0,0,0.5); cursor: pointer; color: #fff; }
         .btn:hover { background: #fff; color: #000; }
         .btn.primary { background: var(--gold); border-color: var(--gold); color: #000; }
-        .btn.primary:hover { background: #b5952f; border-color: #b5952f; box-shadow: 0 0 20px var(--gold-glow); color: #fff; }
+        .btn.primary:hover { background: #b5952f; border-color: #b5952f; color: #fff; }
 
         /* --- Section Styling --- */
         .section { padding: 5rem 5%; background: var(--bg-body); }
-        .section-alt { background: var(--bg-section); } /* רקע אפור בהיר לסירוגין */
-        
+        .section-alt { background: var(--bg-section); }
         .section-title { text-align: center; margin-bottom: 3rem; }
         .section-title h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
         .section-title p { color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px; font-weight: 700; }
 
-        /* --- Gallery & Shop Grid System --- */
+        /* --- Grid System --- */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
-        
         .gallery-item, .product-img-wrapper {
             position: relative; overflow: hidden; border-radius: 12px; cursor: zoom-in; aspect-ratio: 1 / 1;
             background: #f0f0f0; box-shadow: var(--shadow-card);
         }
-        
         .gallery-item img, .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
         .gallery-item:hover img, .product-card:hover .product-img-wrapper img { transform: scale(1.1); }
-        
         .overlay-icon {
             position: absolute; inset: 0; background: rgba(0,0,0,0.2); opacity: 0; transition: 0.3s;
             display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; pointer-events: none;
         }
         .gallery-item:hover .overlay-icon, .product-img-wrapper:hover .overlay-icon { opacity: 1; }
 
-        /* --- Shop Specific Styling --- */
+        /* --- Shop Styling --- */
         .shop-filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
-        .filter-btn { 
-            background: transparent; border: 1px solid #ccc; color: #555; 
-            padding: 8px 25px; border-radius: 30px; cursor: pointer; transition: 0.3s; font-weight: 500;
-        }
+        .filter-btn { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 25px; border-radius: 30px; cursor: pointer; transition: 0.3s; font-weight: 500; }
         .filter-btn.active, .filter-btn:hover { border-color: var(--gold); background: var(--gold); color: #fff; }
 
         .product-card {
@@ -151,8 +121,8 @@
             overflow: hidden; transition: var(--transition); display: flex; flex-direction: column;
             box-shadow: var(--shadow-card);
         }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
-        
+        .product-card:hover { transform: translateY(-5px); }
+        .product-img-wrapper { background: #fff; }
         .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .product-info h3 { font-size: 1.1rem; font-weight: 700; color: #000; }
         .product-info p { color: #666; font-size: 0.9rem; }
@@ -162,8 +132,7 @@
             background: #000; border: 1px solid #000; color: #fff;
             border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s;
         }
-        .btn-add-cart:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
-        .btn-add-cart:active { transform: scale(0.95); }
+        .btn-add-cart:hover { background: var(--gold); border-color: var(--gold); }
 
         /* --- Cart System --- */
         .cart-float-btn {
@@ -183,22 +152,18 @@
         .cart-modal {
             position: fixed; top: 0; right: -400px; width: 360px; height: 100%;
             background: #fff; z-index: 2000; padding: 20px; color: #000;
-            box-shadow: -5px 0 30px rgba(0,0,0,0.1); transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1); transition: right 0.4s ease;
             display: flex; flex-direction: column;
         }
         .cart-modal.open { right: 0; }
-        
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         .cart-header h3 { font-size: 1.5rem; color: #000; }
         .close-cart { font-size: 2rem; cursor: pointer; color: #000; line-height: 1; }
-        
         .cart-items { flex-grow: 1; overflow-y: auto; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #eee; }
-        .cart-item img { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; margin-left: 10px; }
         .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 2px; color: #000; }
         .cart-item-info p { font-size: 0.75rem; color: #666; }
         .remove-item { color: #ff4444; cursor: pointer; font-size: 1rem; padding: 5px; }
-
         .cart-footer { padding-top: 15px; border-top: 1px solid #eee; }
         .payment-methods { text-align: center; margin-bottom: 15px; font-size: 0.85rem; color: #555; background: #f4f4f4; padding: 10px; border-radius: 5px; }
         .payment-icons { display: flex; justify-content: center; gap: 8px; margin-top: 5px; font-weight: bold; }
@@ -206,80 +171,46 @@
             width: 100%; padding: 15px; background: var(--whatsapp-green); color: white;
             border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem;
             cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-            transition: 0.3s; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
-        .btn-checkout:hover { background: #1ebc57; transform: translateY(-2px); }
-        
         .cart-overlay-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1900; display: none; backdrop-filter: blur(3px); }
         .cart-overlay-bg.show { display: block; }
 
-        /* --- Accessibility Widget --- */
+        /* --- Accessibility --- */
         .access-btn {
             position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px;
             background: #fff; color: #000; border-radius: 50%; border: 2px solid #eee;
             display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-            cursor: pointer; z-index: 1500; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: 0.3s;
+            cursor: pointer; z-index: 1500; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .access-panel {
-            position: fixed; bottom: 90px; left: 30px; width: 280px; background: #fff; color: #000;
+            position: fixed; bottom: 90px; left: 30px; width: 250px; background: #fff; color: #000;
             padding: 20px; border-radius: 12px; display: none; z-index: 1500; box-shadow: 0 10px 40px rgba(0,0,0,0.15);
         }
-        .access-panel.open { display: block; animation: fadeIn 0.3s; }
-        .access-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .access-option { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 10px; background: #f9f9f9; border: 1px solid #eee; border-radius: 8px;
-            cursor: pointer; font-size: 0.8rem; text-align: center; height: 80px; transition: 0.2s;
-        }
-        .access-option:hover { background: #eee; }
-        .access-option.active { background: #000; color: #fff; }
-        .reset-access { width: 100%; margin-top: 10px; background: #eee; color: #000; padding: 10px; border: none; border-radius: 6px; cursor: pointer; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .access-panel.open { display: block; }
+        .access-option { display: block; width: 100%; padding: 10px; margin-bottom: 8px; background: #f9f9f9; border: 1px solid #eee; cursor: pointer; border-radius: 6px; }
 
         /* --- Testimonials --- */
         .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .testimonial-card {
             background: #ffffff; padding: 2.5rem 2rem; border-radius: 16px;
             border: 1px solid #f0f0f0; border-right: 4px solid var(--gold);
-            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s ease;
+            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-        .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .testimonial-card::before {
-            content: '“'; position: absolute; top: -10px; right: 20px;
-            font-size: 6rem; color: var(--gold); opacity: 0.2; font-family: serif; line-height: 1;
-        }
+        .testimonial-card::before { content: '“'; position: absolute; top: -10px; right: 20px; font-size: 6rem; color: var(--gold); opacity: 0.2; font-family: serif; line-height: 1; }
         .stars { margin-bottom: 15px; color: var(--gold); font-size: 1.1rem; }
-        .quote { font-size: 1.05rem; color: #444; margin-bottom: 25px; line-height: 1.7; font-style: italic; }
-        .author-box { display: flex; align-items: center; gap: 12px; }
-        .author-avatar {
-            width: 45px; height: 45px; background: #000; color: #fff;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-weight: bold; font-size: 1.2rem;
-        }
+        .author-box { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+        .author-avatar { width: 45px; height: 45px; background: #000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
         .author-name { font-weight: 700; color: #000; font-size: 0.95rem; }
-        .author-role { font-size: 0.8rem; color: #888; }
 
-        /* --- FAQ --- */
-        .faq-container { max-width: 800px; margin: 0 auto; }
-        details { background: #fff; margin-bottom: 15px; border-radius: 8px; overflow: hidden; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        summary { padding: 18px 25px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; background: #fcfcfc; }
-        summary:hover { background: #f4f4f4; }
-        summary::after { content: '+'; color: var(--gold); font-size: 1.5rem; font-weight: bold; }
-        details[open] summary::after { content: '-'; }
-        details p { padding: 0 25px 25px; color: #555; font-size: 0.95rem; border-top: 1px solid #eee; margin-top: 0; padding-top: 20px; line-height: 1.7; }
-
-        /* --- Footer (נשאר כהה) --- */
+        /* --- Footer --- */
         footer { background: #111; padding: 4rem 5%; text-align: center; color: #aaa; }
         .footer-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem; margin-bottom: 2rem; }
-        .footer-item { font-size: 0.95rem; }
         .footer-item span { color: #fff; display: block; font-weight: 700; margin-bottom: 8px; font-size: 1.1rem; }
         .waze-btn {
             display: inline-flex; align-items: center; gap: 8px;
             background: #222; color: #fff; padding: 8px 20px;
-            border-radius: 30px; font-size: 0.9rem; border: 1px solid #333; margin-top: 10px; transition: 0.3s;
+            border-radius: 30px; font-size: 0.9rem; border: 1px solid #333; margin-top: 10px;
         }
-        .waze-btn:hover { background: var(--waze-blue); color: #000; border-color: var(--waze-blue); }
 
         /* Lightbox */
         #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 3000; display: none; justify-content: center; align-items: center; }
@@ -290,7 +221,6 @@
             nav ul { display: none; }
             .gallery-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
             .cart-modal { width: 100%; right: -100%; }
-            .hero-content h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -304,6 +234,7 @@
                 <li><a href="#studio">הסטודיו</a></li>
                 <li><a href="#shop">חנות</a></li>
                 <li><a href="#portfolio">תיק עבודות</a></li>
+                <li><a href="info.html">מרכז מידע</a></li>
                 <li><a href="#contact">צור קשר</a></li>
             </ul>
         </nav>
@@ -324,7 +255,7 @@
         </div>
     </section>
 
-    <!-- Shop (עכשיו ראשון!) -->
+    <!-- Shop (ראשון) -->
     <section class="section" id="shop">
         <div class="section-title">
             <p>Online Boutique</p>
@@ -335,20 +266,16 @@
             <button class="filter-btn" onclick="filterShop('titanium')">טיטניום</button>
             <button class="filter-btn" onclick="filterShop('gold')">ציפוי זהב</button>
         </div>
-        <div class="gallery-grid" id="product-grid">
-            <!-- מוצרים נטענים דרך JS -->
-        </div>
+        <div class="gallery-grid" id="product-grid"></div>
     </section>
 
-    <!-- Portfolio (עכשיו שני, רקע אפור בהיר) -->
+    <!-- Portfolio (שני) -->
     <section class="section section-alt" id="portfolio">
         <div class="section-title">
             <p>Selected Works</p>
             <h2>גלריית קעקועים</h2>
         </div>
-        <div class="gallery-grid" id="tattoo-grid">
-            <!-- קעקועים נטענים דרך JS -->
-        </div>
+        <div class="gallery-grid" id="tattoo-grid"></div>
     </section>
 
     <!-- Testimonials -->
@@ -360,10 +287,7 @@
                 <p class="quote">"אבי אמן בחסד עליון! מקצועי, סבלני והתוצאה יצאה אפילו יותר טובה ממה שדמיינתי. הסטודיו הכי סטרילי שראיתי. אין ספק שאחזור."</p>
                 <div class="author-box">
                     <div class="author-avatar">י</div>
-                    <div class="author-details">
-                        <span class="author-name">יוסי כהן</span>
-                        <span class="author-role">לקוח מאומת</span>
-                    </div>
+                    <div class="author-details"><span class="author-name">יוסי כהן</span><span class="author-role">לקוח מאומת</span></div>
                 </div>
             </div>
             <div class="testimonial-card">
@@ -371,10 +295,7 @@
                 <p class="quote">"הגעתי לפגישת ייעוץ וישר הרגשתי בבית. הסטודיו נקי ומצוחצח, והיחס של אבי אישי וחם. ממליצה בחום."</p>
                 <div class="author-box">
                     <div class="author-avatar">ש</div>
-                    <div class="author-details">
-                        <span class="author-name">שירה לוי</span>
-                        <span class="author-role">לקוחה מאומתת</span>
-                    </div>
+                    <div class="author-details"><span class="author-name">שירה לוי</span><span class="author-role">לקוחה מאומתת</span></div>
                 </div>
             </div>
             <div class="testimonial-card">
@@ -382,31 +303,9 @@
                 <p class="quote">"עשיתי אצל אבי קאבר על קעקוע ישן שלא אהבתי, והוא עשה עבודה מדהימה. הצליח להפוך טעות ליצירת אמנות."</p>
                 <div class="author-box">
                     <div class="author-avatar">ד</div>
-                    <div class="author-details">
-                        <span class="author-name">דניאל מזרחי</span>
-                        <span class="author-role">לקוח מאומת</span>
-                    </div>
+                    <div class="author-details"><span class="author-name">דניאל מזרחי</span><span class="author-role">לקוח מאומת</span></div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section section-alt">
-        <div class="section-title"><h2>שאלות נפוצות</h2></div>
-        <div class="faq-container">
-            <details>
-                <summary>כמה עולה קעקוע?</summary>
-                <p>המחיר תלוי בגודל ובמורכבות. שלחו לי הודעה בוואטסאפ עם הרעיון ואתן הצעת מחיר.</p>
-            </details>
-            <details>
-                <summary>האם זה כואב?</summary>
-                <p>רמת הכאב אינדיבידואלית. אני תמיד דואג לעבוד בסביבה רגועה ועושה הפסקות לפי הצורך להבטחת נוחות מקסימלית.</p>
-            </details>
-            <details>
-                <summary>איך מגיעים?</summary>
-                <p>הסטודיו נמצא בהירדן 2, אריאל. יש כפתור Waze למטה לניווט קל.</p>
-            </details>
         </div>
     </section>
 
@@ -416,95 +315,45 @@
         <div class="footer-info">
             <div class="footer-item">
                 <span>📍 כתובת</span>
-                הירדן 2, אריאל
-                <br>
-                <a href="https://waze.com/ul?q=Hayarden+2+Ariel&navigate=yes" target="_blank" class="waze-btn">
-                    🚙 סע עם Waze
-                </a>
+                הירדן 2, אריאל<br>
+                <a href="https://waze.com/ul?q=Hayarden+2+Ariel&navigate=yes" target="_blank" class="waze-btn">🚙 סע עם Waze</a>
             </div>
             <div class="footer-item">
                 <span>📞 טלפון</span>
                 <a href="tel:0537239660" style="color:#fff;">053-723-9660</a>
             </div>
             <div class="footer-item">
-                <span>🕒 שעות פעילות</span>
-                א'-ה': 13:30 - 20:00
+                <span>🕒 שעות פעילות</span>א'-ה': 13:30 - 20:00
             </div>
         </div>
         <a href="https://wa.me/9720537239660" class="btn primary">הודעה לווטסאפ של אבי</a>
         <br><br><p style="color:#666; font-size:0.8rem;">© 2026 Avintattoo | כל הזכויות שמורות</p>
     </footer>
 
-    <!-- Accessibility Widget -->
-    <button class="access-btn" onclick="toggleAccessPanel()" aria-label="תפריט נגישות">♿</button>
+    <!-- Widgets -->
+    <button class="access-btn" onclick="document.getElementById('access-panel').style.display = document.getElementById('access-panel').style.display === 'block' ? 'none' : 'block'">♿</button>
     <div class="access-panel" id="access-panel">
         <h4>כלי נגישות</h4>
-        <div class="access-grid">
-            <button class="access-option" onclick="toggleA11y('a11y-contrast')">
-                <span>🌗</span> ניגודיות
-            </button>
-            <button class="access-option" onclick="toggleA11y('a11y-large-font')">
-                <span>A+</span> טקסט גדול
-            </button>
-            <button class="access-option" onclick="toggleA11y('a11y-readable-font')">
-                <span>🔤</span> גופן קריא
-            </button>
-            <button class="access-option" onclick="toggleA11y('a11y-grayscale')">
-                <span>⚫</span> שחור לבן
-            </button>
-            <button class="access-option" onclick="toggleA11y('a11y-links')">
-                <span>🔗</span> הדגשת קישורים
-            </button>
-            <button class="access-option" onclick="toggleA11y('a11y-stop-anim')">
-                <span>⏹️</span> עצור תנועה
-            </button>
-        </div>
-        <button class="reset-access" onclick="resetA11y()">איפוס הגדרות</button>
+        <button class="access-option" onclick="document.body.classList.toggle('a11y-contrast')">ניגודיות</button>
+        <button class="access-option" onclick="document.body.classList.toggle('a11y-large-font')">הגדלת טקסט</button>
     </div>
 
-    <!-- Cart UI Elements -->
-    <div class="cart-float-btn" onclick="toggleCart()">
-        🛒
-        <div class="cart-badge" id="cart-count">0</div>
-    </div>
-
+    <div class="cart-float-btn" onclick="toggleCart()">🛒<div class="cart-badge" id="cart-count">0</div></div>
     <div class="cart-overlay-bg" id="cart-overlay" onclick="toggleCart()"></div>
-    
     <div class="cart-modal" id="cart-modal">
-        <div class="cart-header">
-            <h3>העגלה שלי</h3>
-            <span class="close-cart" onclick="toggleCart()">&times;</span>
-        </div>
-        <div class="cart-items" id="cart-items-container">
-            <p style="text-align:center; color:#999; margin-top:20px;">העגלה ריקה</p>
-        </div>
+        <div class="cart-header"><h3>העגלה שלי</h3><span class="close-cart" onclick="toggleCart()">&times;</span></div>
+        <div class="cart-items" id="cart-items-container"><p style="text-align:center; color:#999; margin-top:20px;">העגלה ריקה</p></div>
         <div class="cart-footer">
-            <div class="payment-methods">
-                <span>ניתן לשלם ב:</span>
-                <div class="payment-icons">
-                    <div class="pay-badge bit">Bit</div>
-                    <div class="pay-badge paybox">PayBox</div>
-                    <div class="pay-badge" style="background:#444;">מזומן</div>
-                </div>
-            </div>
-            <button class="btn-checkout" onclick="checkout()">
-                <span>שליחת הזמנה לוואטסאפ</span>
-                <span>📱</span>
-            </button>
+            <div class="payment-methods"><span>ניתן לשלם ב:</span><div class="payment-icons">Bit | PayBox | מזומן</div></div>
+            <button class="btn-checkout" onclick="checkout()">שליחת הזמנה לוואטסאפ 📱</button>
         </div>
     </div>
 
-    <!-- Lightbox Modal -->
-    <div id="lightbox">
-        <div id="lightbox-close">&times;</div>
-        <img id="lightbox-img" src="" alt="Zoom">
-    </div>
+    <div id="lightbox"><div id="lightbox-close">&times;</div><img id="lightbox-img" src="" alt="Zoom"></div>
 
-    <!-- JavaScript Logic -->
     <script>
-        // --- Data ---
+        // Data
         let cart = [];
-
         const tattoos = [
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797d799d79d-d7a2d79c-d794d799d793--1.jpg?w=476",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d7a4d7a8d799d79d-d7a2d79c-d794d799d793-1.jpg?w=576",
@@ -515,7 +364,6 @@
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d79bd7aad7a8-d7a2d79c-d794d7a6d795d795d790d7a8-.jpg?w=765",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a2d79d-d799d7a9d7a8d790d79c-d797d799-d7a2d79c-d794d799d793-1.jpg?w=768"
         ];
-
         const products = [
             { id: 1052, name: "לוטוס אבן עם שרשרת", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
             { id: 1023, name: "לאברט זירקון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795d79f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg?w=1024" },
@@ -531,13 +379,13 @@
             { id: 1019, name: "לוטוס חלק", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1019-d79cd795d798d795d7a1-d797d79cd7a7-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1033, name: "ענף משובץ ירוק", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1033-d7a2d7a0d7a3-d7a2d79d-d7a9d799d791d795d7a5-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1016, name: "עיגול זהב חרוט", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1016-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1034, name: "קליקר כדורים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1034-d7a9d795d7a8d794-d79bd793d795d7a8d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1034, name: "קליקר כדורים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1034-d7a9d795d7a8d794-d7a9d79bd793d795d7a8d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
             { id: 1053, name: "הליקס שרשרת פרח", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1053-d794d79cd799d7a7d7a1-d7a9d7a8d7a9d7a8d7aa-d7a2d79d-d7a4d7a8d797-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1036, name: "מרקיזה זית", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1036-d79ed7a8d7a7d799d796d795d7aa-d791d796d795d799d7aa-d791d799d7a0d795d7a0d799-4d79ed79c-d7a6d791d7a2-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1055, name: "טיפה אופל", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1055-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1066, name: "חרב מיניאטורית", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1066-d797d7a8d791-d7a7d798d7a0d794-5d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
             { id: 1021, name: "לוטוס אבן שחורה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1021-d79cd795d798d795d7a1-d7a7d798d79f-d7a9d797d795d7a8-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1020, name: "מעויין זירקונים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1020-d796d7a8d7a7d795d79f-d79ed7a2d795d799d79f-d7a7d798d79f-d798d799d798d7a0d799d795d79d.jpg" },
+            { id: 1020, name: "מעויין זירקונים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1020-d796d7a8d7a7d795d79f-d79ed7a2d795d799d79f-d7a7d798d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
             { id: 1042, name: "זירקון תלוי", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1042-d796d799d7a8d7a7d795d79f-d7a2d79d-d796d799d7a8d7a7d795d79f-d7aad79cd795d799-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1032, name: "עגיל דובון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1032-d793d795d791d793d791d79f-d798d799d798d7a0d799d795d79d.jpg" },
             { id: 1017, name: "עיגול חרוט", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1017-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
@@ -560,27 +408,20 @@
             { id: 1013, name: "מרקיזה ירוקה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1013-d79ed7a8d7a7d799d796d794-3d79ed79e-d7a6d791d7a2-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" }
         ];
 
-        // --- Core Functions ---
-
-        // Render Tattoos Gallery
+        // Core Functions
         const tattooGrid = document.getElementById('tattoo-grid');
         tattoos.forEach(src => {
             const div = document.createElement('div');
             div.className = 'gallery-item';
-            div.innerHTML = `
-                <img src="${src}" alt="Tattoo work" loading="lazy">
-                <div class="overlay-icon">🔍</div>
-            `;
+            div.innerHTML = `<img src="${src}" alt="Tattoo work" loading="lazy"><div class="overlay-icon">🔍</div>`;
             div.addEventListener('click', () => openLightbox(src));
             tattooGrid.appendChild(div);
         });
 
-        // Render Shop Products
         const shopGrid = document.getElementById('product-grid');
         function renderShop(filter = 'all') {
             shopGrid.innerHTML = '';
             const filtered = products.filter(p => filter === 'all' || p.type === filter);
-            
             filtered.forEach(p => {
                 const pString = JSON.stringify(p).replace(/"/g, '&quot;');
                 shopGrid.innerHTML += `
@@ -590,16 +431,10 @@
                             <div class="overlay-icon">🔍</div>
                         </div>
                         <div class="product-info">
-                            <div>
-                                <h3>${p.name}</h3>
-                                <p>${p.mat} | מק"ט: ${p.id}</p>
-                            </div>
-                            <button class="btn-add-cart" onclick="addToCart(${pString})">
-                                הוספה לעגלה 🛒
-                            </button>
+                            <div><h3>${p.name}</h3><p>${p.mat} | מק"ט: ${p.id}</p></div>
+                            <button class="btn-add-cart" onclick="addToCart(${pString})">הוספה לעגלה 🛒</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
@@ -609,12 +444,11 @@
             renderShop(type);
         }
 
-        // --- Cart Logic ---
+        // Cart Logic
         function addToCart(item) {
             cart.push(item);
             updateCartUI();
-            toggleCart(true); // Open cart on add
-            
+            toggleCart(true);
             const btn = event.target;
             const originalText = btn.innerHTML;
             btn.innerHTML = "נוסף! ✅";
@@ -629,24 +463,18 @@
         function updateCartUI() {
             document.getElementById('cart-count').innerText = cart.length;
             const container = document.getElementById('cart-items-container');
-            
             if (cart.length === 0) {
                 container.innerHTML = '<p style="text-align:center; color:#999; margin-top:20px;">העגלה ריקה</p>';
                 return;
             }
-
             let html = '';
             cart.forEach((item, index) => {
                 html += `
                     <div class="cart-item">
                         <img src="${item.img}" alt="prod">
-                        <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p>${item.mat} | מק"ט: ${item.id}</p>
-                        </div>
+                        <div class="cart-item-info"><h4>${item.name}</h4><p>${item.mat} | מק"ט: ${item.id}</p></div>
                         <div class="remove-item" onclick="removeFromCart(${index})">🗑️</div>
-                    </div>
-                `;
+                    </div>`;
             });
             container.innerHTML = html;
         }
@@ -664,86 +492,21 @@
         }
 
         function checkout() {
-            if (cart.length === 0) {
-                alert("העגלה ריקה");
-                return;
-            }
-
+            if (cart.length === 0) { alert("העגלה ריקה"); return; }
             let message = "היי אבי, אשמח להזמין את הפריטים הבאים מהאתר:\n\n";
-            cart.forEach((item, i) => {
-                message += `${i+1}. ${item.name} (מק"ט: ${item.id}) - ${item.mat}\n`;
-            });
+            cart.forEach((item, i) => { message += `${i+1}. ${item.name} (מק"ט: ${item.id}) - ${item.mat}\n`; });
             message += "\nאשמח לפרטים על תשלום (Bit/PayBox) ומשלוח. תודה!";
-
-            const url = `https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        // --- Accessibility Logic ---
-        function toggleAccessPanel() {
-            document.getElementById('access-panel').classList.toggle('open');
-        }
-
-        function toggleA11y(className) {
-            document.body.classList.toggle(className);
-            
-            // Handle Video Pause for "Stop Animation"
-            if (className === 'a11y-stop-anim') {
-                const video = document.querySelector('video');
-                if (document.body.classList.contains('a11y-stop-anim')) {
-                    video.pause();
-                } else {
-                    video.play();
-                }
-            }
-            
-            // Save preference
-            localStorage.setItem(className, document.body.classList.contains(className));
-            
-            // Toggle visual state
-            const btn = document.querySelector(`button[onclick="toggleA11y('${className}')"] .access-option`);
-            if(btn) btn.classList.toggle('active');
-        }
-
-        function resetA11y() {
-            const classes = ['a11y-contrast', 'a11y-large-font', 'a11y-readable-font', 'a11y-grayscale', 'a11y-links', 'a11y-stop-anim'];
-            classes.forEach(c => {
-                document.body.classList.remove(c);
-                localStorage.removeItem(c);
-            });
-            document.querySelectorAll('.access-option').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('video').play();
-        }
-
-        window.addEventListener('load', () => {
-            const classes = ['a11y-contrast', 'a11y-large-font', 'a11y-readable-font', 'a11y-grayscale', 'a11y-links', 'a11y-stop-anim'];
-            classes.forEach(c => {
-                if (localStorage.getItem(c) === 'true') {
-                    toggleA11y(c);
-                }
-            });
-        });
-
-        // --- Lightbox Logic ---
+        // Lightbox
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-        
-        function openLightbox(src) {
-            lightboxImg.src = src;
-            lightbox.style.display = 'flex';
-        }
+        function openLightbox(src) { lightboxImg.src = src; lightbox.style.display = 'flex'; }
+        document.getElementById('lightbox-close').addEventListener('click', () => lightbox.style.display = 'none');
+        lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.style.display = 'none'; });
 
-        document.getElementById('lightbox-close').addEventListener('click', () => {
-            lightbox.style.display = 'none';
-        });
-        
-        lightbox.addEventListener('click', (e) => {
-            if(e.target === lightbox) lightbox.style.display = 'none';
-        });
-
-        // Initialize App
         renderShop();
-
     </script>
 </body>
 </html>
