@@ -17,10 +17,25 @@
             --gold: #d4af37;
             --gold-glow: rgba(212, 175, 55, 0.3);
             --whatsapp-green: #25d366;
+            --waze-blue: #33ccff;
             --border-color: #2a2a2a;
             --font-main: 'Heebo', sans-serif;
             --transition: all 0.3s ease;
         }
+
+        /* --- נגישות - High Contrast Mode --- */
+        body.a11y-contrast {
+            --bg-body: #ffffff !important;
+            --bg-section: #f0f0f0 !important;
+            --bg-card: #e0e0e0 !important;
+            --text-main: #000000 !important;
+            --text-muted: #333333 !important;
+            --border-color: #000000 !important;
+            --gold: #000000 !important; /* בשחור לבן הזהב הופך לשחור לקונטרסט */
+        }
+        
+        body.a11y-large-font { font-size: 125%; }
+        body.a11y-large-font h1 { font-size: 1.5em; } /* איזון כותרות */
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
@@ -38,19 +53,13 @@
 
         /* --- Header Sticky --- */
         header {
-            position: fixed;
-            top: 0; left: 0; width: 100%;
-            background: rgba(5, 5, 5, 0.9);
-            padding: 1rem 5%;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(5, 5, 5, 0.9); padding: 1rem 5%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
         }
 
-        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: #fff; text-transform: uppercase; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: var(--text-main); text-transform: uppercase; }
         .brand span { color: var(--gold); }
 
         nav ul { display: flex; gap: 25px; }
@@ -58,19 +67,16 @@
         nav a:hover { color: var(--gold); }
 
         /* --- Hero Video Section --- */
-        .hero {
-            position: relative; height: 100vh; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; text-align: center; padding: 0 20px;
-        }
+        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; padding: 0 20px; }
         .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; opacity: 1; }
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: none; z-index: -1; }
         
-        .hero-content h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+        .hero-content h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem; letter-spacing: -2px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); color: #fff; }
         .hero-content h1 span { color: var(--gold); display: block; font-size: 1.5rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 10px; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
         .hero-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; color: #fff; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
 
         .cta-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .btn { padding: 12px 30px; border: 1px solid var(--text-main); border-radius: 50px; font-weight: 600; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); cursor: pointer; }
+        .btn { padding: 12px 30px; border: 1px solid var(--text-main); border-radius: 50px; font-weight: 600; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); cursor: pointer; color: #fff; }
         .btn:hover { background: var(--text-main); color: #000; }
         .btn.primary { background: var(--gold); border-color: var(--gold); color: #000; }
         .btn.primary:hover { background: #b5952f; box-shadow: 0 0 20px var(--gold-glow); }
@@ -84,17 +90,12 @@
         /* --- Gallery (Grid) --- */
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; }
         
-        .gallery-item, .product-img-wrapper {
-            position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in; aspect-ratio: 1 / 1;
-        }
+        .gallery-item, .product-img-wrapper { position: relative; overflow: hidden; border-radius: 8px; cursor: zoom-in; aspect-ratio: 1 / 1; }
         
         .gallery-item img, .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
         .gallery-item:hover img, .product-card:hover .product-img-wrapper img { transform: scale(1.1); }
         
-        .overlay-icon {
-            position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff;
-        }
+        .overlay-icon { position: absolute; inset: 0; background: rgba(0,0,0,0.4); opacity: 0; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; }
         .gallery-item:hover .overlay-icon, .product-img-wrapper:hover .overlay-icon { opacity: 1; }
 
         /* --- Shop Styling --- */
@@ -105,38 +106,19 @@
 
         .product-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); border-color: #444; }
-        .product-img-wrapper { background: #fff; } /* White bg for products */
+        .product-img-wrapper { background: #fff; }
         .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         
-        .btn-add-cart {
-            display: block; width: 100%; padding: 10px; margin-top: 10px;
-            background: transparent; border: 1px solid var(--text-main); color: var(--text-main);
-            border-radius: 5px; font-weight: 500; cursor: pointer; transition: 0.2s;
-        }
+        .btn-add-cart { display: block; width: 100%; padding: 10px; margin-top: 10px; background: transparent; border: 1px solid var(--text-main); color: var(--text-main); border-radius: 5px; font-weight: 500; cursor: pointer; transition: 0.2s; }
         .btn-add-cart:hover { background: var(--text-main); color: #000; }
         .btn-add-cart:active { transform: scale(0.95); }
 
         /* --- Cart System --- */
-        .cart-float-btn {
-            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-            background: var(--gold); color: #000; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); cursor: pointer; z-index: 1500;
-            transition: transform 0.3s;
-        }
+        .cart-float-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); cursor: pointer; z-index: 1500; transition: transform 0.3s; }
         .cart-float-btn:hover { transform: scale(1.1); }
-        .cart-badge {
-            position: absolute; top: -5px; right: -5px; background: red; color: white;
-            font-size: 0.8rem; font-weight: bold; width: 24px; height: 24px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-        }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: red; color: white; font-size: 0.8rem; font-weight: bold; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 
-        .cart-modal {
-            position: fixed; top: 0; right: -400px; width: 350px; height: 100%;
-            background: #1a1a1a; z-index: 2000; padding: 20px;
-            box-shadow: -5px 0 30px rgba(0,0,0,0.5); transition: right 0.4s ease;
-            display: flex; flex-direction: column;
-        }
+        .cart-modal { position: fixed; top: 0; right: -400px; width: 350px; height: 100%; background: #1a1a1a; z-index: 2000; padding: 20px; box-shadow: -5px 0 30px rgba(0,0,0,0.5); transition: right 0.4s ease; display: flex; flex-direction: column; }
         .cart-modal.open { right: 0; }
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         .cart-header h3 { font-size: 1.5rem; color: var(--gold); }
@@ -144,39 +126,60 @@
         
         .cart-items { flex-grow: 1; overflow-y: auto; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; background: #222; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
-        .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 3px; }
+        .cart-item-info h4 { font-size: 0.9rem; margin-bottom: 3px; color: #fff; }
         .cart-item-info p { font-size: 0.8rem; color: #888; }
         .remove-item { color: #ff4444; cursor: pointer; font-size: 1.2rem; padding: 5px; }
 
-        .cart-footer { padding-top: 20px; border-top: 1px solid #333; }
-        .btn-checkout {
-            width: 100%; padding: 15px; background: var(--whatsapp-green); color: white;
-            border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem;
-            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
+        .cart-footer { padding-top: 15px; border-top: 1px solid #333; }
+        
+        /* אזור תשלום בעגלה */
+        .payment-methods { text-align: center; margin-bottom: 15px; font-size: 0.9rem; color: #ccc; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 5px; }
+        .payment-methods span { font-weight: bold; color: var(--text-main); }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 5px; font-weight: bold; font-size: 0.8rem; }
+        .pay-badge { padding: 2px 8px; border-radius: 4px; color: #fff; }
+        .bit { background: #0076fe; }
+        .paybox { background: #ff005a; }
+
+        .btn-checkout { width: 100%; padding: 15px; background: var(--whatsapp-green); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .btn-checkout:hover { background: #1ebc57; }
 
-        /* Overlay for cart */
-        .cart-overlay-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); z-index: 1900; display: none;
-        }
+        .cart-overlay-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1900; display: none; }
         .cart-overlay-bg.show { display: block; }
 
-        /* --- Footer & Lightbox --- */
-        footer { background: #000; padding: 4rem 5%; text-align: center; border-top: 1px solid #222; }
-        .footer-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
-        .footer-item { color: #888; font-size: 0.9rem; }
-        
-        #lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 3000;
-            display: none; justify-content: center; align-items: center;
+        /* --- Accessibility Widget --- */
+        .access-btn {
+            position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px;
+            background: #222; color: #fff; border-radius: 50%; border: 2px solid #444;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            cursor: pointer; z-index: 1500; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+        .access-panel {
+            position: fixed; bottom: 90px; left: 30px; width: 250px; background: #fff; color: #000;
+            padding: 15px; border-radius: 8px; display: none; z-index: 1500; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .access-panel.open { display: block; }
+        .access-panel h4 { margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .access-option { display: block; width: 100%; padding: 8px; margin-bottom: 5px; background: #f0f0f0; border: none; text-align: right; cursor: pointer; border-radius: 4px; }
+        .access-option:hover { background: #e0e0e0; }
+
+        /* --- Footer --- */
+        footer { background: #000; padding: 4rem 5%; text-align: center; border-top: 1px solid #222; }
+        .footer-info { display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem; margin-bottom: 2rem; align-items: center; }
+        .footer-item { color: #888; font-size: 0.9rem; }
+        .footer-item span { color: var(--text-main); display: block; font-weight: 700; margin-bottom: 5px; }
+        
+        .waze-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #222; color: var(--text-main); padding: 8px 15px;
+            border-radius: 30px; font-size: 0.9rem; border: 1px solid #333; margin-top: 5px;
+        }
+        .waze-btn:hover { background: var(--waze-blue); color: #000; border-color: var(--waze-blue); }
+
+        /* Lightbox */
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 3000; display: none; justify-content: center; align-items: center; }
         #lightbox img { max-height: 90vh; max-width: 90vw; border: 2px solid var(--gold); }
         #lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 2rem; cursor: pointer; }
 
-        /* Mobile */
         @media (max-width: 768px) {
             nav ul { display: none; }
             .gallery-grid { grid-template-columns: 1fr 1fr; }
@@ -256,12 +259,28 @@
     <footer id="contact">
         <div class="section-title"><h2>בואו נדבר</h2><p style="color: #666;">תיאום פגישת ייעוץ ללא עלות</p></div>
         <div class="footer-info">
-            <div class="footer-item"><span>📍 כתובת</span>הירדן 2, אריאל</div>
+            <div class="footer-item">
+                <span>📍 כתובת</span>
+                הירדן 2, אריאל
+                <br>
+                <a href="https://waze.com/ul?q=Hayarden+2+Ariel&navigate=yes" target="_blank" class="waze-btn">
+                    🚙 סע עם Waze
+                </a>
+            </div>
             <div class="footer-item"><span>📞 טלפון</span>053-723-9660</div>
         </div>
         <a href="https://wa.me/9720537239660" class="btn primary">הודעה לווטסאפ של אבי</a>
         <br><br><p style="color:#444; font-size:0.8rem;">© 2026 AVI TATTOOS</p>
     </footer>
+
+    <!-- Accessibility Widget -->
+    <button class="access-btn" onclick="toggleAccessPanel()">♿</button>
+    <div class="access-panel" id="access-panel">
+        <h4>כלי נגישות</h4>
+        <button class="access-option" onclick="toggleContrast()">ניגודיות גבוהה (שחור/לבן)</button>
+        <button class="access-option" onclick="toggleFontSize()">הגדלת טקסט</button>
+        <button class="access-option" onclick="toggleAccessPanel()">סגור</button>
+    </div>
 
     <!-- Cart UI Elements -->
     <div class="cart-float-btn" onclick="toggleCart()">
@@ -277,10 +296,17 @@
             <span class="close-cart" onclick="toggleCart()">&times;</span>
         </div>
         <div class="cart-items" id="cart-items-container">
-            <!-- פריטים יתווספו לכאן -->
             <p style="text-align:center; color:#666; margin-top:20px;">העגלה ריקה</p>
         </div>
         <div class="cart-footer">
+            <div class="payment-methods">
+                <span>ניתן לשלם ב:</span>
+                <div class="payment-icons">
+                    <div class="pay-badge bit">Bit</div>
+                    <div class="pay-badge paybox">PayBox</div>
+                    <div class="pay-badge" style="background:#444;">מזומן</div>
+                </div>
+            </div>
             <button class="btn-checkout" onclick="checkout()">
                 <span>שליחת הזמנה לוואטסאפ</span>
                 <span>📱</span>
@@ -296,7 +322,7 @@
 
     <script>
         // --- Data ---
-        let cart = []; // מערך העגלה
+        let cart = [];
 
         const tattoos = [
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797d799d79d-d7a2d79c-d794d799d793--1.jpg?w=476",
@@ -355,7 +381,6 @@
 
         // --- Core Functions ---
 
-        // Render Tattoos with Magnifying Glass Icon
         const tattooGrid = document.getElementById('tattoo-grid');
         tattoos.forEach(src => {
             const div = document.createElement('div');
@@ -368,14 +393,12 @@
             tattooGrid.appendChild(div);
         });
 
-        // Render Shop Products
         const shopGrid = document.getElementById('product-grid');
         function renderShop(filter = 'all') {
             shopGrid.innerHTML = '';
             const filtered = products.filter(p => filter === 'all' || p.type === filter);
             
             filtered.forEach(p => {
-                // Escaping strings for onclick
                 const pString = JSON.stringify(p).replace(/"/g, '&quot;');
                 shopGrid.innerHTML += `
                     <div class="product-card">
@@ -408,7 +431,6 @@
             cart.push(item);
             updateCartUI();
             
-            // Visual Feedback
             const btn = event.target;
             const originalText = btn.innerHTML;
             btn.innerHTML = "נוסף! ✅";
@@ -427,10 +449,7 @@
         }
 
         function updateCartUI() {
-            // Update Badge
             document.getElementById('cart-count').innerText = cart.length;
-
-            // Render Cart Items
             const container = document.getElementById('cart-items-container');
             if (cart.length === 0) {
                 container.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">העגלה ריקה</p>';
@@ -474,10 +493,24 @@
             cart.forEach((item, i) => {
                 message += `${i+1}. ${item.name} (מק"ט: ${item.id}) - ${item.mat}\n`;
             });
-            message += "\nאשמח לפרטים על תשלום ומשלוח/איסוף. תודה!";
+            message += "\nאשמח לפרטים על תשלום (Bit/PayBox) ומשלוח. תודה!";
 
             const url = `https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
+        }
+
+        // --- Accessibility ---
+        function toggleAccessPanel() {
+            const panel = document.getElementById('access-panel');
+            panel.classList.toggle('open');
+        }
+
+        function toggleContrast() {
+            document.body.classList.toggle('a11y-contrast');
+        }
+
+        function toggleFontSize() {
+            document.body.classList.toggle('a11y-large-font');
         }
 
         // --- Lightbox ---
