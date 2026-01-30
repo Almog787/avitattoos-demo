@@ -192,45 +192,34 @@
 
     <script>
         let cart = [];
+        let products = [];
+        let tattoos = [];
         
-        // --- 1. DATA: כל המוצרים והגלריה ---
-        const products = [
-            { id: 1052, name: "לוטוס אבן עם שרשרת", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1023, name: "לאברט זירקון", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795d7a0d799d79d-d7a7d798d79f-d7a2d79d-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1071, name: "פרח מרקיזות", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1071-d7a4d7a8d797-d791d7a8d7a7d799d796d795d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1054, name: "טיפה נופלת 4מ\"מ", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1054-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1070, name: "משובץ גיאומטרי", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1070-d7a6d795d7a8d794-d792d790d795d79ed798d7a8d799-d7a2d79d-d796d799d7a8d7a7d795d7a0d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1040, name: "מרקיזות בשורה", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1040-d79ed7a8d7a7d799d796d795d7aa-d791d7a9d795d7a8d794-d7a6d791d7a2-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1050, name: "הליקס מניפה", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1050d794d79cd799d7a7d7a1-d79ed795d797d791d790-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1022, name: "פרפר עדין 4מ\"מ", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1022-d7a4d7a8d7a4d7a8-d7a7d798d79f-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1051, name: "טיפה זירקון", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1051-d798d799d7a4d794-d796d7a8d7a7d795d7a0d799d79d-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1063, name: "מרקיזות זהב", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1063-d79ed7a8d7a7d799d796d795d7aa-d791d7a6d795d7a8d794-d79ed7a2d795\d799\d799\d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1031, name: "לאברט נחש", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1031-d79cd791d7a8d798-d7a0d797d7a9-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1019, name: "לוטוס חלק", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1019-d79cd795d798d795d7a1-d797d79cd7a7-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1033, name: "ענף משובץ ירוק", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1033-d7a2d7a0d7a3-d7a2d79d-d7a9d7a9d791d7a5-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1016, name: "עיגול זהב חרוט", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1016-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1034, name: "קליקר כדורים", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1034-d7a9d795d7a8d794-d79bd793d795\d7a8d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1013, name: "מרקיזה ירוקה", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1013-d79ed7a8d7a7d799d796d794-3d79ed79e-d7a6d791d7a2-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" }
-        ];
+        // --- 1. CORE LOGIC ---
 
-        const tattoos = [
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797d799d79d-d7a2d79c-d794d799d793--1.jpg?w=476",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d7a4d7a8d799d79d-d7a2d79c-d794d799d793-1.jpg?w=576",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d790d7a8d799d794-d7a2d79c-d794d7a8d792d7a8-.jpg?w=765",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/harley-davidson-tattoo-avintattoo.jpg?w=1024"
-        ];
-
-        // --- 2. CORE LOGIC ---
-
-        function init() {
+        async function init() {
             document.body.classList.add('page-loaded');
-            renderShop();
-            renderTattoos();
-            initReveal();
+            
+            try {
+                // משיכת נתונים מקובץ JSON חיצוני
+                const response = await fetch('products.json');
+                const data = await response.json();
+                
+                products = data.products || [];
+                tattoos = data.tattoos || [];
+                
+                renderShop();
+                renderTattoos();
+                initReveal();
+            } catch (error) {
+                console.error("Error loading products.json:", error);
+            }
         }
 
         function renderTattoos() {
             const grid = document.getElementById('tattoo-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
             tattoos.forEach(src => {
                 const div = document.createElement('div');
                 div.className = 'gallery-item reveal';
@@ -241,6 +230,7 @@
 
         function renderShop(filter = 'all') {
             const grid = document.getElementById('product-grid');
+            if (!grid) return;
             grid.innerHTML = '';
             const filtered = products.filter(p => filter === 'all' || p.type === filter);
             filtered.forEach(p => {
@@ -299,7 +289,7 @@
 
         function filterShop(type) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            if (event) event.target.classList.add('active');
             renderShop(type);
         }
 
