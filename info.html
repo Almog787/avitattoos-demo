@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מרכז המידע | Avintattoo</title>
+    <title>מרכז המידע | Avintattoos</title>
     
     <!-- Favicon חכם: אייקון יהלום מוזהב בשורת הכתובות -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
@@ -50,9 +50,11 @@
             border-bottom: 1px solid rgba(0,0,0,0.05); backdrop-filter: blur(15px);
         }
 
-        .logo-svg { width: 160px; height: auto; cursor: pointer; }
+        /* לוגו SVG זהה לדף הבית */
+        .logo-svg { width: 180px; height: auto; cursor: pointer; transition: transform 0.3s; }
+        .logo-svg:hover { transform: scale(1.03); }
 
-        .btn-back { font-weight: 700; color: #111; font-size: 0.9rem; padding: 8px 20px; border: 1px solid #111; border-radius: 50px; }
+        .btn-back { font-weight: 700; color: #111; font-size: 0.9rem; padding: 8px 20px; border: 1px solid #111; border-radius: 50px; transition: 0.3s; }
         .btn-back:hover { background: #111; color: #fff; }
 
         /* --- Hero Section --- */
@@ -126,6 +128,7 @@
 
     <header>
         <a href="index.html" class="transition-link">
+            <!-- לוגו SVG מעודכן ל-Avintattoos -->
             <svg class="logo-svg" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -135,7 +138,7 @@
                     </linearGradient>
                 </defs>
                 <text x="0" y="45" font-family="Heebo" font-weight="900" font-size="42" fill="url(#goldGrad)">AVIN</text>
-                <text x="105" y="45" font-family="Heebo" font-weight="300" font-size="42" fill="#111">TATTOO</text>
+                <text x="105" y="45" font-family="Heebo" font-weight="300" font-size="42" fill="#111">TATTOOS</text>
             </svg>
         </a>
         <a href="index.html" class="btn-back transition-link">חזרה לבית</a>
@@ -233,14 +236,14 @@
         <!-- CTA -->
         <div class="cta-footer reveal">
             <h2>מוכנים להתחיל את הפרויקט הבא?</h2>
-            <p>הייעוץ והסקיצה הראשונית הם ללא עלות וללא התחייבות.</p>
+            <p>הייעוץ והסקיצה הראשונית בסטודיו הם ללא עלות.</p>
             <a href="index.html#contact" class="btn-gold transition-link">תיאום פגישת ייעוץ</a>
         </div>
 
     </div>
 
     <footer>
-        <p>© 2026 Avintattoo | סטודיו לקעקועים ופירסינג באריאל</p>
+        <p>© 2026 Avintattoos | סטודיו לקעקועים ופירסינג באריאל</p>
     </footer>
 
     <script>
