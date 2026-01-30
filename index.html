@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avintattoo | סטודיו לקעקועים ופירסינג באריאל</title>
     
-    <!-- Favicon חכם: אייקון יהלום מוזהב בשורת הכתובות -->
+    <!-- Favicon חכם -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
 
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* --- משתנים ועיצוב גלובלי --- */
+        /* --- CSS VARIABLES & THEME --- */
         :root {
             --bg-body: #ffffff;
             --bg-section: #f9f9f9;
@@ -19,35 +19,32 @@
             --text-main: #111111;
             --text-muted: #555555;
             --gold: #d4af37;
-            --gold-glow: rgba(212, 175, 55, 0.2);
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f7ef8a 50%, #d4af37 100%);
             --whatsapp-green: #25d366;
             --waze-blue: #33ccff;
             --border-color: #e0e0e0;
             --shadow-card: 0 10px 30px rgba(0,0,0,0.08);
-            --font-main: 'Heebo', sans-serif;
             --transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-
-        /* מנגנון Reveal */
-        .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition); }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-
-        /* Page Transition - Fade in */
-        body { opacity: 0; transition: opacity 0.6s ease-in-out; }
-        body.page-loaded { opacity: 1; }
-        body.is-exiting { opacity: 0; }
 
         /* נגישות */
         body.a11y-contrast { --bg-body: #000; --bg-section: #222; --bg-card: #333; --text-main: #fff; --text-muted: #ddd; --border-color: #fff; --gold: #ffff00; }
         body.a11y-large-font { font-size: 125%; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        /* אנימציות ורינדור */
+        .reveal { opacity: 0; transform: translateY(40px); transition: var(--transition); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        body { font-family: var(--font-main); background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        body { opacity: 0; transition: opacity 0.6s ease-in-out; }
+        body.page-loaded { opacity: 1; }
+        body.is-exiting { opacity: 0; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Heebo', sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; transition: 0.3s; }
         ul { list-style: none; }
         img { display: block; max-width: 100%; }
-        button { font-family: var(--font-main); cursor: pointer; }
+        button { font-family: inherit; cursor: pointer; border: none; }
 
         /* --- Header --- */
         header {
@@ -58,25 +55,18 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: #000; text-transform: uppercase; }
+        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: #000; text-transform: uppercase; cursor: pointer; }
         .brand span { color: var(--gold); }
-        .brand:hover { opacity: 0.7; }
 
         nav ul { display: flex; gap: 25px; }
         nav a { font-weight: 500; font-size: 0.95rem; color: #333; }
         nav a:hover { color: var(--gold); }
 
-        /* --- Hero Video --- */
-        .hero {
-            position: relative; height: 100vh; display: flex; align-items: center; justify-content: center;
-            overflow: hidden; text-align: center; padding: 0 20px; color: #fff;
-        }
+        /* --- Hero --- */
+        .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; color: #fff; }
         .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
-        
-        .hero-content h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1rem;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
-        }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.2); z-index: -1; }
+        .hero-content h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .hero-content h1 span { color: var(--gold); display: block; font-size: 1.5rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 10px; }
         .hero-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
 
@@ -85,69 +75,48 @@
         .btn:hover { background: #fff; color: #000; }
         .btn.primary { background: var(--gold); border-color: var(--gold); color: #000; }
 
-        /* --- Section Styling --- */
+        /* --- Shop & Portfolio Sections --- */
         .section { padding: 5rem 5%; background: var(--bg-body); }
         .section-alt { background: var(--bg-section); }
         .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2.5rem; font-weight: 800; color: var(--text-main); }
+        .section-title h2 { font-size: 2.5rem; font-weight: 800; }
 
-        /* --- Grid System --- */
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
-        .gallery-item, .product-img-wrapper {
-            position: relative; overflow: hidden; border-radius: 12px; cursor: zoom-in; aspect-ratio: 1 / 1;
-            background: #f0f0f0; box-shadow: var(--shadow-card);
-        }
-        .gallery-item img, .product-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .overlay-icon { position: absolute; inset: 0; background: rgba(0,0,0,0.2); opacity: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; pointer-events: none; transition: 0.3s; }
-        .gallery-item:hover .overlay-icon, .product-img-wrapper:hover .overlay-icon { opacity: 1; }
-
-        /* --- Shop Styling --- */
-        .shop-filters { display: flex; justify-content: center; gap: 10px; margin-bottom: 2rem; flex-wrap: wrap; }
-        .filter-btn { background: transparent; border: 1px solid #ccc; color: #555; padding: 8px 25px; border-radius: 30px; transition: 0.3s; font-weight: 500; }
-        .filter-btn.active, .filter-btn:hover { border-color: var(--gold); background: var(--gold); color: #fff; }
-
-        .product-card {
-            background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px;
-            overflow: hidden; transition: var(--transition); display: flex; flex-direction: column;
-            box-shadow: var(--shadow-card);
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        
+        .product-card, .gallery-item {
+            background: var(--bg-card); border-radius: 12px; overflow: hidden;
+            box-shadow: var(--shadow-card); transition: var(--transition); display: flex; flex-direction: column;
         }
         .product-card:hover { transform: translateY(-5px); }
-        .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .product-info h3 { font-size: 1.1rem; font-weight: 700; color: #000; }
-        
-        .btn-add-cart {
-            display: block; width: 100%; padding: 10px; margin-top: 15px;
-            background: #000; border: 1px solid #000; color: #fff;
-            border-radius: 6px; font-weight: 600; transition: 0.2s;
-        }
-        .btn-add-cart:hover { background: var(--gold); border-color: var(--gold); }
 
-        /* --- Cart System --- */
-        .cart-float-btn { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--gold); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 0 5px 20px rgba(0,0,0,0.2); z-index: 1500; border: 2px solid #fff; }
-        .cart-badge { position: absolute; top: -5px; right: -5px; background: #000; color: white; font-size: 0.8rem; font-weight: bold; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .cart-modal { position: fixed; top: 0; right: -400px; width: 360px; height: 100%; background: #fff; z-index: 2000; padding: 20px; box-shadow: -5px 0 30px rgba(0,0,0,0.1); transition: right 0.4s ease; display: flex; flex-direction: column; }
+        .img-wrapper { position: relative; aspect-ratio: 1; background: #fff; cursor: zoom-in; overflow: hidden; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .img-wrapper:hover img { transform: scale(1.1); }
+        .overlay-icon { position: absolute; inset: 0; background: rgba(0,0,0,0.2); opacity: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; transition: 0.3s; }
+        .img-wrapper:hover .overlay-icon { opacity: 1; }
+
+        .product-info { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 5px; }
+        .product-info p { font-size: 0.85rem; color: #666; margin-bottom: 10px; }
+
+        .btn-cart-add { width: 100%; padding: 10px; background: #111; color: #fff; border-radius: 6px; font-weight: 600; }
+        .btn-cart-add:hover { background: var(--gold); }
+
+        /* --- Cart Float --- */
+        .cart-float { position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px; background: var(--gold); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; z-index: 1001; box-shadow: 0 5px 20px rgba(0,0,0,0.2); border: 2px solid #fff; }
+        .cart-badge { position: absolute; top: -5px; right: -5px; background: #000; color: white; font-size: 0.8rem; font-weight: 900; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+        .cart-modal { position: fixed; top: 0; right: -400px; width: 360px; height: 100%; background: #fff; z-index: 2000; padding: 25px; box-shadow: -10px 0 50px rgba(0,0,0,0.1); transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1); display: flex; flex-direction: column; }
         .cart-modal.open { right: 0; }
-        .cart-items { flex-grow: 1; overflow-y: auto; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #eee; }
-        .btn-checkout { width: 100%; padding: 15px; background: var(--whatsapp-green); color: white; border: none; border-radius: 8px; font-weight: bold; margin-top: 15px; }
+        .cart-item { display: flex; align-items: center; gap: 15px; background: #f9f9f9; padding: 10px; margin-bottom: 10px; border-radius: 8px; font-size: 0.9rem; }
+        .cart-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; }
+        .btn-whatsapp { width: 100%; padding: 15px; background: var(--whatsapp-green); color: white; border-radius: 8px; font-weight: bold; margin-top: auto; font-size: 1.1rem; }
 
         /* Lightbox */
-        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 3000; display: none; justify-content: center; align-items: center; }
-        #lightbox img { max-height: 90vh; max-width: 90vw; border: 5px solid #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        #lightbox-close { position: absolute; top: 30px; right: 30px; color: #000; font-size: 3rem; cursor: pointer; }
+        #lightbox { position: fixed; inset: 0; background: rgba(255,255,255,0.95); z-index: 3000; display: none; align-items: center; justify-content: center; cursor: zoom-out; }
+        #lightbox img { max-height: 85vh; max-width: 90vw; border: 5px solid #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
 
-        /* Accessibility Widget */
-        .access-btn { position: fixed; bottom: 30px; left: 30px; z-index: 1500; width: 50px; height: 50px; border-radius: 50%; border: none; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 1.5rem; cursor: pointer; }
-        .access-panel { position: fixed; bottom: 90px; left: 30px; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: none; z-index: 1500; width: 250px; }
-        .access-panel.open { display: block; }
-        .access-option { width: 100%; padding: 10px; margin-top: 5px; background: #f4f4f4; border: none; border-radius: 5px; cursor: pointer; text-align: right; }
-        .access-option:hover { background: #eee; }
-
-        @media (max-width: 768px) {
-            nav ul { display: none; }
-            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
-            .cart-modal { width: 100%; right: -100%; }
-        }
+        @media (max-width: 768px) { nav ul { display: none; } .grid { grid-template-columns: 1fr 1fr; gap: 15px; } .cart-modal { width: 100%; } }
     </style>
 </head>
 <body>
@@ -168,9 +137,10 @@
         <video class="video-bg" autoplay muted loop playsinline>
             <source src="https://github.com/Almog787/fun-zone/raw/refs/heads/main/dimond.mp4" type="video/mp4">
         </video>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="reveal"><span>Avintattoo</span>אמנות על הגוף<br>בסטנדרט אחר</h1>
-            <p class="reveal">הסטודיו המוביל באריאל והשומרון. עיצובים בהתאמה אישית באווירה יוקרתית.</p>
+            <p class="reveal">הסטודיו המוביל באריאל והשומרון. פירסינג וקעקועים ברמה הגבוהה ביותר.</p>
             <div class="cta-group reveal">
                 <a href="#shop" class="btn primary">לחנות הפירסינג</a>
                 <a href="#portfolio" class="btn">לגלריית הקעקועים</a>
@@ -181,122 +151,77 @@
     <!-- Shop Section -->
     <section class="section" id="shop">
         <div class="section-title reveal">
-            <p>Online Boutique</p>
             <h2>חנות תכשיטים ופירסינג</h2>
         </div>
-        <div class="shop-filters reveal">
+        <div class="shop-filters reveal" style="text-align: center; margin-bottom: 2rem;">
             <button class="filter-btn active" onclick="filterShop('all')">הכל</button>
             <button class="filter-btn" onclick="filterShop('titanium')">טיטניום</button>
             <button class="filter-btn" onclick="filterShop('gold')">ציפוי זהב</button>
         </div>
-        <div class="gallery-grid" id="product-grid"></div>
+        <div class="grid" id="product-grid"></div>
     </section>
 
     <!-- Portfolio Section -->
     <section class="section section-alt" id="portfolio">
         <div class="section-title reveal">
-            <p>Selected Works</p>
-            <h2>גלריית קעקועים</h2>
+            <h2>גלריית עבודות</h2>
         </div>
-        <div class="gallery-grid" id="tattoo-grid"></div>
+        <div class="grid" id="tattoo-grid"></div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact" style="background: #111; padding: 4rem 5%; text-align: center; color: #aaa;">
+    <footer id="contact" style="background: #000; padding: 5rem 5%; text-align: center; color: #888;">
         <div class="reveal">
-            <h2 style="color:#fff;">Avintattoo</h2>
+            <h2 style="color:#fff; margin-bottom:15px;">Avintattoo</h2>
             <p>הירדן 2, אריאל | 053-723-9660</p>
-            <a href="https://waze.com/ul?q=Hayarden+2+Ariel" target="_blank" class="waze-btn">🚙 סע עם Waze</a>
-            <p style="margin-top:40px; font-size:0.8rem;">© 2026 כל הזכויות שמורות</p>
+            <a href="https://waze.com/ul?q=Hayarden+2+Ariel" target="_blank" style="color:var(--waze-blue); margin-top:20px; display:inline-block;">🚙 סע עם Waze</a>
         </div>
     </footer>
 
-    <!-- UI Elements -->
-    <button class="access-btn" onclick="document.getElementById('access-panel').classList.toggle('open')">♿</button>
-    <div class="access-panel" id="access-panel">
-        <h4 style="margin-bottom:10px;">נגישות</h4>
-        <button class="access-option" onclick="document.body.classList.toggle('a11y-contrast')">ניגודיות גבוהה</button>
-        <button class="access-option" onclick="document.body.classList.toggle('a11y-large-font')">הגדלת טקסט</button>
-    </div>
-
-    <div class="cart-float-btn" onclick="toggleCart()">🛒<div class="cart-badge" id="cart-count">0</div></div>
+    <!-- Widgets -->
+    <div class="cart-float" onclick="toggleCart()">🛒<div class="cart-badge" id="cart-count">0</div></div>
     <div class="cart-modal" id="cart-modal">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:10px;">
             <h3>העגלה שלי</h3>
             <span onclick="toggleCart()" style="cursor:pointer; font-size:2rem;">&times;</span>
         </div>
-        <div class="cart-items" id="cart-container"></div>
-        <button class="btn-checkout" onclick="checkout()">שליחת הזמנה לוואטסאפ 📱</button>
+        <div class="cart-items" id="cart-items-container"></div>
+        <button class="btn-whatsapp" onclick="checkout()">שליחת הזמנה בוואטסאפ 📱</button>
     </div>
 
-    <div id="lightbox"><div id="lightbox-close" onclick="closeLightbox()">&times;</div><img id="lightbox-img" src=""></div>
+    <div id="lightbox"><img id="lightbox-img" src=""></div>
 
     <script>
         let cart = [];
-
-        // --- כל 41 המוצרים ---
+        
+        // --- 1. DATA: כל המוצרים והגלריה ---
         const products = [
-            { id: 1052, name: "לוטוס אבן עם שרשרת", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1023, name: "לאברט זירקון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795d7a0d799d79d-d7a7d798d79f-d7a2d79d-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1071, name: "פרח מרקיזות", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1071-d7a4d7a8d797-d791d7a8d7a7d799d796d795d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1054, name: "טיפה נופלת 4מ\"מ", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1054-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1070, name: "משובץ גיאומטרי", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1070-d7a6d795d7a8d794-d792d790d795d79ed798d7a8d799-d7a2d79d-d796d799d7a8d7a7d795d7a0d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1040, name: "מרקיזות בשורה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1040-d79ed7a8d7a7d799d796d795d7aa-d791d7a9d795d7a8d794-d7a6d791d7a2-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1050, name: "הליקס מניפה", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1050d794d79cd799d7a7d7a1-d79ed795d797d791d790-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1022, name: "פרפר עדין 4מ\"מ", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1022-d7a4d7a8d7a4d7a8-d7a7d798d79f-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1051, name: "טיפה זירקון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1051-d798d799d7a4d794-d796d7a8d7a7d795d7a0d799d79d-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1063, name: "מרקיזות זהב", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1063-d79ed7a8d7a7d799d796d795d7aa-d791d7a6d795d7a8d794-d79ed7a2d795d799d799d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1031, name: "לאברט נחש", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1031-d79cd791d7a8d798-d7a0d797d7a9-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1019, name: "לוטוס חלק", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1019-d79cd795d798d795d7a1-d797d79cd7a7-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1033, name: "ענף משובץ ירוק", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1033-d7a2d7a0d7a3-d7a2d79d-d7a9d799d791d795d7a5-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1016, name: "עיגול זהב חרוט", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1016-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1034, name: "קליקר כדורים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1034-d7a9d795d7a8d794-d7a9d79bd793d795d7a8d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1053, name: "הליקס שרשרת", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1053-d794d79cd799d7a7d7a1-d7a9d7a8d7a9d7a8d7aa-d7a2d79d-d7a4d7a8-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1036, name: "מרקיזה זויות", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1036-d79ed7a8d7a7d799d796d795d7aa-d791d796d795d799d7aa-d791d799d7a0d795d7a0d799-4d79ed79c-d7a6d791d7a2-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1055, name: "טיפה אופל", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1055-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1066, name: "חרב מיניאטורית", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1066-d797d7a8d791-d7a7d798d7a0d794-5d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1021, name: "לוטוס אבן שחורה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1021-d79cd795d798d795d7a1-d7a7d798d79f-d7a9d797d795d7a8-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1020, name: "מעויין זירקונים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1020-d796d7a8d7a7d795d7a0d799d79d-d79ed7a2d795d799d79f-d7a7d798d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
-            { id: 1042, name: "זירקון תלוי", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1042-d796d799d7a8d7a7d795d7a0d799d79d-d7a2d79d-d796d799d7a8d7a7d795d7a0d799d79d-d7aad79cd795d799-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1032, name: "עגיל דובון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1032-d793d795d791d793d791d79f-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1017, name: "עיגול חרוט טיטניום", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1017-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1038, name: "שורה 5 זירקונים", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1038-d7a9d795d7a8d794-5-d796d7a8d7a7d795d7a0d799d79d-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1015, name: "טיפה שחורה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1015-d798d799d7a4d794-d7a9d797d795d7a8-3d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1030, name: "נחש מעוצב", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1030-d7a0d797d7a9-d7a2d79d-d793d795\d792\d79ed794-d798d799d798d7a0d799d795d79d-d7a6\d799d7a4\d795\d799-\d796\d794\d791.jpg" },
-            { id: 1024, name: "זירקון סוליטר", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1024-d796d799d7a8d7a7d795d7a0d799d79d-d792d795\d793\d79c-3.5d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
-            { id: 1069, name: "פרפר זירקונים", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1069-d7a4\d7a8\d7a4\d7a8-\d796\d799\d7a8\d7a7\d795\d7a0\d799\d79d-d7a6\d799\d7a4\d795\d799-\d796\d794\d791.jpg" },
-            { id: 1039, name: "שורה דקה משובצת", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1039-d7a9\d795\d7a8\d794-\d793\d7a7\d794-\d79e\d7a9\d795\d791\d7a6\d7aa-\d798\d799\d798\d7a0\d799\d795\d79d.jpg" },
-            { id: 1041, name: "טיפה תלויה", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1041-d798\d799\d7a4\d794-\d7aad\d79cd795\d799\d794-d7a6\d799\d7a4\d795\d799-\d796\d794\d791.jpg" },
-            { id: 1037, name: "לוטוס שחור מנוקד", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1037-d79cd795\d798\d795\d7a1-\d7a9\d797\d795\d7a8-\d79e\d7a0\d795\d7a7\d793-\d798\d799\d798\d7a0\d799\d795\d79d.jpg" },
-            { id: 1018, name: "מרקיזה משולשת", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1018-d79ed7a8\d7a7\d799\d796\d794-\d79e\d7a9\d795\d79c\d7a9\d7aa-8d79ed79e.jpg" },
-            { id: 1068, name: "לב משובץ קטן", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1068-d79cd791-\d79e\d7a9\d795\d791\d7a6-\d7a7\d798\d79f-d7a6\d799\d7a4\d795\d799-\d796\d794\d791.jpg" },
-            { id: 1065, name: "לאברט פפיון", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1065-d79cd791\d7a8\d798-\d7a4\d7a4\d799\d795\d79f-\d798\d799\d798\d7a0\d799\d795\d79d.jpg" },
-            { id: 1012, name: "טיפה כתר", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1012-d798\d799\d7a4\d794-\d79bd7aad7a8-d7a6\d799\d7a4\d795\d799-\d796\d794\d791.jpg" },
-            { id: 1061, name: "מעויין זירקונים גדול", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1061-d79ed7a2\d795\d799\d799\d79f-\d796\d799\d7a8\d7a7\d795\d7a0\d799\d79d-\d792\d793\d795\d79c-d7a6\d799\d7a4\d795\d799-\d796\d794\d791.jpg" },
-            { id: 1067, name: "שמש משובצת", type: "gold", mat: "ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1067-d7a9\d79e\d7a9-\d79e\d7a9\d795\d791\d7a6\d7aa-d7a6\d799\d7a4\d795\d799-\d796\d794\d791.jpg" },
-            { id: 1062, name: "ניצנוץ טיטניום", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1062-d7a0\d799\d7a6\d7a0\d795\d7a5-\d798\d799\d798\d7a0\d799\d795\d79d.jpg" },
-            { id: 1014, name: "לאברט מעויין עדין", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1014-d79cd791\d7a8\d798-\d79e\d7a2\d795\d799\d799\d79f-\d7a2\d793\d799\d79f-\d798\d799\d798\d7a0\d799\d795\d79d.jpg" },
-            { id: 1013, name: "מרקיזה ירוקה", type: "titanium", mat: "טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1013-d79ed7a8\d7a7\d799\d796\d794-\d799\d7a8\d795\d7a7\d794-\d798\d799\d798\d7a0\d799\d795\d79d.jpg" }
+            { id: 1052, name: "לוטוס אבן עם שרשרת", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1052-d79cd795d798d795d7a1-d7a7d798d79f-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1023, name: "לאברט זירקון", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1023-d79cd791d7a8d798-d796d7a8d799d7a7d795d7a0d799d79d-d7a7d798d79f-d7a2d79d-d7a6d791d7a2-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1071, name: "פרח מרקיזות", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1071-d7a4d7a8d797-d791d7a8d7a7d799d796d795d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1054, name: "טיפה נופלת 4מ\"מ", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1054-d798d799d7a4d794-d7a0d795d7a4d79cd7aa-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1070, name: "משובץ גיאומטרי", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1070-d7a6d795d7a8d794-d792d790d795d79ed798d7a8d799-d7a2d79d-d796d799d7a8d7a7d795d7a0d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1040, name: "מרקיזות בשורה", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1040-d79ed7a8d7a7d799d796d795d7aa-d791d7a9d795d7a8d794-d7a6d791d7a2-d798d799d798d7a0d799d795d79d.jpg" },
+            { id: 1050, name: "הליקס מניפה", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1050d794d79cd799d7a7d7a1-d79ed795d797d791d790-d7a2d79d-d7a9d7a8d7a9d7a8d7aa-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1022, name: "פרפר עדין 4מ\"מ", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1022-d7a4d7a8d7a4d7a8-d7a7d798d79f-4d79ed79e-d798d799d798d7a0d799d795d79d.jpg" },
+            { id: 1051, name: "טיפה זירקון", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1051-d798d799d7a4d794-d796d7a8d7a7d795d7a0d799d79d-d798d799d798d7a0d799d795d79d.jpg" },
+            { id: 1063, name: "מרקיזות זהב", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1063-d79ed7a8d7a7d799d796d795d7aa-d791d7a6d795d7a8d794-d79ed7a2d795\d799\d799\d79f-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1031, name: "לאברט נחש", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1031-d79cd791d7a8d798-d7a0d797d7a9-d798d799d798d7a0d799d795d79d.jpg" },
+            { id: 1019, name: "לוטוס חלק", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1019-d79cd795d798d795d7a1-d797d79cd7a7-d798d799d798d7a0d799d795d79d.jpg" },
+            { id: 1033, name: "ענף משובץ ירוק", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1033-d7a2d7a0d7a3-d7a2d79d-d7a9d7a9d791d7a5-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" },
+            { id: 1016, name: "עיגול זהב חרוט", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1016-d7a2d799d792d795d79c-d7a2d79d-d797d7a8d799d798d794-4d79ed79e-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1034, name: "קליקר כדורים", type: "gold", mat: "🟡 ציפוי זהב", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1034-d7a9d795d7a8d794-d79bd793d795\d7a8d799d79d-d7a6d799d7a4d795d799-d796d794d791.jpg" },
+            { id: 1013, name: "מרקיזה ירוקה", type: "titanium", mat: "⚪️ טיטניום", img: "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d79ed7a7d798-1013-d79ed7a8d7a7d799d796d794-3d79ed79e-d7a6d791d7a2-d799d7a8d795d7a7-d798d799d798d7a0d799d795d79d.jpg" }
         ];
 
-        // --- כל תמונות הגלריה ---
         const tattoos = [
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d797d799d79d-d7a2d79c-d794d799d793--1.jpg?w=476",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a4d7a8d7a4d7a8d799d79d-d7a2d79c-d794d799d793-1.jpg?w=576",
             "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d790d7a8d799d794-d7a2d79c-d794d7a8d792d7a8-.jpg?w=765",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/harley-davidson-tattoo-avintattoo.jpg?w=1024",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d794d791d7a8d799d790d794-.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/12/d7a7d7a2d7a7d795d7a2-d79bd799d7aad795d791-d7a2d79c-d794d799d793-e1765019012346.jpg?w=750",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d79bd7aad7a8-d7a2d79c-d794d7a6d795d795d790d7a8-.jpg?w=765",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/09/d7a7d7a2d7a7d795d7a2-d7a2d79d-d799d7a9d7a8d790d79c-d797d799-d7a2d79c-d794d799d793-1.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/1000085856.jpg?w=768",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/1000085855.jpg?w=877",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/1000085854.jpg?w=577",
-            "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/1000085853.jpg?w=576"
+            "https://avitattoos.wordpress.com/wp-content/uploads/2025/11/harley-davidson-tattoo-avintattoo.jpg?w=1024"
         ];
 
-        // --- Core Functions ---
-        
+        // --- 2. CORE LOGIC ---
+
         function init() {
             document.body.classList.add('page-loaded');
             renderShop();
@@ -309,8 +234,7 @@
             tattoos.forEach(src => {
                 const div = document.createElement('div');
                 div.className = 'gallery-item reveal';
-                div.innerHTML = `<img src="${src}" loading="lazy"><div class="overlay-icon">🔍</div>`;
-                div.onclick = () => openLightbox(src);
+                div.innerHTML = `<div class="img-wrapper" onclick="openLightbox('${src}')"><img src="${src}" loading="lazy"><div class="overlay-icon">🔍</div></div>`;
                 grid.appendChild(div);
             });
         }
@@ -322,16 +246,16 @@
             filtered.forEach(p => {
                 const pString = JSON.stringify(p).replace(/"/g, '&quot;');
                 grid.innerHTML += `
-                    <div class="product-card reveal">
-                        <div class="product-img-wrapper" onclick="openLightbox('${p.img}')">
-                            <img src="${p.img}" loading="lazy">
-                            <div class="overlay-icon">🔍</div>
-                        </div>
-                        <div class="product-info">
-                            <div><h3>${p.name}</h3><p>${p.mat} | מק"ט: ${p.id}</p></div>
-                            <button class="btn-add-cart" onclick="addToCart(${pString})">הוספה לעגלה 🛒</button>
-                        </div>
-                    </div>`;
+                <div class="product-card reveal">
+                    <div class="img-wrapper" onclick="openLightbox('${p.img}')">
+                        <img src="${p.img}" loading="lazy">
+                        <div class="overlay-icon">🔍</div>
+                    </div>
+                    <div class="product-info">
+                        <div><h3>${p.name}</h3><p>${p.mat} | #${p.id}</p></div>
+                        <button class="btn-cart-add" onclick="addToCart(${pString})">הוספה לעגלה 🛒</button>
+                    </div>
+                </div>`;
             });
             initReveal();
         }
@@ -345,11 +269,12 @@
 
         function updateCartUI() {
             const container = document.getElementById('cart-items-container');
-            if (cart.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;margin-top:20px;">העגלה ריקה</p>'; return; }
+            if (cart.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;">העגלה ריקה</p>'; return; }
             container.innerHTML = cart.map((item, i) => `
                 <div class="cart-item">
-                    <div style="flex-grow:1;"><h4>${item.name}</h4><p>מק"ט: ${item.id}</p></div>
-                    <span style="color:red;cursor:pointer;" onclick="removeFromCart(${i})">&times;</span>
+                    <img src="${item.img}">
+                    <div style="flex-grow:1;"><h4>${item.name}</h4><p>#${item.id}</p></div>
+                    <span style="color:red;cursor:pointer;font-size:1.2rem;" onclick="removeFromCart(${i})">&times;</span>
                 </div>`).join('');
         }
 
@@ -368,7 +293,7 @@
 
         function checkout() {
             if (cart.length === 0) return;
-            const text = "היי אבי, אשמח להזמין:\n" + cart.map(item => `- ${item.name} (${item.id})`).join('\n');
+            const text = "היי אבי, אשמח להזמין:\n" + cart.map(item => `- ${item.name} (#${item.id})`).join('\n');
             window.open(`https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(text)}`);
         }
 
@@ -383,12 +308,10 @@
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
         }
 
-        const lightbox = document.getElementById('lightbox');
-        const lbImg = document.getElementById('lightbox-img');
-        function openLightbox(src) { lbImg.src = src; lightbox.style.display = 'flex'; }
-        lightbox.onclick = () => lightbox.style.display = 'none';
+        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
+        document.getElementById('lightbox').onclick = () => document.getElementById('lightbox').style.display = 'none';
 
-        // Page Transitions for links
+        // Page Transitions
         document.querySelectorAll('.transition-link').forEach(link => {
             link.onclick = (e) => {
                 e.preventDefault();
