@@ -65,7 +65,7 @@
         /* --- Hero --- */
         .hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; color: #fff; }
         .video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
-        .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.2); z-index: -1; }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); z-index: -1; }
         .hero-content h1 { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 900; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
         .hero-content h1 span { color: var(--gold); display: block; font-size: 1.5rem; font-weight: 300; letter-spacing: 5px; margin-bottom: 10px; }
         .hero-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
@@ -116,7 +116,7 @@
         #lightbox { position: fixed; inset: 0; background: rgba(255,255,255,0.95); z-index: 3000; display: none; align-items: center; justify-content: center; cursor: zoom-out; }
         #lightbox img { max-height: 85vh; max-width: 90vw; border: 5px solid #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
 
-        @media (max-width: 768px) { nav ul { display: none; } .grid { grid-template-columns: 1fr 1fr; gap: 15px; } .cart-modal { width: 100%; } }
+        @media (max-width: 768px) { nav ul { display: none; } .grid { grid-template-columns: 1fr 1fr; gap: 10px; } .cart-modal { width: 100%; } }
     </style>
 </head>
 <body>
@@ -126,8 +126,8 @@
         <nav>
             <ul>
                 <li><a href="#shop">חנות</a></li>
-                <li><a href="#portfolio">גלריה</a></li>
-                <li><a href="info.html" class="transition-link">מרכז מידע</a></li>
+                <li><a href="#portfolio">גלריית קעקועים</a></li>
+                <li><a href="#piercing-gallery">גלריית פירסינג</a></li>
                 <li><a href="#contact">צור קשר</a></li>
             </ul>
         </nav>
@@ -135,7 +135,7 @@
 
     <section class="hero" id="studio">
         <video class="video-bg" autoplay muted loop playsinline>
-            <source src="https://github.com/Almog787/fun-zone/raw/refs/heads/main/dimond.mp4" type="video/mp4">
+            <source src="https://avitattoos.wordpress.com/wp-content/uploads/2025/09/avintattoo-tattoo-stodio-in-ariel2.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -154,19 +154,27 @@
             <h2>חנות תכשיטים ופירסינג</h2>
         </div>
         <div class="shop-filters reveal" style="text-align: center; margin-bottom: 2rem;">
-            <button class="filter-btn active" onclick="filterShop('all')">הכל</button>
-            <button class="filter-btn" onclick="filterShop('titanium')">טיטניום</button>
-            <button class="filter-btn" onclick="filterShop('gold')">ציפוי זהב</button>
+            <button class="filter-btn active" onclick="filterShop('all', this)">הכל</button>
+            <button class="filter-btn" onclick="filterShop('titanium', this)">טיטניום</button>
+            <button class="filter-btn" onclick="filterShop('gold', this)">ציפוי זהב</button>
         </div>
         <div class="grid" id="product-grid"></div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- Tattoo Portfolio Section -->
     <section class="section section-alt" id="portfolio">
         <div class="section-title reveal">
-            <h2>גלריית עבודות</h2>
+            <h2>גלריית קעקועים</h2>
         </div>
         <div class="grid" id="tattoo-grid"></div>
+    </section>
+
+    <!-- Piercing Portfolio Section -->
+    <section class="section" id="piercing-gallery">
+        <div class="section-title reveal">
+            <h2>גלריית פירסינג</h2>
+        </div>
+        <div class="grid" id="piercing-work-grid"></div>
     </section>
 
     <footer id="contact" style="background: #000; padding: 5rem 5%; text-align: center; color: #888;">
@@ -188,55 +196,64 @@
         <button class="btn-whatsapp" onclick="checkout()">שליחת הזמנה בוואטסאפ 📱</button>
     </div>
 
-    <div id="lightbox"><img id="lightbox-img" src=""></div>
+    <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src=""></div>
 
     <script>
         let cart = [];
-        let products = [];
-        let tattoos = [];
+        let allProducts = [];
+        let tattooImages = [];
+        let piercingImages = [];
         
-        // --- 1. CORE LOGIC ---
+        // --- 1. CORE LOGIC: Loading Data ---
 
         async function init() {
             document.body.classList.add('page-loaded');
             
             try {
-                // משיכת נתונים מקובץ JSON חיצוני
+                // משיכת הנתונים מקובץ ה-JSON
                 const response = await fetch('products.json');
                 const data = await response.json();
                 
-                products = data.products || [];
-                tattoos = data.tattoos || [];
+                allProducts = data.products || [];
+                tattooImages = data.tattoos || [];
+                piercingImages = data.piercing_gallery || [];
                 
                 renderShop();
-                renderTattoos();
+                renderGallery('tattoo-grid', tattooImages);
+                renderGallery('piercing-work-grid', piercingImages);
                 initReveal();
             } catch (error) {
-                console.error("Error loading products.json:", error);
+                console.error("שגיאה בטעינת הקובץ products.json:", error);
             }
         }
 
-        function renderTattoos() {
-            const grid = document.getElementById('tattoo-grid');
+        // --- 2. RENDER FUNCTIONS ---
+
+        function renderGallery(containerId, images) {
+            const grid = document.getElementById(containerId);
             if (!grid) return;
-            grid.innerHTML = '';
-            tattoos.forEach(src => {
-                const div = document.createElement('div');
-                div.className = 'gallery-item reveal';
-                div.innerHTML = `<div class="img-wrapper" onclick="openLightbox('${src}')"><img src="${src}" loading="lazy"><div class="overlay-icon">🔍</div></div>`;
-                grid.appendChild(div);
-            });
+            grid.innerHTML = images.map(src => `
+                <div class="gallery-item reveal">
+                    <div class="img-wrapper" onclick="openLightbox('${src}')">
+                        <img src="${src}" loading="lazy">
+                        <div class="overlay-icon">🔍</div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         function renderShop(filter = 'all') {
             const grid = document.getElementById('product-grid');
             if (!grid) return;
             grid.innerHTML = '';
-            const filtered = products.filter(p => filter === 'all' || p.type === filter);
+            
+            const filtered = allProducts.filter(p => filter === 'all' || p.type === filter);
+            
             filtered.forEach(p => {
                 const pString = JSON.stringify(p).replace(/"/g, '&quot;');
-                grid.innerHTML += `
-                <div class="product-card reveal">
+                const card = document.createElement('div');
+                card.className = 'product-card reveal';
+                card.innerHTML = `
                     <div class="img-wrapper" onclick="openLightbox('${p.img}')">
                         <img src="${p.img}" loading="lazy">
                         <div class="overlay-icon">🔍</div>
@@ -244,22 +261,27 @@
                     <div class="product-info">
                         <div><h3>${p.name}</h3><p>${p.mat} | #${p.id}</p></div>
                         <button class="btn-cart-add" onclick="addToCart(${pString})">הוספה לעגלה 🛒</button>
-                    </div>
-                </div>`;
+                    </div>`;
+                grid.appendChild(card);
             });
             initReveal();
         }
 
+        // --- 3. CART LOGIC ---
+
         function addToCart(item) {
             cart.push(item);
-            document.getElementById('cart-count').innerText = cart.length;
             updateCartUI();
             toggleCart(true);
         }
 
         function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
             const container = document.getElementById('cart-items-container');
-            if (cart.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;">העגלה ריקה</p>'; return; }
+            if (cart.length === 0) { 
+                container.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">העגלה ריקה</p>'; 
+                return; 
+            }
             container.innerHTML = cart.map((item, i) => `
                 <div class="cart-item">
                     <img src="${item.img}">
@@ -270,7 +292,6 @@
 
         function removeFromCart(index) {
             cart.splice(index, 1);
-            document.getElementById('cart-count').innerText = cart.length;
             updateCartUI();
         }
 
@@ -283,23 +304,32 @@
 
         function checkout() {
             if (cart.length === 0) return;
-            const text = "היי אבי, אשמח להזמין:\n" + cart.map(item => `- ${item.name} (#${item.id})`).join('\n');
+            const text = "היי אבי, אשמח להזמין את הפריטים הבאים מהאתר:\n\n" + 
+                         cart.map(item => `- ${item.name} (#${item.id})`).join('\n') + 
+                         `\n\nסה"כ פריטים: ${cart.length}`;
             window.open(`https://api.whatsapp.com/send?phone=9720537239660&text=${encodeURIComponent(text)}`);
         }
 
-        function filterShop(type) {
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            if (event) event.target.classList.add('active');
+        // --- 4. UTILS ---
+
+        function filterShop(type, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
             renderShop(type);
         }
 
         function initReveal() {
-            const obs = new IntersectionObserver(ents => ents.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') }), { threshold: 0.1 });
+            const obs = new IntersectionObserver(ents => {
+                ents.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+            }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
         }
 
-        function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').style.display = 'flex'; }
-        document.getElementById('lightbox').onclick = () => document.getElementById('lightbox').style.display = 'none';
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            lb.style.display = 'flex';
+        }
 
         // Page Transitions
         document.querySelectorAll('.transition-link').forEach(link => {
