@@ -4,228 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מרכז המידע | Avintattoo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
-    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💎</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* --- עיצוב גלובלי (זהה לאתר הראשי) --- */
-        :root {
-            --bg-body: #ffffff;
-            --bg-section: #f9f9f9;
-            --text-main: #111111;
-            --text-muted: #555555;
-            --gold: #d4af37;
-            --border-color: #e0e0e0;
-            --font-main: 'Heebo', sans-serif;
-            --transition: all 0.3s ease;
-        }
-
-        /* נגישות */
-        body.a11y-contrast { --bg-body: #000; --text-main: #fff; --text-muted: #ddd; --bg-section: #222; }
-        body.a11y-large-font { font-size: 125%; }
-
+        :root { --bg: #ffffff; --text: #111; --gold: #d4af37; --transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal { opacity: 0; transform: translateY(20px); transition: var(--transition); }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .page-transition { position: fixed; inset: 0; background: #000; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+        body.is-exiting .page-transition { opacity: 1; pointer-events: all; }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; opacity: 0; transition: opacity 0.8s; }
+        body.loaded { opacity: 1; }
 
-        body {
-            font-family: var(--font-main);
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.8;
-        }
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255,255,255,0.9); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(10px); border-bottom: 1px solid #eee; }
+        .logo-svg { width: 150px; }
 
-        a { text-decoration: none; color: inherit; transition: var(--transition); }
-        ul { list-style: none; }
-        img { display: block; max-width: 100%; }
+        .hero-mini { height: 40vh; background: url('https://avitattoos.wordpress.com/wp-content/uploads/2025/07/1000068900.png?w=559') center/cover; position: relative; display: flex; align-items: center; justify-content: center; color: #fff; text-align: center; }
+        .hero-mini::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+        .hero-content { z-index: 1; }
 
-        /* --- Header --- */
-        header {
-            position: fixed; top: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem 5%; z-index: 1000;
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,0.05); backdrop-filter: blur(10px);
-        }
-
-        .brand { font-size: 1.5rem; font-weight: 900; letter-spacing: 1px; color: #000; text-transform: uppercase; }
-        .brand span { color: var(--gold); }
-
-        nav ul { display: flex; gap: 25px; }
-        nav a { font-weight: 500; font-size: 0.95rem; color: #333; position: relative; }
-        nav a:hover { color: var(--gold); }
-
-        /* --- Hero Section --- */
-        .page-hero {
-            position: relative;
-            height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: url('https://avitattoos.wordpress.com/wp-content/uploads/2025/07/1000068900.png?w=559') no-repeat center center/cover;
-            color: #fff;
-        }
-
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
-        }
-
-        .hero-content { position: relative; z-index: 2; padding: 0 20px; }
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .hero-content p { font-size: 1.2rem; font-weight: 300; opacity: 0.9; }
-
-        /* --- TOC --- */
-        .toc-container {
-            background: var(--bg-body); transform: translateY(-40px); max-width: 800px; margin: 0 auto;
-            border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); padding: 2rem;
-            position: relative; z-index: 10; border-top: 4px solid var(--gold);
-        }
-        .toc-title { text-align: center; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; }
-        .toc-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; }
-        .toc-btn {
-            background: var(--bg-section); padding: 10px 20px; border-radius: 30px;
-            font-weight: 600; font-size: 0.9rem; color: var(--text-main); border: 1px solid var(--border-color);
-            transition: 0.3s;
-        }
-        .toc-btn:hover { background: var(--gold); color: #fff; border-color: var(--gold); transform: translateY(-2px); }
-
-        /* --- Content --- */
-        .content-container { max-width: 800px; margin: 0 auto; padding: 2rem 20px 6rem; }
-        .info-section { margin-bottom: 4rem; scroll-margin-top: 100px; }
-        .section-header { margin-bottom: 1.5rem; border-right: 4px solid var(--gold); padding-right: 15px; }
-        .section-header h2 { font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 5px; }
-        .info-card { background: var(--bg-section); padding: 2rem; border-radius: 12px; border: 1px solid var(--border-color); }
-        .info-list { list-style: none; }
-        .info-list li { margin-bottom: 1.5rem; position: relative; padding-right: 30px; }
-        .info-list li::before { content: '✓'; position: absolute; right: 0; top: 0; color: var(--gold); font-weight: bold; font-size: 1.2rem; }
-        .info-list strong { color: var(--text-main); font-weight: 700; display: block; margin-bottom: 2px; }
+        .container { max-width: 800px; margin: 0 auto; padding: 4rem 20px; }
+        .info-card { background: #f9f9f9; padding: 2.5rem; border-radius: 20px; border-right: 5px solid var(--gold); margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); }
         
-        .golden-rules { background: #fff; border: 2px solid var(--gold); padding: 2rem; border-radius: 12px; text-align: center; margin-top: 2rem; }
-        .golden-rules h5 { font-size: 1.2rem; margin-bottom: 1rem; color: var(--text-main); }
-        .golden-rules ul { list-style: none; padding: 0; }
-        .golden-rules li { margin-bottom: 10px; }
+        .btn-back { padding: 10px 25px; border: 1px solid #000; border-radius: 50px; text-decoration: none; color: #000; font-weight: 700; transition: 0.3s; }
+        .btn-back:hover { background: #000; color: #fff; }
 
-        /* --- CTA --- */
-        .cta-box { text-align: center; background: #111; color: #fff; padding: 4rem 2rem; border-radius: 16px; margin-top: 4rem; }
-        .cta-box h2 { font-size: 2rem; margin-bottom: 1rem; }
-        .cta-box p { color: #aaa; margin-bottom: 2rem; }
-        .btn-cta { background: var(--gold); color: #000; padding: 12px 35px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; display: inline-block; transition: 0.3s; }
-        .btn-cta:hover { background: #fff; transform: scale(1.05); }
-
-        /* --- Footer --- */
-        footer { background: #000; padding: 3rem 5%; text-align: center; color: #888; margin-top: 4rem; }
-        
-        /* Accessibility */
-        .access-btn {
-            position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px;
-            background: #fff; color: #000; border-radius: 50%; border: 2px solid #eee;
-            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-            cursor: pointer; z-index: 1500; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        @media (max-width: 768px) {
-            nav ul { display: none; }
-            .hero-content h1 { font-size: 2.5rem; }
-        }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
     </style>
 </head>
 <body>
-
-    <!-- Header -->
+    <div class="page-transition"></div>
     <header>
-        <div class="brand">Avin<span>tattoo</span></div>
-        <nav>
-            <ul>
-                <li><a href="index.html">דף הבית</a></li>
-                <li><a href="index.html#shop">חנות</a></li>
-                <li><a href="index.html#portfolio">גלריה</a></li>
-                <li><a href="index.html#contact">צור קשר</a></li>
-            </ul>
-        </nav>
+        <a href="index.html" class="transition-link">
+            <svg class="logo-svg" viewBox="0 0 300 60"><text x="0" y="45" font-family="Heebo" font-weight="900" font-size="40" fill="#d4af37">AVIN</text><text x="105" y="45" font-family="Heebo" font-weight="300" font-size="40" fill="#111">TATTOO</text></svg>
+        </a>
+        <a href="index.html" class="btn-back transition-link">חזרה לבית</a>
     </header>
 
-    <!-- Hero -->
-    <section class="page-hero">
-        <div class="hero-overlay"></div>
+    <section class="hero-mini">
         <div class="hero-content">
-            <h1>מרכז המידע לקעקועים</h1>
-            <p>כל מה שצריך לדעת לפני, במהלך ואחרי הקעקוע שלך</p>
+            <h1>מרכז המידע</h1>
+            <p>הכנה, טיפול ושמירה על הקעקוע שלך</p>
         </div>
     </section>
 
-    <!-- Table of Contents -->
-    <div class="toc-container">
-        <div class="toc-title">תוכן העניינים</div>
-        <div class="toc-links">
-            <a href="#tattoo-prepare" class="toc-btn">הכנה לקעקוע</a>
-            <a href="#tattoo-aftercare" class="toc-btn">טיפול אחרי</a>
-            <a href="#tattoo-long-term" class="toc-btn">שמירה לטווח ארוך</a>
+    <div class="container">
+        <div class="info-card reveal">
+            <h2>הכנה לקעקוע</h2>
+            <p>חשוב להגיע רגועים, לאחר ארוחה טובה ושתייה מרובה של מים. הימנעו מאלכוהול 24 שעות לפני.</p>
+        </div>
+        <div class="info-card reveal">
+            <h2>טיפול Aftercare</h2>
+            <p>ניקיון הוא המפתח. שטפו במים פושרים וסבון, ומרחו שכבה דקה של משחה ייעודית פעמיים ביום.</p>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="content-container">
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        <section id="tattoo-prepare" class="info-section">
-            <div class="section-header">
-                <span>עולם הקעקועים</span>
-                <h2>הכנה לקראת יום הקעקוע</h2>
-            </div>
-            <div class="info-card">
-                <p style="margin-bottom: 20px;">ההכנה שלכם מתחילה עוד לפני שנכנסתם לסטודיו. הכנה נכונה תהפוך את התהליך לחלק ונעים יותר.</p>
-                <ul class="info-list">
-                    <li><strong>שתו הרבה מים</strong><span>ב-24-48 השעות שלפני, הקפידו על שתיית מים. עור רווי לחות מקבל את הדיו טוב יותר.</span></li>
-                    <li><strong>הימנעו מאלכוהול</strong><span>לפחות 24 שעות לפני, הימנעו מאלכוהול שמדלל את הדם.</span></li>
-                    <li><strong>אכלו ארוחה טובה</strong><span>אל תגיעו על בטן ריקה! ארוחה מזינה לפני הפגישה תשמור על יציבות.</span></li>
-                    <li><strong>שנו טוב בלילה שלפני</strong><span>גוף עייף רגיש יותר לכאב. שינה טובה תכין אתכם פיזית ונפשית.</span></li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="tattoo-aftercare" class="info-section">
-            <div class="section-header">
-                <span>Aftercare</span>
-                <h2>טיפול לאחר הקעקוע</h2>
-            </div>
-            <div class="info-card">
-                <p style="margin-bottom: 20px;">העבודה שלי מסתיימת כשהמחט יוצאת מהעור, העבודה שלכם רק מתחילה.</p>
-                <div class="golden-rules">
-                    <h5>כללי הזהב לטיפול</h5>
-                    <ul>
-                        <li>🧴 <strong>שמרו על ניקיון:</strong> שטפו בעדינות 2-3 פעמים ביום.</li>
-                        <li>💧 <strong>שמרו על לחות:</strong> מרחו שכבה דקה מאוד של משחה.</li>
-                        <li>🚫 <strong>אל תגעו:</strong> אסור לגרד, לקלף או להשרות במים.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="tattoo-long-term" class="info-section">
-            <div class="section-header">
-                <span>Maintenance</span>
-                <h2>שמירה לאורך שנים</h2>
-            </div>
-            <div class="info-card">
-                <p style="margin-bottom: 20px;">קעקוע הוא השקעה לכל החיים. טיפול נכון יבטיח שהצבעים יישארו חדים.</p>
-                <ul class="info-list">
-                    <li><strong>הגנה מהשמש ☀️</strong><span>קרינת UV היא הגורם העיקרי לדהייה. השתמשו בקרם הגנה.</span></li>
-                    <li><strong>שמירה על לחות 🧴</strong><span>שימוש קבוע בקרם לחות ישמור על גמישות העור וחדות הצבעים.</span></li>
-                </ul>
-            </div>
-        </section>
-
-        <div class="cta-box">
-            <h2>יש לך שאלה שלא מופיעה כאן?</h2>
-            <p>הידע הזה הוא רק ההתחלה. אני כאן כדי לענות על כל שאלה וללוות אותך בכל שלב.</p>
-            <a href="index.html#contact" class="btn-cta">דבר איתי ונתאם פגישת ייעוץ</a>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>© 2026 Avintattoo | כל הזכויות שמורות</p>
-    </footer>
-
-    <button class="access-btn" onclick="document.body.classList.toggle('a11y-contrast')">👁️</button>
-
+        document.querySelectorAll('.transition-link').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                document.body.classList.add('is-exiting');
+                setTimeout(() => { window.location.href = link.href; }, 400);
+            });
+        });
+        window.onload = () => document.body.classList.add('loaded');
+    </script>
 </body>
 </html>
